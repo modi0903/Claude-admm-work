@@ -1,0 +1,207 @@
+{
+ "target": 0.0001,
+ "trials": 60,
+ "rows": [
+  {
+   "label": "gamma=0.95",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "gamma=0.9",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "gamma=0.75",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "gamma=0.5",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "gamma=0.25",
+   "L1": 7,
+   "Box": 6,
+   "L2": 5,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "gamma=0.1",
+   "L1": 7,
+   "Box": 6,
+   "L2": 5,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "gamma=0.05",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "kappa=0.02",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "kappa=0.05",
+   "L1": 6,
+   "Box": 6,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "kappa=0.1",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "kappa=0.2",
+   "L1": 6,
+   "Box": 6,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "kappa=0.3",
+   "L1": 6,
+   "Box": 6,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "kappa=0.5",
+   "L1": 6,
+   "Box": 6,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "rho=0.125",
+   "L1": null,
+   "Box": null,
+   "L2": null,
+   "holds": false,
+   "sat": 734938
+  },
+  {
+   "label": "rho=0.25",
+   "L1": null,
+   "Box": null,
+   "L2": null,
+   "holds": false,
+   "sat": 512642
+  },
+  {
+   "label": "rho=0.5",
+   "L1": null,
+   "Box": null,
+   "L2": null,
+   "holds": false,
+   "sat": 203481
+  },
+  {
+   "label": "rho=1.0",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "rho=2.0",
+   "L1": null,
+   "Box": null,
+   "L2": null,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "rho=4.0",
+   "L1": null,
+   "Box": null,
+   "L2": null,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "cond=3",
+   "L1": 6,
+   "Box": 5,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "cond=10",
+   "L1": 7,
+   "Box": 6,
+   "L2": 6,
+   "holds": true,
+   "sat": 0
+  },
+  {
+   "label": "cond=30",
+   "L1": 7,
+   "Box": 7,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "cond=100",
+   "L1": 8,
+   "Box": 8,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "cond=300",
+   "L1": 8,
+   "Box": 8,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  },
+  {
+   "label": "cond=1000",
+   "L1": 9,
+   "Box": 9,
+   "L2": 6,
+   "holds": false,
+   "sat": 0
+  }
+ ],
+ "metric": "abs"
+}
