@@ -40,9 +40,11 @@ model/   fxp_admm.py          bit-exact model, mirrors each RTL primitive
 syn/     run_ooc.tcl  harvest.tcl
 ```
 
-Docs, in reading order: **STATUS.md** (all measured results) →
-**THEORY_PLAN.md** (proofs, appendices A–D) → **SPRINT1_RESULT.md** (latest) →
-**RELATED_WORK.md** (novelty position) → **SPRINT.md** (plan).
+Docs, in reading order: **TODO.md** (what to do next) → **STATUS.md** (all
+measured results) → **THEORY_PLAN.md** (proofs, appendices A–D) →
+**SPRINT1_RESULT.md** (latest experiments) → **RELATED_WORK.md** (novelty
+position). SPRINT.md is superseded by TODO.md; keep it only for the venue
+research.
 
 ## Verify in two minutes
 
@@ -106,15 +108,9 @@ and note their Table 4 (1.44 dB) independently supports our negative result.
 
 ## Open work
 
-1. **L1 loop gain** at 0.834 bits — needs an active-set-churn term. d moves
-   monotonically 0.00 → 0.70 with conditioning; add it as a second regressor.
-   *Critical path.*
-2. SAIF-based power (post-route xsim writes SAIF, report_power consumes it).
-3. Fmax sweep — 20 ns is a loose target, 71.1 MHz is not the ceiling.
-4. Throughput in solutions/s and LUTs·s/solution.
-5. LASSO as a second demonstration, to justify proximal-operator scope.
-6. Basys3 bring-up (board is in the lab; target part xc7a35tcpg236-1 *is* the
-   Basys3; `basys3_wrapper.v` exists). Gives measured power and a demo.
+**See TODO.md** — the actionable checklist, with owners, effort and sequencing.
+Critical path is the L1 active-set term in the loop-gain model (currently 0.834
+bits, criterion is 0.5).
 
 Bar set by Li et al.: measured board power, throughput, GOPS, energy, and a
 comparison table. Not optional at this venue.
