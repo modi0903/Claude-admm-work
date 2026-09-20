@@ -146,10 +146,11 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
 - [x] **Comparison table against prior accelerators** (2026-09-20).
       `COMPARISON.md`, `tools/comparison_table.py`, `data/comparison_lit.json`,
       paper Sect. "Comparison with prior accelerators". 8 prior works, each
-      with a URL and a verification record. **T to vet fairness**, and to
-      check two IEEE-only papers (Peccin TLA 2020, Escarate ICA-ACCA 2022)
-      through the college subscription, plus AccelMPC arXiv:2609.09380, whose
-      row is UNVERIFIED. Lane-area slope re-checked on both LUT metrics
+      with a URL and a verification record. All three
+      outstanding papers were obtained and read 2026-09-20: AccelMPC
+      (arXiv:2609.09380) and Peccin (TLA 2020) are now rows, Escarate
+      (ICA-ACCA 2022) is cited but not tabulated (times only). Fairness
+      decisions are written out in COMPARISON.md and in the paper. Lane-area slope re-checked on both LUT metrics
       (`model/lane_area.py`): 19.6 Slice LUT/bit stands, cells give 26.4 and a
       worse held-out miss. Headline stays −46.6% (cells) with −44.9% (Slice
       LUTs) stated beside it; both come from the same checkpoints.

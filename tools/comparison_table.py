@@ -51,7 +51,8 @@ def ours():
                          format=fmt, lut=r["lut"], ff=r["ff"], dsp=r["dsp"],
                          bram=r["ramb36"] + r["ramb18"], fmax_mhz=fmax,
                          fmax_note="met constraint, binary search (syn/fmax_sweep.tcl)",
-                         power=dyn, power_method=f"SAIF post-route, dynamic ({tot:.3f} W total)",
+                         short_problem="N=8", power=dyn,
+                         power_method=f"SAIF post-route, dynamic ({tot:.3f} W total)",
                          time=f"{cyc} cycles, {cyc/fmax:.1f} us", verify="measured",
                          access="this repo", url="", note=""))
     return rows
@@ -70,13 +71,13 @@ def main():
     rows = ours() + lit
 
     if not a.latex:
-        hdr = ["work", "algorithm", "device", "format", "LUT", "FF", "DSP",
+        hdr = ["work", "algorithm", "device", "problem", "format", "LUT", "FF", "DSP",
                "MHz", "power", "power method", "time/solve", "verify"]
         print("| " + " | ".join(hdr) + " |")
         print("|" + "---|" * len(hdr))
         for r in rows:
             print("| " + " | ".join([
-                r["cite"], r["algo"], r["device"], r["format"], cell(r["lut"]),
+                r["cite"], r["algo"], r["device"], r["problem"], r["format"], cell(r["lut"]),
                 cell(r["ff"]), cell(r["dsp"]), cell(r["fmax_mhz"]),
                 "n/r" if r["power"] is None else f"{r['power']:g} W",
                 r["power_method"], r["time"], r["verify"]]) + " |")
@@ -98,7 +99,7 @@ def main():
              "hamadouche2023": "Hamadouche 2023",
              "wang2023": "RSQP 2023",
              "zhang2025": "Zhang 2025",
-             "grillo2026": "AccelMPC 2026"}
+             "grillo2026": "AccelMPC 2026", "peccin2020": "Peccin 2020"}
     tshort = {"23.4 us (P=1)": "23.4 us", "226 cycles, 0.85 us": "0.85 us",
               "16 cycles min latency": "16 cyc", "0.07 ms": "0.07 ms",
               "7329 cycles": "7329 cyc", "31.2x vs MKL CPU": "31x vs CPU",
@@ -110,11 +111,14 @@ def main():
             "post-implementation Vivado report": "post-impl. est.",
             "measured on the card": "board meas.",
             "stated in Table 4, method not given": "unstated",
-            "post-route power analysis x measured solve time": "post-route est."}
+            "post-route power analysis x measured solve time": "post-route est.",
+            "post-route analysis x measured solve time; no absolute W in the text":
+                "post-route est.",
+            "not reported": "---"}
     print(r"\begin{center}\scriptsize\setlength{\tabcolsep}{3.5pt}")
-    print(r"\begin{tabular}{llrrll}")
+    print(r"\begin{tabular}{lllrrl}")
     print(r"\toprule")
-    print(r"work & device / format & LUT & MHz & power (method) & per solve \\")
+    print(r"work & device / format & problem & LUT & MHz & power (method) \\")
     print(r"\midrule")
     for r in rows:
         if r["power"] is None:
@@ -134,14 +138,21 @@ def main():
                               .replace("Virtex-7 690T", "V7 690T")
                               .replace("reconfigurable prox ", "")
                               .replace(" (5 int / 12 frac)", "").replace(" (16 int / 8 frac)", "")
-                              .replace(" (8 frac)", "").replace(" frac b", " fb")),
+                              .replace(" (8 frac)", "").replace(" frac b", " fb")
+                              .replace("Altera MAX10 10M50DAF484C7G (DE10-Lite)",
+                                       "MAX10 (DE10-Lite)")
+                              .replace("Artix-7 100T", "Artix-7 100T")
+                              .replace(" (HLS)", " HLS")
+                              .replace("ap_fixed<24,9> + float", "ap_fixed 24/9")),
+                          r["short_problem"] or "---",
                           cell(r["lut"]), cell(r["fmax_mhz"]),
-                          f"{pw} ({m})" if pw != "n/r" else f"n/r ({m})",
-                          esc(tshort.get(r["time"], r["time"]))]) + r" \\")
+                          f"{pw} ({m})" if pw != "n/r" else f"n/r ({m})"])
+              + (r" $\dagger$ \\" if r["key"] == "castaneda2016" else r" \\"))
         if r["key"] == "main9_uniform":
             print(r"\midrule")
     print(r"\bottomrule")
     print(r"\end{tabular}")
+    print(r"\\[2pt]\footnotesize $\dagger$ forward--backward splitting, not ADMM.")
     print(r"\end{center}")
 
 

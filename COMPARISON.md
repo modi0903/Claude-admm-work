@@ -7,6 +7,12 @@ Regenerate after any new build; do not hand-edit the table below.
 
 ## Read this before the table
 
+**Fairness decisions taken here, so a reviewer does not have to guess.** TASER
+is splitting, not ADMM (daggered, kept because it shares group, part and
+discipline with ADMIN). Peccin's area cell is empty because Intel LEs are not
+Slice LUTs. AccelMPC's power is absent because the paper states none. Escarate
+is cited but not tabulated. Our own row is the smallest problem in the table.
+
 **This is not a ranking, and the paper claims no efficiency win over any row.**
 Each work solves a different problem, at a different size, on a different
 device, to an accuracy that is usually unstated. We deliberately compute no
@@ -19,18 +25,19 @@ across those fabrics compare fabrics, not designs.
 
 ## The table
 
-| work | algorithm | device | format | LUT | FF | DSP | MHz | power | power method | time/solve | verify |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| this work, baseline | ADMM, reconfigurable prox (L1/Box/L2) | Artix-7 XC7A35T | fixed, 18 b (Q2.16) | 4673 | 2199 | 64 | 66.3 | 0.011 W | SAIF post-route, dynamic (0.080 W total) | 835 cycles, 12.6 us | measured |
-| this work | ADMM, reconfigurable prox (L1/Box/L2) | Artix-7 XC7A35T | fixed, 11 b (Q2.9) | 2574 | 1359 | 64 | 85.4 | 0.007 W | SAIF post-route, dynamic (0.076 W total) | 835 cycles, 9.8 us | measured |
-| Jerez et al., IEEE TAC 2014 (arXiv:1303.1090) | ADMM, MPC-QP | Virtex-6 | fixed, 18 frac bits | n/r | n/r | n/r | 400 | n/r | none for ADMM | 23.4 us (P=1) | full |
-| Shahabuddin et al., ADMM-Based Infinity-Norm Detection for Massive MIMO, IEEE TVLSI 29(4) 2021 | ADMM, MU-MIMO detection | Virtex-7 XC7VX690T | fixed, 18 b (5 int / 12 frac) | 13392 | 18241 | 76 | 263 | n/r | not reported for the FPGA (ASIC rows only) | 226 cycles, 0.85 us | full |
-| Castaneda et al. (TASER), IEEE TCAS-I 2016 (arXiv:1609.01797) | forward-backward splitting, MIMO detection | Virtex-7 XC7VX690T | fixed, 14 b (8 frac) | 4790 | 2108 | 52 | 232 | 0.6 W | tool power estimate (not activity-annotated) | 16 cycles min latency | full |
-| Wu, Wallace, Mota et al., J. Signal Process. Syst. 94 2022 | mixed-precision ADMM, l1 depth reconstruction | Zynq US+ ZCU106 | fixed, mixed 20->24 b | 6807 | n/r | 21 | 403 | 0.307 W | Xilinx Power Estimator (XPE) | 0.07 ms | full |
-| Hamadouche, Wu, Wallace, Mota, arXiv:2306.16935 | ADMM baseline (vs their DFGPGD), LASSO | Zynq US+ ZCU106 (HLS) | fixed, 24 b (16 int / 8 frac) | 1822 | 1577 | 16 | 157 | 0.044 W | post-implementation Vivado report (dynamic; 0.636 W total) | 7329 cycles | full |
-| Wang et al. (RSQP), ISCA 2023 | ADMM/OSQP, generic QP | Alveo U50 | single-precision float | 24245 | 44403 | 320 | 300 | 19 W | measured on the card (xbutil) | 31.2x vs MKL CPU | full |
-| Y. Zhang et al., ACM TACO 2025 (arXiv:2507.16177) | ADMM + PCG, path-planning QP | ZCU102 | mixed, ap_fixed<24,9> + float | 147238 | 203798 | 674 | 250 | 10.7 W | stated in Table 4, method not given | 4.87 ms per QP | full |
-| Grillo & Plancher (AccelMPC), arXiv:2609.09380, Sep 2026 | TinyMPC ADMM | Artix-7 100T (custom PCB) | fixed, 32 b | n/r | n/r | n/r | 100 | n/r | post-route power analysis x measured solve time (no absolute W in text) | 3.33-3.69 us per iteration-horizon-step | unverified |
+| work | algorithm | device | problem | format | LUT | FF | DSP | MHz | power | power method | time/solve | verify |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| this work, baseline | ADMM, reconfigurable prox (L1/Box/L2) | Artix-7 XC7A35T | N=8 dense, 32 iters | fixed, 18 b (Q2.16) | 4673 | 2199 | 64 | 66.3 | 0.011 W | SAIF post-route, dynamic (0.080 W total) | 835 cycles, 12.6 us | measured |
+| this work | ADMM, reconfigurable prox (L1/Box/L2) | Artix-7 XC7A35T | N=8 dense, 32 iters | fixed, 11 b (Q2.9) | 2574 | 1359 | 64 | 85.4 | 0.007 W | SAIF post-route, dynamic (0.076 W total) | 835 cycles, 9.8 us | measured |
+| Jerez et al., IEEE TAC 2014 (arXiv:1303.1090) | ADMM, MPC-QP | Virtex-6 | 216 vars, 40 iters | fixed, 18 frac bits | n/r | n/r | n/r | 400 | n/r | none for ADMM | 23.4 us (P=1) | full |
+| Shahabuddin et al., ADMM-Based Infinity-Norm Detection for Massive MIMO, IEEE TVLSI 29(4) 2021 | ADMM, MU-MIMO detection | Virtex-7 XC7VX690T | 16x16, 64-QAM, K=5 | fixed, 18 b (5 int / 12 frac) | 13392 | 18241 | 76 | 263 | n/r | not reported for the FPGA (ASIC rows only) | 226 cycles, 0.85 us | full |
+| Castaneda et al. (TASER), IEEE TCAS-I 2016 (arXiv:1609.01797) | forward-backward splitting, MIMO detection | Virtex-7 XC7VX690T | N=9 (8 BPSK users) | fixed, 14 b (8 frac) | 4790 | 2108 | 52 | 232 | 0.6 W | tool power estimate (not activity-annotated) | 16 cycles min latency | full |
+| Wu, Wallace, Mota et al., J. Signal Process. Syst. 94 2022 | mixed-precision ADMM, l1 depth reconstruction | Zynq US+ ZCU106 | p=8, n=16, k_max=5 | fixed, mixed 20->24 b | 6807 | n/r | 21 | 403 | 0.307 W | Xilinx Power Estimator (XPE) | 0.07 ms | full |
+| Hamadouche, Wu, Wallace, Mota, arXiv:2306.16935 | ADMM baseline (vs their DFGPGD), LASSO | Zynq US+ ZCU106 (HLS) | LASSO, 5 iters (instance size not stated) | fixed, 24 b (16 int / 8 frac) | 1822 | 1577 | 16 | 157 | 0.044 W | post-implementation Vivado report (dynamic; 0.636 W total) | 7329 cycles | full |
+| Wang et al. (RSQP), ISCA 2023 | ADMM/OSQP, generic QP | Alveo U50 | 10^1-10^5 vars | single-precision float | 24245 | 44403 | 320 | 300 | 19 W | measured on the card (xbutil) | 31.2x vs MKL CPU | full |
+| Y. Zhang et al., ACM TACO 2025 (arXiv:2507.16177) | ADMM + PCG, path-planning QP | ZCU102 | 1619 vars / 1622 constraints | mixed, ap_fixed<24,9> + float | 147238 | 203798 | 674 | 250 | 10.7 W | stated in Table 4, method not given | 4.87 ms per QP | full |
+| Grillo & Plancher (AccelMPC), arXiv:2609.09380, Sep 2026 | TinyMPC ADMM | Artix-7 100T (custom PCB) | H=40, k=10 (scales to 21612 vars) | fixed, 32 b | n/r | n/r | n/r | 100 | n/r | post-route analysis x measured solve time; no absolute W in the text (utilisation given only as % in Fig. 6: compute 24.1% staged / 55.8% full-sparse, BRAM 26.7% / 58.1%) | 3.33 us per iter-horizon-step (staged); 3.69 (full sparse) | full |
+| Peccin et al., IEEE Latin America Trans. 18(2) 2020 | ADMM, generalized predictive control | Altera MAX10 10M50DAF484C7G (DE10-Lite) | Nu=5, 10 constraints | fixed, 16 b (10 frac) | n/r | 7691 | 40 | 50 | n/r | not reported | 0.36 us per iteration (18 cycles) | full |
 
 Sources
   Jerez et al., IEEE TAC 2014 (arXiv:1303.1090): https://arxiv.org/abs/1303.1090
@@ -48,7 +55,9 @@ Sources
   Y. Zhang et al., ACM TACO 2025 (arXiv:2507.16177): https://arxiv.org/abs/2507.16177
       full text; checked by subagent search pass, not re-read
   Grillo & Plancher (AccelMPC), arXiv:2609.09380, Sep 2026: https://arxiv.org/html/2609.09380
-      unverified text; checked by NOT CHECKED -- arXiv fetch returned 404/429; verify before citing
+      full text; checked by author (full PDF, 2026-09-20)
+  Peccin et al., IEEE Latin America Trans. 18(2) 2020: https://doi.org/10.1109/TLA.2020.9085299
+      full text; checked by author (full PDF, 2026-09-20)
 
 ## What the table shows — three points, none of them speed
 
@@ -97,21 +106,34 @@ Sources
   two to three orders of magnitude larger in variables and watts. They are in
   the table to show the range of what "ADMM accelerator" means, not to be
   beaten.
-- **AccelMPC 2026** — UNVERIFIED. Same fabric family as ours (Artix-7, 32-bit
-  fixed point, 100 MHz), which makes it the most directly relevant recent
-  work, but the arXiv fetch failed here (404/429) and the row comes from a
-  search pass. **Read the paper and confirm before citing.** If it reports
-  resources in a figure, extract them and fill in the row.
+- **AccelMPC 2026** — VERIFIED from the PDF (2026-09-20). Artix-7 100T at
+  100 MHz, 32-bit fixed point, TinyMPC-style ADMM, 3.33 us per
+  (iteration x horizon step). Closest fabric family to ours. It reports
+  utilisation only as percentages (Fig. 6, H=40, k=10: compute 24.1% staged /
+  55.8% full sparse, BRAM 26.7% / 58.1%) and no absolute power; "FPGA power is
+  obtained from post-route power analysis combined with the measured solve
+  time". Dividing the figure's energy labels by its latency labels implies
+  ~0.68 W (staged) and ~0.33 W (full sparse), but that is OUR arithmetic on
+  their figure, not a number they state — it stays in the data file's note and
+  out of the table.
+- **Peccin 2020** — VERIFIED from the PDF. Altera MAX10 (DE10-Lite) at 50 MHz,
+  fixed point 16 b with 10 fractional bits, 30 662 logic elements (62%), 7 691
+  registers, 49.125 KB memory (24%), 40 embedded multipliers (14%), 0.36 us per
+  iteration. Logic elements are not Slice LUTs, so the LUT cell is left empty
+  rather than converted. This is the most useful row for our argument: a
+  10-fractional-bit choice stated with no derivation, on a low-cost board.
+- **Escarate 2022 — excluded from the table, cited in the text.** ZCU104 via
+  Vitis HLS; reports only execution time (FPGA 0.365 / 0.621 / 1.567 ms mean at
+  1 / 15 / 50 iterations vs CPU 0.550 / 8.240 / 27.469 ms), no resources, no
+  power, no stated number format, and the authors call their results "un piso
+  referencial" obtained with default HLS settings. A row would be all n/r.
 
 ## What is still missing
 
 - No comparator reports a proximal-lane breakdown, so the (1-d) result cannot
   be compared against anyone directly. Say so rather than implying novelty by
   omission.
-- Two IEEE-only papers could not be opened and are excluded rather than
-  guessed: Peccin et al., IEEE Latin America Trans. 2020 (DOI
-  10.1109/TLA.2020.9085299), and Escarate et al., ICA-ACCA 2022 (DOI
-  10.1109/ICA-ACCA56767.2022.10005973). Both are ADMM-on-FPGA and should be
-  checked through the college's IEEE subscription before submission.
+- Both IEEE-only papers were obtained and read (2026-09-20): Peccin et al. is
+  now a table row, Escarate et al. is cited in the text for the reason above.
 - Wasson et al. (ADMM-LP LDPC decoding, Stratix V) report utilisation only as
   percentages of a different device family — not convertible, excluded.

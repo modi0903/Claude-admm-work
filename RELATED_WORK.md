@@ -464,3 +464,43 @@ presented as a difference in OBJECT, not a claim of superiority.
 
 5 of Kinsman's 16 citing works were dropped as no-keyword and not inspected.
 Small, but not zero. Everything else has been enumerated or read.
+
+
+# Papers obtained and read 2026-09-20 (T supplied the PDFs)
+
+**Grillo & Plancher, AccelMPC, arXiv:2609.09380 (Sep 2026).** TinyMPC-style
+ADMM on an AMD Artix-7 100T on a custom 6 g PCB for a Crazyflie, 100 MHz,
+32-bit fixed point, 1 kHz constrained MPC, 3.33 us per (iteration x horizon
+step) staged / 3.69 full sparse, 15.6x faster and 79-195x better EDP than
+TinyMPC on an STM32F405. Scales to H=1350 (21 612 variables). Resources are
+given only as percentages in Fig. 6; power only as a method ("post-route power
+analysis combined with the measured solve time").
+**Why it matters to us:** same fabric family and same fixed-point argument
+("the solver operates in 32-bit fixed-point arithmetic, which lowers both power
+and latency relative to floating point"), with the wordlength again stated and
+not derived -- and 32 bits where our model says 11 suffice for our problem.
+They validate fixed point against a float build and report "negligible
+additional error", which is a sanity check, not a wordlength method. This is
+the strongest recent evidence that the gap our paper fills is still open.
+**Not a competitor on scope:** no error model, no per-operator analysis.
+
+**Peccin, Lima, Flesch, Normey-Rico, IEEE Latin America Trans. 18(2) 2020.**
+GPC with ADMM on an Altera MAX10 10M50DAF484C7G (DE10-Lite) at 50 MHz, Verilog,
+fixed point, 16-bit word with 10 fractional bits, parallel matrix multiply
+(10x10 in 2 clocks), 18 cycles per ADMM iteration = 0.36 us at Nu=5 with 10
+constraints. Occupancy 30 662 logic elements (62%), 7 691 registers, 49.125 KB
+memory (24%), 40 embedded multipliers (14%). No power. Worst case 1.30 ms at 33
+iterations.
+**Why it matters to us:** the wordlength is asserted, with the paper's only
+justification being that "poucos bits" suffice. Closest example of the decision
+our model replaces.
+
+**Escarate, Lopez, Cedeno, Silva, Aguero, Carvajal, ICA-ACCA 2022.** ADMM for
+MPC of a DC/AC converter on a Xilinx ZCU104 via Vitis HLS from C++, PYNQ host
+link. Reports execution time only: FPGA 0.365 / 0.621 / 1.567 ms mean at 1 / 15
+/ 50 iterations against CPU 0.550 / 8.240 / 27.469 ms, "up to 10x" per
+iteration. No resources, no power, no stated number format; the authors call
+the results "un piso referencial" at default HLS settings.
+**Why it matters to us:** it does not, except as evidence that ADMM-on-FPGA
+papers routinely report neither precision nor resources. Cite once, do not
+tabulate.

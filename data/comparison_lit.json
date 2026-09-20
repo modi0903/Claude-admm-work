@@ -21,7 +21,8 @@
    "access": "arXiv PDF",
    "url": "https://arxiv.org/abs/1303.1090",
    "note": "reports multiplier counts (216 at P=1), not LUT/FF/BRAM",
-   "checked_by": "subagent search pass, not re-read"
+   "checked_by": "subagent search pass, not re-read",
+   "short_problem": "216 var"
   },
   {
    "key": "shahabuddin2021",
@@ -43,7 +44,8 @@
    "access": "ETH Research Collection open copy",
    "url": "https://www.research-collection.ethz.ch/handle/20.500.11850/471477",
    "note": "closest workload to ours (MIMO); no FPGA power published",
-   "checked_by": "author (ETH open copy re-read 2026-09-20)"
+   "checked_by": "author (ETH open copy re-read 2026-09-20)",
+   "short_problem": "16x16 det."
   },
   {
    "key": "castaneda2016",
@@ -65,7 +67,8 @@
    "access": "arXiv PDF",
    "url": "https://arxiv.org/abs/1609.01797",
    "note": "splitting method, not ADMM; smallest instance quoted",
-   "checked_by": "subagent search pass, not re-read"
+   "checked_by": "subagent search pass, not re-read",
+   "short_problem": "N=9 det."
   },
   {
    "key": "wu2022",
@@ -87,7 +90,8 @@
    "access": "Springer PDF",
    "url": "https://doi.org/10.1007/s11265-022-01766-3",
    "note": "their uniform FXP24 row is 6775 LUT / 0.316 W -- mixed precision COSTS 32 LUT",
-   "checked_by": "author (full text read 2026-09-04, see RELATED_WORK.md)"
+   "checked_by": "author (full text read 2026-09-04, see RELATED_WORK.md)",
+   "short_problem": "n=16 patch"
   },
   {
    "key": "hamadouche2023",
@@ -109,7 +113,8 @@
    "access": "arXiv PDF",
    "url": "https://arxiv.org/abs/2306.16935",
    "note": "closest in spirit: fixed-point ADMM, dynamic power reported",
-   "checked_by": "author (arXiv PDF re-read 2026-09-20)"
+   "checked_by": "author (arXiv PDF re-read 2026-09-20)",
+   "short_problem": "LASSO, 5 it."
   },
   {
    "key": "wang2023",
@@ -131,7 +136,8 @@
    "access": "author PDF",
    "url": "https://web.ece.hku.hk/~hso/Publications/wang_isca2023.pdf",
    "note": "per-variant resources, not whole-design totals; datacentre part",
-   "checked_by": "subagent search pass, not re-read"
+   "checked_by": "subagent search pass, not re-read",
+   "short_problem": "$10^1$--$10^5$ var"
   },
   {
    "key": "zhang2025",
@@ -153,29 +159,54 @@
    "access": "arXiv PDF",
    "url": "https://arxiv.org/abs/2507.16177",
    "note": "whole accelerator incl. host interface",
-   "checked_by": "subagent search pass, not re-read"
+   "checked_by": "subagent search pass, not re-read",
+   "short_problem": "1619 var"
   },
   {
    "key": "grillo2026",
    "cite": "Grillo & Plancher (AccelMPC), arXiv:2609.09380, Sep 2026",
    "algo": "TinyMPC ADMM",
    "device": "Artix-7 100T (custom PCB)",
-   "problem": "up to >20000 vars",
+   "problem": "H=40, k=10 (scales to 21612 vars)",
    "format": "fixed, 32 b",
    "lut": null,
    "ff": null,
    "dsp": null,
    "bram": null,
    "fmax_mhz": 100,
-   "fmax_note": "100 MHz oscillator",
+   "fmax_note": "100 MHz oscillator on the board",
    "power": null,
-   "power_method": "post-route power analysis x measured solve time (no absolute W in text)",
-   "time": "3.33-3.69 us per iteration-horizon-step",
-   "verify": "unverified",
-   "access": "subagent read the arXiv HTML; NOT re-read by the author of this table",
+   "power_method": "post-route analysis x measured solve time; no absolute W in the text (utilisation given only as % in Fig. 6: compute 24.1% staged / 55.8% full-sparse, BRAM 26.7% / 58.1%)",
+   "time": "3.33 us per iter-horizon-step (staged); 3.69 (full sparse)",
+   "verify": "full",
+   "access": "PDF supplied by T, read 2026-09-20",
    "url": "https://arxiv.org/html/2609.09380",
-   "note": "SAME FAMILY AS OURS (Artix-7, fixed point). Verify before citing.",
-   "checked_by": "NOT CHECKED -- arXiv fetch returned 404/429; verify before citing"
+   "note": "Same fabric family as ours. Energy/latency in Fig. 6 imply ~0.68 W (staged) and ~0.33 W (full sparse) at H=40, k=10, but those are DERIVED by dividing figure labels and are not stated in the paper -- do not quote them as theirs.",
+   "checked_by": "author (full PDF, 2026-09-20)",
+   "short_problem": "H=40, k=10"
+  },
+  {
+   "key": "peccin2020",
+   "cite": "Peccin et al., IEEE Latin America Trans. 18(2) 2020",
+   "algo": "ADMM, generalized predictive control",
+   "device": "Altera MAX10 10M50DAF484C7G (DE10-Lite)",
+   "problem": "Nu=5, 10 constraints",
+   "format": "fixed, 16 b (10 frac)",
+   "lut": null,
+   "ff": 7691,
+   "dsp": 40,
+   "bram": null,
+   "fmax_mhz": 50,
+   "fmax_note": "board clock; setup slack 1.034 ns",
+   "power": null,
+   "power_method": "not reported",
+   "time": "0.36 us per iteration (18 cycles)",
+   "verify": "full",
+   "access": "PDF supplied by T, read 2026-09-20",
+   "checked_by": "author (full PDF, 2026-09-20)",
+   "url": "https://doi.org/10.1109/TLA.2020.9085299",
+   "note": "Intel logic elements, not LUTs: 30662 LE (62%), 7691 registers, 49.125 KB memory (24%), 40 embedded multipliers (14%). An LE is not a Xilinx Slice LUT, so the area column is left empty rather than converted.",
+   "short_problem": "Nu=5 GPC"
   }
  ]
 }

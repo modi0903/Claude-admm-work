@@ -116,6 +116,11 @@ m=16, 9–11 at m≤8. Support-fidelity prediction (≥99%) FAILED at 90–100%;
 post-hoc, every mismatch is ≤2 LSB. RTL bit-exact at F=16 and 9
 (`build.bat 0 lasso`). Table in THEOREM_LOCK.
 
+**Closest prior work (2026-09-20).** AccelMPC (arXiv:2609.09380) runs ADMM on
+an Artix-7 100T at 32-bit fixed point; Peccin et al. (TLA 2020) at 16 b/10 frac
+on a MAX10. Both state a wordlength without deriving it, which is the gap this
+paper fills. Neither reports activity-based power.
+
 **Contraction lives at the loop, not the operator.** Resolvent saturates at
 3.18 with g = 0.667 vs divergence at g = 1. Composition (old Theorem 5) failed
 at 2.509 bits and is demoted.
@@ -146,7 +151,8 @@ Board bring-up DONE. Done 2026-09-20: T2 restated, held-out test of loop gain (L
 per-instance margin (L2: +1 bit), 0.5-bit criterion justified, kappa term and
 outlier explanation refuted (L1-Box residual open). LASSO done (P-L3 failed, stated).
 Comparison table done
-(COMPARISON.md; T must vet fairness and verify the AccelMPC row).
+(COMPARISON.md, 10 rows, every source verified; AccelMPC, Peccin and Escarate
+read 2026-09-20).
 Remaining: wall power (blocked on a bench supply / meter
 with ≤1 mA resolution; the build-to-build delta is ~4 mW), optional LASSO
 board run at F=9 (BOARD.md). Then draft from
