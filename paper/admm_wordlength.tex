@@ -205,28 +205,40 @@ should be stated as such.
 \subsection{Loop-gain relation}
 
 Operator-level error does not determine solver-level error; the ADMM loop
-amplifies it. We fit
+amplifies it by a gain $G$. For the contractive L2 lane,
 \begin{equation}
-\log G = a\log\!\frac{1}{1 - \lVert M\rVert_2} + b\,R_{\text{op}} + c,
-\qquad
-R_{\text{L1}} = d,\;\; R_{\text{Box}} = d^2,\;\; R_{\text{L2}} = \varnothing
+\log G = a \log R + c, \qquad R = \lVert (I-T)^{-1} \rVert,
 \end{equation}
-where $G$ is measured loop gain. Leave-one-out cross-validated error: 0.340
-(L1), 0.234 (Box), 0.031 (L2) bits, all inside a 0.5-bit criterion.
+with $R$ the resolvent of the linearised iteration. Fitted on one set of
+problem instances and tested on a \emph{disjoint} set, the error is 0.061 bits
+in-sample and \textbf{0.046 bits held out}, inside even the 0.17-bit bar Li et
+al.\ set for their SQNR model. Per instance, the model under-predicts by at
+most $+0.66$ bits at the 99th percentile ($+0.73$ worst observed), so adding one
+bit to its prediction covers 99\% of instances.
 
-\paragraph{The confound was tested.} $d$ correlates with conditioning at
-$r^2 = 0.94$, so the obvious objection is that it proxies conditioning where
-$\log(1/(1-\lVert M\rVert_2))$ saturates. It does not: $\log(\text{cond})$ as
-the second regressor gives LOO 1.237 for L1, \emph{worse than baseline}, and
-contributes nothing alongside $d$.
+\refuted{For L1 and Box, fitted forms $\log G = a\log\frac{1}{1-\lVert M\rVert_2} +
+b\,R_{\text{op}} + c$ with $R_{\text{L1}} = d$, $R_{\text{Box}} = d^2$ achieved
+0.340 and 0.234 bits under leave-one-condition-out validation, but on the
+\emph{same} instances. On disjoint instances they reach 1.38 and 0.73 bits.} For
+L1 the ensemble mean is dominated by a single instance (68\% of the ensemble
+error in the median cell) and shifts 0.59 bits between instance sets --- more
+than the error the fit claimed. Box's held-out error is 4.7 times its own
+instance-to-instance variability, so it is over-fitted rather than noisy. A
+robust (geometric-mean) statistic does not rescue L1 (0.87 bits), and is
+ill-posed for Box, where some instances have exactly zero error. For these two
+lanes only qualitative behaviour is claimed --- loop gain grows with
+conditioning and tracks the resolvent --- together with the zero-parameter
+ordering predictor of Section~3.4. No mechanism is claimed for either; the
+active-set churn hypothesis was tested and refuted (Section~8.2).
 
-\scoped{This relation is empirical. No mechanism is claimed --- see
-Section~8.2. The coefficient signs differ between L1 ($+20.6$) and Box
-($-20.4$) because $d$ moves in opposite directions with conditioning in the two
-operators ($r = +0.969$ and $-0.975$), not because two mechanisms are at work.
-Box prefers $d^2$ over $d$ (paired LOO, $t = 2.56$, $p < 0.05$), so the
-operators do not share a functional form; several candidates were tried before
-this one, so the exponent is fitted, not derived.}
+\paragraph{The accuracy criterion.} Li et al.\ hold their model to $<1$\,dB,
+about 0.17 bits. The like-for-like comparison is Theorem~\ref{thm:t1}, an
+analytical noise model against bit-exact simulation, and it meets that bar:
+0.007, 0.000 and 0.092 bits for L1, Box and L2. For loop-level claims we use
+0.5 bits, for three reasons: it is the resolution of an integer width decision;
+no criterion can be tighter than the quantity's own repeatability, measured here
+as 0.075 (L2), 0.156 (Box) and 0.593 (L1) bits between instance sets; and it is
+applied to held-out instances only.
 
 \subsection{Ordering of lane precision needs}
 
@@ -509,16 +521,22 @@ L2  & $+0.60$ bits & $+2.25$ bits \\
 \end{tabular}
 \end{table}
 
-\scoped{Random instances already break the 0.5-bit criterion. The cause is not
-an exotic corner: \texttt{loop\_gain.py} fits 20-trial \emph{ensemble averages}
-at each conditioning point, so the reported figures (0.834 / 0.399 / 0.031
-bits) are ensemble-level quantities. A per-instance refit gives 0.979 / 0.611 /
-0.339 bits before any attack.}
+\scoped{Random instances already break the 0.5-bit criterion.} The per-instance
+distribution on held-out instances (signed; $+$ means under-prediction):
 
-\textbf{Consequence.} The loop-gain relation is a design-space exploration tool
-predicting mean loop gain for an ensemble at fixed conditioning. It is
-\emph{not} a per-instance safety guarantee. Every bit figure must be labelled
-``ensemble mean over $N$ trials at fixed conditioning''.
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+operator & p50 & p90 & p95 & p99 & max \\
+\midrule
+L2  & $-0.09$ & $+0.41$ & $+0.53$ & $+0.66$ & $+0.73$ \\
+Box & $-0.92$ & $+1.67$ & $+2.76$ & $+3.46$ & $+4.05$ \\
+L1  & $-3.06$ & $+0.60$ & $+1.13$ & $+1.90$ & $+4.22$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\scoped{Only L2 yields a design rule (one extra bit). The L1 and Box quantiles
+are margins on models that do not generalise, so they are not one.}
 
 \textbf{What this does not invalidate.} The Q2.9 design point was chosen with
 model guidance and then verified bit-exact against the golden model on routed
@@ -531,9 +549,9 @@ and Kinsman and Nicolici already possess. Their bounds are conservative by
 construction --- hundreds of bits for conjugate gradient, reducing to roughly
 single-to-double precision only after heavy input-space restriction --- which
 is the deficiency a predictive model exists to address. Competing there means
-losing on their ground with their tools. \todo{Quote a per-instance margin for
-wordlength selection, or state that per-instance safety requires the prior
-art's bounds.}
+losing on their ground with their tools. For L1 and Box, per-instance safety therefore comes from
+simulation --- which is how Q2.9 was chosen and verified --- or from the prior
+art's bounds at their cost in conservatism.
 
 \subsection{Other limits}
 \begin{itemize}
@@ -543,8 +561,9 @@ art's bounds.}
 \item Power reports round to 1\,mW; this is the binding constraint on every
       power claim, including the apparent saturation at $F_{\text{MAIN}} = 10$.
 \item $N = 8$, one problem family, one device. No claim is made about scaling.
-\item The 0.5-bit criterion is looser than Li et al.'s $<\!1$\,dB
-      ($\approx 0.17$ bits). \todo{Justify the criterion rather than asserting it.}
+\item The L1--Box ordering residual (0.4--0.6 bits, and a $\kappa$ trend of
+      $-2.04$ bits per unit) is unexplained. Parameter-quantisation terms and an
+      outlier explanation were both tested and refuted.
 \end{itemize}
 
 % =====================================================================
@@ -577,9 +596,8 @@ Literature pass           & \texttt{tools/lit\_sweep.py} \\
 
 \begin{itemize}
 \item Board bring-up and measured wall power (Section~11 of the plan).
-\item Relabel all loop-gain figures as ensemble means.
-\item Justify the 0.5-bit criterion.
-\item Answer the per-instance margin question.
+\item LASSO as a second demonstration (scope).
+\item Comparison table against prior accelerators.
 \end{itemize}
 
 \end{document}

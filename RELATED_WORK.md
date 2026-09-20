@@ -364,7 +364,10 @@ ses.library.usyd.edu.au, covering the same material at length.
 **Their accuracy bar is TIGHTER than ours.** They report calculated SQNR
 agreeing with bit-exact simulation to under 1 dB, i.e. ~0.17 bits, across
 wordlengths 14-26. Our criterion is 0.5 bits ~ 3 dB. Our L2 term (0.031 bits)
-clears their bar; Box (0.234) and L1 (0.340) do not. The objects differ —
+clears their bar; Box (0.234) and L1 (0.340) do not. [2026-09-20: the L1/Box
+figures were later retracted on a held-out test. The like-for-like answer to
+Li et al. is T1, which DOES meet their bar: 0.007 / 0.000 / 0.092 bits. See
+THEOREM_LOCK.] The objects differ —
 their SQNR for a fixed pipeline vs our loop gain across a conditioning sweep —
 but the 0.5-bit criterion must be JUSTIFIED in the paper, not asserted, or a
 reviewer from this community will hold their bar against us.

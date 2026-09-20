@@ -6,6 +6,97 @@ and what must be said out loud.
 
 ---
 
+## HELD-OUT TEST OF THE LOOP-GAIN FIT (2026-09-20) — READ FIRST
+
+`model/margin.py` fits the loop-gain model exactly as published (20-trial
+ensembles, seeds 7000+) and tests it on DISJOINT seeds (20000+, 25 trials),
+plus three further seed sets for repeatability.
+
+| operator | in-sample | **held-out** | seed-to-seed sd | largest instance share |
+|---|---|---|---|---|
+| L1  | 0.279 bits | **1.382 bits** | 0.593 bits | 68% of ensemble MSE |
+| Box | 0.146 bits | **0.734 bits** | 0.156 bits | 19% |
+| L2  | 0.061 bits | **0.046 bits** | 0.075 bits | 12% |
+
+**Only the L2 loop-gain model generalises.** For L1 the ensemble mean is
+essentially one outlier instance, and it moves 0.59 bits between seed sets --
+MORE than the 0.34-bit LOO error the P0.1 result was claimed at. That fit was
+fitting which seeds were drawn. **P0.1 ("d closes the L1 loop-gain term") is
+RETRACTED**, and so is the Box d^2 form (P0.2b): 0.73 bits held out, 4.7x its
+own seed noise, so it is over-fitted, not noisy.
+
+The earlier LOO figures (0.340 / 0.234 / 0.031) were leave-one-CONDITION-out on
+the SAME seeds, which is why they could not see this. Held-out seeds are the
+test from now on.
+
+A robust statistic does not rescue it. On the geometric mean of per-instance
+gain, L1 is still 0.866 bits held out. For Box the geometric mean is
+ILL-POSED: 16 of 720 instances have exactly zero error (everything clipped,
+fixed == float bit for bit), so the result depends on how zeros are handled
+(0.43 or 0.63 bits). An earlier in-chat claim that Box "generalises with the
+geometric mean" came from one such handling and is withdrawn.
+
+**What survives for L1 and Box:** the ZERO-PARAMETER resolvent predictor of
+T2 (lane-width GAPS, 0.288 bits Box-L2, sign 8/8). It fits nothing, so it
+cannot over-fit, and differences cancel the common noise.
+
+### Per-instance margin (TODO item 3)
+
+Signed error on held-out instances, bits of wordlength, + = model
+UNDER-predicts (width too narrow):
+
+| operator | p50 | p90 | p95 | p99 | max |
+|---|---|---|---|---|---|
+| L2 | -0.09 | +0.41 | +0.53 | **+0.66** | +0.73 |
+| Box | -0.92 | +1.67 | +2.76 | +3.46 | +4.05 |
+| L1 | -3.06 | +0.60 | +1.13 | +1.90 | +4.22 |
+
+**Quotable margin: L2 only. Add 1 bit to the model's W* and 99% of held-out
+instances are covered (worst observed +0.73).** For L1 and Box the quantiles
+are margins on a model that does not generalise, so they are not a design
+rule. Width selection for those lanes needs simulation -- which is what
+chose and verified Q2.9 (bit-exact in gate-level sim and on the board).
+State that as the method, not as a gap.
+
+### The 0.5-bit criterion, justified (TODO item 2)
+
+Li et al. (TRETS 2023) hold their SQNR model to < 1 dB, about 0.17 bits.
+Three points, all measured:
+
+1. **The like-for-like comparison is T1, and T1 meets Li's bar.** Li's
+   quantity is an analytical noise model against bit-exact simulation for a
+   fixed pipeline. Our counterpart is T1 at operator level: model/measured
+   0.99, 1.00, 0.88, i.e. **0.007, 0.000, 0.092 bits**. All three are inside
+   0.17. Say this first.
+2. **A loop-level criterion cannot be tighter than the quantity's own
+   repeatability.** The seed-to-seed sd of ensemble loop gain is 0.075 (L2),
+   0.156 (Box), 0.593 (L1) bits. Below that a criterion is untestable. L2
+   still clears Li's 0.17 bits held out (0.046).
+3. **0.5 bits is the design-decision resolution.** Widths are integers; a
+   predictor within half a bit selects the correct width or one adjacent to
+   it, which simulation then settles.
+
+The criterion stays at 0.5 bits for loop-level claims, is applied to
+HELD-OUT data only, and is stated with the repeatability floor beside it.
+
+### kappa term and outlier explanation for the T2 L1-Box residual (item 4)
+
+`model/kappa_term.py`. The T2 predictor is 0.4-0.6 bits low on L1-Box and flat
+in kappa, while the measured gap falls with kappa (-2.04 bits per unit).
+
+- **K1/K2, parameter-quantisation terms — REFUTED.** Adding kappa's lattice
+  error to L1 AND the bound's lattice error to Box (after alpha-normalisation
+  the bound is not a power of two, so Corollary 1a's "Box has no theta term"
+  does not hold) moves the error 0.355 -> 0.342 bits and predicts a kappa
+  trend of -0.45 against the measured -2.04. Both terms are ~q^2/12 on
+  average and cancel in the gap.
+- **K3, outlier artefact — REFUTED.** Recomputing W* from geometric-mean
+  error gives 0.363 bits and a kappa trend of -1.48. In THIS problem generator
+  no instance dominates (10-20%, vs 68% in the loop-gain generator).
+
+**The L1-Box residual is OPEN.** Two candidates tested, two refuted. Report it
+as unexplained; do not guess.
+
 ## SCOPE LIMIT FOUND BY ADVERSARIAL TEST (2026-09-06) — READ FIRST
 
 `model/adversarial.py` attacks the fitted loop-gain model with Kinsman &
@@ -100,21 +191,17 @@ ours is the cast-overhead accounting and the measured net-negative result.
 
 ---
 
-## TIER 2 — CLAIMED AS AN EMPIRICAL MODEL, NOT DERIVED
+## TIER 2 — EMPIRICAL, SCOPED BY THE HELD-OUT TEST
 
-### Loop-gain relation (new; not in the original THEORY_PLAN)
-log G = a·log(1/(1−‖M‖₂)) + b·R_op + c, with R_L1 = d, R_Box = d², R_L2 = none.
-LOO cross-validated: 0.340 / 0.234 / 0.031 bits, all inside the 0.5-bit bar.
-`d` survives the conditioning confound (log cond alone gives LOO 1.237, worse
-than baseline).
-
-**Claimed as fitted and cross-validated. NO mechanism is claimed.** The churn
-hypothesis was tested and refuted (`box_form.py`: Box churns MORE than L1, and
-both are ~frozen). The L1/Box sign difference follows from d's opposite
-monotonicity with conditioning, not from two mechanisms. Box's d² beats d at
-p<0.05 but several forms were tried first, so present the exponent as fitted.
-
----
+### Loop gain
+- **L2:** log G = a*log(R) + c with R the loop resolvent. Held-out error
+  0.046 bits, inside even Li et al.'s 0.17-bit bar. Per-instance p99 +0.66
+  bits: **add 1 bit**. CLAIMED.
+- **L1, Box:** the fitted forms (d, d^2) do NOT generalise to held-out seeds
+  (1.38, 0.73 bits). RETRACTED as models. What is claimed for them is
+  qualitative -- loop gain grows with conditioning and tracks the resolvent --
+  plus the zero-parameter T2 gap predictor.
+- No mechanism is claimed for any sign difference (churn refuted).
 
 ## TIER 3 — DEMOTED TO DISCUSSION
 
@@ -237,12 +324,16 @@ against bit-exact simulation for L1 and Box (12% miss on L2's coefficient term);
 a pre-registered range-feasibility bound on ρ; a measured demonstration that
 per-operator asymmetric wordlength allocation is net-negative in fabric, +4.3%
 area at two independent widths with no power or frequency compensation; a
-cross-validated empirical loop-gain model with a per-operator degeneracy term
-and no mechanism claimed; and a fully measured hardware characterisation —
+loop-gain model that generalises for the contractive L2 lane only (held-out
+0.046 bits, 1-bit margin covers 99% of instances), with the L1/Box fits
+retracted after a held-out test; and a fully measured hardware characterisation —
 SAIF power, swept Fmax, bit-exact gate-level validation — of six configurations
 on routed Artix-7 silicon.
 
 ## What the paper must NOT claim
+- That the L1 or Box loop-gain FITS generalise. They fail held-out seeds.
+- Any bit figure without saying whether it is in-sample, LOO or held-out.
+- A mechanism for the T2 L1-Box residual (two candidates refuted).
 - "First error model for fixed-point ADMM." Jerez et al. 2013 have one.
 - A mechanism for the L1/Box sign difference. Tested and refuted.
 - A unified functional form across operators. d vs d² is significant.

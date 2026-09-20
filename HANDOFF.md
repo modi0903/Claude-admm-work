@@ -94,12 +94,14 @@ no consistent Fmax effect. Wu et al. 2022 Table 1 corroborates independently.
 narrower than F_MAIN inserts a cast that pushes the prox path into the slow
 regime. main10_lane8 vs main10_uniform isolates it. See STATUS.md.
 
-**Loop gain — EMPIRICAL, ENSEMBLE-MEAN ONLY.** log G = a·log(1/(1−‖M‖₂)) + b·R_op
-+ c with R_L1 = d, R_Box = d², R_L2 = none. LOO 0.340 / 0.234 / 0.031 bits.
-These are 20-trial ENSEMBLE means at fixed conditioning. Per instance the model
-UNDER-predicts by up to +7.6 bits on random inputs (`model/adversarial.py`).
-It is a design-space tool, NOT a safety guarantee. No mechanism is claimed
-(churn hypothesis refuted, `model/box_form.py`).
+**Loop gain — generalises for L2 ONLY (held-out test, 2026-09-20).** Fitted on
+seeds 7000+, tested on disjoint seeds (`model/margin.py`): L2 0.046 bits held
+out (1 bit of margin covers 99% of instances); L1 1.38 and Box 0.73 bits held
+out. The L1/Box fits (d, d²) and P0.1 are RETRACTED. For L1 one instance is 68%
+of the ensemble MSE and the ensemble moves 0.59 bits between seed sets. The old
+LOO figures (0.340/0.234/0.031) were on the same seeds and could not see this.
+Any bit figure must say in-sample / LOO / held-out. What survives for L1/Box
+is the zero-parameter T2 gap predictor. No mechanism is claimed.
 
 **Contraction lives at the loop, not the operator.** Resolvent saturates at
 3.18 with g = 0.667 vs divergence at g = 1. Composition (old Theorem 5) failed
@@ -127,7 +129,10 @@ RELATED_WORK.md, which also records the literature pass (P4 discharged).
 
 ## Open work — see TODO.md
 
-Board bring-up DONE. Remaining: wall power (blocked on a bench supply / meter
+Board bring-up DONE. Done 2026-09-20: T2 restated, held-out test of loop gain (L1/Box retracted),
+per-instance margin (L2: +1 bit), 0.5-bit criterion justified, kappa term and
+outlier explanation refuted (L1-Box residual open). Remaining: LASSO decision,
+comparison table, wall power (blocked on a bench supply / meter
 with ≤1 mA resolution; the build-to-build delta is ~4 mW), T2 crossover sweep,
 relabel loop-gain figures as ensemble means, justify the 0.5-bit criterion
 (Li et al. hold ~0.17 bits), quote a per-instance margin. Then draft from

@@ -1,5 +1,13 @@
 # P0 result — loop-gain model closed, mechanism claim withdrawn
 
+> **RETRACTION (2026-09-20).** P0.1 and P0.2b below did not survive a held-out
+> test (`model/margin.py`). Leave-one-condition-out on the SAME seeds hid that
+> the L1 ensemble mean is dominated by one instance (68% of the ensemble MSE)
+> and moves 0.59 bits between seed sets, more than the 0.34-bit error claimed.
+> Held out: L1 1.38 bits, Box 0.73 bits, L2 0.046 bits. Only the L2 model
+> generalises. The churn refutation (P0.2a) stands. See THEOREM_LOCK.md.
+> The text below is kept as the record of what was believed and why.
+
 Date: 2026-09-04. Scripts: `model/loop_gain_l1.py`, `model/box_form.py`.
 Outputs: `results/loop_gain_l1.json`, `results/box_form.json`.
 

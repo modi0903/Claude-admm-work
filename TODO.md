@@ -24,7 +24,7 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
 - [x] Sprint 1b loop-gain model — resolvent mechanism, L2 0.031 bits
 - [x] Related-work assessment vs Li et al. (TRETS 2023)
 - [x] Supervisor deck (30 slides, ground-up + circuit level)
-- [x] **P0.1 L1 active-set term** (2026-09-04) — d closes it. LOO 0.928 → 0.340
+- [x] ~~**P0.1 L1 active-set term** (2026-09-04) — d closes it.~~ **RETRACTED 2026-09-20: fails held-out seeds (1.38 bits); see THEOREM_LOCK.** LOO 0.928 → 0.340
       bits; Box 0.513 → 0.234. Survived the confound test: log(cond) alone
       gives LOO 1.237, worse than baseline, so d is not a conditioning proxy
       despite corr²(d, log cond) = 0.94. `model/loop_gain_l1.py`.
@@ -78,9 +78,10 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
       FAILS (operator-only: signs 2/8 and 0/14). Restated with the loop
       resolvent, zero fitted parameters: Box-L2 0.288 bits, 8/8. Earlier
       "measurement contradicts T2" was wrong -- corrected in THEOREM_LOCK.
-- [ ] **Test the kappa-quantisation term for L1** (Corollary 1a). The T2
+- [x] **Test the kappa-quantisation term for L1** — DONE, REFUTED (and the
+      outlier explanation too). L1-Box residual is OPEN. `model/kappa_term.py`. ~~(Corollary 1a). The T2
       predictor under-predicts L1-Box by 0.4-0.6 bits and is flat in kappa
-      while the measurement is not. — **C**, ~1 session
+      while the measurement is not. — **C**, ~1 session~~
 - [~] superseded original P0.2b text: NOW UNBLOCKED. P0_RESULT.md fixes what
       may and may not be claimed: loop-gain is empirical with a per-operator
       term; no mechanism for the sign; Theorem 1's (1-d) stays derived.
@@ -170,12 +171,15 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
       published bit figures are ensemble-level. Resolution: SCOPE the claim (a
       guaranteed bound would mean competing with Jerez/Kinsman on their ground
       with their conservatism). See THEOREM_LOCK.md.
-- [ ] **Relabel every loop-gain bit figure** in STATUS/THEORY_PLAN as "ensemble
+- [x] **Relabel every loop-gain bit figure** — DONE 2026-09-20, and it went
+      further than a relabel: the held-out test retracted the L1/Box fits.
+      ~~in STATUS/THEORY_PLAN as "ensemble
       mean over N trials at fixed conditioning". Currently they read as if they
-      were per-instance. — **C**, ~30 min
-- [ ] **Quote a per-instance margin** for wordlength selection, derived from
+      were per-instance. — **C**, ~30 min~~
+- [x] **Quote a per-instance margin** — DONE: L2 +1 bit covers p99 (+0.66);
+      none quotable for L1/Box (their fits don't generalise). ~~for wordlength selection, derived from
       the measured under-prediction, or state that per-instance safety requires
-      the prior art's bounds. — **C**, at drafting
+      the prior art's bounds. — **C**, at drafting~~
 - [~] superseded: **ANSWER THE ADVERSARIAL-CASE THREAT.** Kinsman & Nicolici Sect. V-D-4
       breaks a Monte-Carlo-validated CG design with an adversarial b (error
       ~35 sigma beyond simulated worst case; double precision also fails).
