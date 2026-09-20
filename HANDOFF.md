@@ -68,52 +68,68 @@ d = 0.999. At d = 1 measured error is exactly zero.
 lane's lattice costs exactly one bit. Measured 3.68–3.90× error penalty against
 a predicted 4×; one bit through the closed loop, metric-independent.
 
-**Cost model (silicon).** Fabric multiplier area is quadratic in operand width:
-166 LUTs at 18×18, 35 at 9×9, ratio 4.74 (W² predicts 4.00). Profitability
-condition: a(W²max − W²op) > cast overhead. The quadratic term exists only
-while the multiplier is in fabric.
+**Cost model (silicon) — LINEAR at lane granularity.** Lane area is
+A(W) = b·W + c, b ≈ 19.6 LUT/bit, validated out-of-sample (predicts lane 8 at
+−6.3%). The quadratic form was REJECTED by its held-out test (−21.6%, fitted
+a < 0). The W² law (166 vs 35 LUTs, ratio 4.74) holds only for the isolated
+gamma multiplier. Cast cost measured directly: ~0.9 LUT/bit/lane.
 
-**Main result (silicon).** Q2.16 → Q2.9 across the whole datapath: LUTs
-−46.6%, FFs −38.2%, carry −60.0%, power −30.4%, Fmax **+20.7%**. Every metric
-improves at once.
+**Main result (silicon, all MEASURED).** uniform18 → main9_uniform (Q2.16 →
+Q2.9): LUT −46.6%, Fmax 66.3 → 85.4 MHz (+28.8%, swept), dynamic power
+11 → 7 mW (SAIF, Confidence High), energy/solve 184 → 117 nJ. Quote DYNAMIC
+power: static is 68 mW of ~76–80 total, so total falls only 5%. The old
+"power −30.4% / Fmax +20.7%" figures were vectorless / extrapolated and are
+WITHDRAWN. Cycles = 26·iters + 3 in every build.
 
-**Negative result (silicon).** Per-operator asymmetric width allocation costs
-area at both main widths tested (+192 LUTs at F=16, +144 at F=9). The
-specialised lane is Box, which has no multiplier — no quadratic term to
-harvest, only fixed cast overhead. Narrowing a multiplier-free lane is
-unconditionally net-negative.
+**Board (silicon, 2026-09-17).** Basys3, both uniform18 and main9_uniform, all
+three operators bit-exact vs golden over UART (`tools/board_capture.py`). Chain
+is complete: model → golden → post-route gate-level → hardware. See BOARD.md.
 
-**Loop gain (latest).** Noise amplification through the ADMM loop is governed
-by the resolvent ‖(I−T)⁻¹‖ of the linearised iteration map, into which the
-prox enters as a gain g. With g = 1 the resolvent diverges (4 → 47,669) as
-‖M‖₂ → 1; with g = 0.667 it *saturates at 3.18*. Contraction bounds the
-resolvent independently of conditioning. Fits: L2 0.031 bits, Box 0.399, L1
-0.834.
+**Negative result (silicon).** Per-operator asymmetry costs +4.3% LUT at BOTH
+F_MAIN=16 and 9, with identical dynamic power (three measured null pairs) and
+no consistent Fmax effect. Wu et al. 2022 Table 1 corroborates independently.
 
-**Contraction lives at the loop, not the operator.** It does not reduce
-operator-level precision needs — coefficient quantization dominates there — but
-it buys up to five orders of magnitude of loop-level immunity. The original
-theory put it at the operator and was wrong there.
+**Fmax mechanism.** Two critical-path regimes: prox-lane path (21–24 levels,
+63.9–68.9 MHz) vs convergence-test path (16–17 levels, 79.7–86.5 MHz). A lane
+narrower than F_MAIN inserts a cast that pushes the prox path into the slow
+regime. main10_lane8 vs main10_uniform isolates it. See STATUS.md.
 
-## Claim set (see RELATED_WORK.md)
+**Loop gain — EMPIRICAL, ENSEMBLE-MEAN ONLY.** log G = a·log(1/(1−‖M‖₂)) + b·R_op
++ c with R_L1 = d, R_Box = d², R_L2 = none. LOO 0.340 / 0.234 / 0.031 bits.
+These are 20-trial ENSEMBLE means at fixed conditioning. Per instance the model
+UNDER-predicts by up to +7.6 bits on random inputs (`model/adversarial.py`).
+It is a design-space tool, NOT a safety guarantee. No mechanism is claimed
+(churn hypothesis refuted, `model/box_form.py`).
 
-Primary: degenerate-set error model for non-smooth proximal operators.
-Secondary: loop-gain/resolvent result; lattice rule; profitability condition.
+**Contraction lives at the loop, not the operator.** Resolvent saturates at
+3.18 with g = 0.667 vs divergence at g = 1. Composition (old Theorem 5) failed
+at 2.509 bits and is demoted.
 
-**Do not claim:** "analytic derivation instead of search" (Li et al. TRETS 2023
-and Constantinides 2003 both did it, for linear systems) or the DSP
-operand-width threshold (Li et al. Fig. 14). Both are prior art. Li et al. is
-the closest neighbour — read RELATED_WORK.md §3 before drafting related work,
-and note their Table 4 (1.44 dB) independently supports our negative result.
+## Claim set — see THEOREM_LOCK.md (authoritative)
 
-## Open work
+Claimed: T1 degenerate-set (1−d) annihilation (0.99 L1, 1.00 Box; L2 0.88 —
+say so); Prop 1 ρ bound (pre-registered); T4 asymmetry net-negative; linear
+lane-area law; measured hardware characterisation of 7 builds.
+Demoted: T2 ordering (measurement contradicts it), T5 composition.
 
-**See TODO.md** — the actionable checklist, with owners, effort and sequencing.
-Critical path is the L1 active-set term in the loop-gain model (currently 0.834
-bits, criterion is 0.5).
+**Do not claim:** "first error model for fixed-point ADMM" (Jerez et al.,
+arXiv:1303.1090, have one); "analytic instead of search"; the DSP operand-width
+threshold; any mechanism for the L1/Box sign difference; per-instance validity
+of the loop-gain model; total-power reduction without saying "dynamic".
 
-Bar set by Li et al.: measured board power, throughput, GOPS, energy, and a
-comparison table. Not optional at this venue.
+**Positioning:** Jerez et al. identify the diagonal [0,1] scaling at the
+projection and DISCARD it; Kinsman & Nicolici (TCAD 2011) say correlation "can
+be captured into constraints" if known; Ha & Sentieys (DATE 2020/2023) say
+analytical models remain limited to LTI. (1−d) is that characterisation. See
+RELATED_WORK.md, which also records the literature pass (P4 discharged).
+
+## Open work — see TODO.md
+
+Board bring-up DONE. Remaining: wall power (blocked on a bench supply / meter
+with ≤1 mA resolution; the build-to-build delta is ~4 mW), T2 crossover sweep,
+relabel loop-gain figures as ensemble means, justify the 0.5-bit criterion
+(Li et al. hold ~0.17 bits), quote a per-instance margin. Then draft from
+`paper/admm_wordlength.tex` (internal record, not a submission).
 
 ## Working context
 
@@ -134,3 +150,20 @@ every two weeks that requires no reply.
   `harvest.tcl` now checks for this.
 - Any experiment ending with `SAT_COUNT > 0` is measuring clipping, not
   quantization. Check it every time.
+- **admm_top defaults to ASYMMETRIC=1, USE_DSP_L2=1.** Every study build uses
+  0/0. Any new wrapper must pass both, plus F_L1_P/F_BOX_P/F_L2_P, explicitly.
+  Omitting them silently builds lanes 16/8/7: L1 still passes, Box/L2 fail.
+- **Never edit admm_defs.vh to change width.** It stays at F_MAIN=16 so
+  `build.bat` tests the F=16 vectors. Select other widths with
+  `-verilog_define F_MAIN=<n>` (synthesis) or regenerate vectors to match.
+- **A PASS from a path never exercised before is a zero until proven
+  otherwise.** Missing .mem files synthesise ROM to 0 → solver "converges" in
+  1 iteration → 0 == 0 reads as PASS. Empty SAIF → report_power silently goes
+  vectorless. Guards exist for both; keep them.
+- **Vivado/Windows tooling traps** (SAIF flow): Tcl eats backslashes — use
+  forward slashes in every tool argument; .bat → .bat needs `call`; xelab needs
+  `-debug typical` for log_saif; `-generic_top` escapes the top name and
+  corrupts SAIF — pass config as quoted `-d "FM=9"` macros; never log `/*`.
+- **Binary over UART has no delimiter.** A payload byte can equal 0x0A. Read a
+  fixed length.
+
