@@ -39,6 +39,7 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
 - [x] **P1 Throughput** (2026-09-04) — cycles = 26×iterations + 3, IDENTICAL
       across both builds. Energy/solve 184 → 117 nJ, −36%, frequency-
       independent. Lead with this figure.
+- [x] **LASSO second problem** (2026-09-20) — see P2 and THEOREM_LOCK.
 - [x] Gate-level SAIF/Fmax infrastructure: `tb/tb_admm_top_gl.v`,
       `syn/saif_power.{bat,tcl}`, `syn/saif_log.tcl`, `syn/fmax_sweep.tcl`.
 
@@ -135,10 +136,12 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
 
 ## P2 — scope justification
 
-- [ ] **LASSO demonstration.** Reuses the whole stack; only the problem
-      generator changes. Converts "proximal-operator scope" from an assertion
-      into a demonstration, and tests whether the models transfer to a
-      different data distribution. — **C**, ~1 session
+- [x] **LASSO demonstration** (2026-09-20). 4 registered predictions:
+      P-L1 T1 0.981–1.028 at native d 0.62–0.77 PASS; P-L2 F*: m=32 → 8,
+      m=16 → 9, m≤8 → 9–11 PASS; **P-L3 support ≥99% FAILED** (90–100%;
+      post-hoc: all 11 mismatches ≤2 LSB); P-L4 RTL bit-exact at F=16 and 9
+      PASS. THEOREM_LOCK "SECOND PROBLEM". Optional: board run at F=9
+      (BOARD.md, "LASSO on the board").
 - [ ] **Re-derive widths on the final configuration** and re-run the synthesis
       sweep once, so every number in the paper comes from one scripted pass.
       — **C** derives, **T** runs Vivado, ~1 session + 1 h

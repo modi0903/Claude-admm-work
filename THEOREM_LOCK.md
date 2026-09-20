@@ -97,6 +97,52 @@ in kappa, while the measured gap falls with kappa (-2.04 bits per unit).
 **The L1-Box residual is OPEN.** Two candidates tested, two refuted. Report it
 as unexplained; do not guess.
 
+## SECOND PROBLEM: LASSO (2026-09-20)
+
+`model/lasso.py`, `model/gen_vectors_lasso.py`, `results/lasso.json`.
+min ½‖Ax−b‖² + λ‖x‖₁ maps onto the UNCHANGED datapath: M = (AᵀA+ρI)⁻¹,
+q = Aᵀb, L1 lane with κ = λ/ρ. N = 8, k = 2-sparse truth, Gaussian A, 20 dB.
+Four predictions were registered in the script docstring before any run.
+
+This matters beyond scope. On the MIMO workload the L1 lane has d ≈ 0
+(`error_decomp.py`), so T1's (1−d) term was exercised for L1 only by
+`annihilation.py`, which sweeps κ with κ placed on the lattice. LASSO gives
+d = 0.62–0.77 natively, with κ wherever λ puts it.
+
+| ID | Prediction | Result |
+|---|---|---|
+| P-L1 | T1/meas ∈ [0.9, 1.1] on the native LASSO v-distribution | **PASS**: 0.988, 1.028, 1.019, 0.981, 0.993 at λ/λmax = 0.05, 0.1, 0.2, 0.3, 0.5 (d 0.62–0.77; F = 6–12; 60 instances, m = 16). Classical q²/12 off by 1.6–2.7× |
+| P-L2 | m = 32: F* ≤ 9; m = 6: F* > 9 (NMSE ≤ 1e-4) | **PASS**: m = 32 (‖M‖₂ 0.74) F* = 8 at every λ; m = 16 (0.87) 9; m = 8 (0.99) 9–11; m = 6 (1.00) 10–11. No saturation anywhere |
+| P-L3 | support at F* matches double precision on ≥ 99% of instances | **FAILED as registered**: 90–100% per cell |
+| P-L4 | RTL bit-exact on LASSO vectors | **PASS** at F_MAIN = 16 and 9, three instances (m = 32, 16, 8), unmodified RTL (`build.bat 0 lasso`) |
+
+**P-L3, post-hoc — say it is post-hoc.** `python model/lasso.py --e3`, written
+after the failure. All 11 disagreeing coefficients across the 12 cells are
+≤ 2 LSB of F* in magnitude (82% ≤ 1 LSB): the two solvers disagree about
+values at the resolution limit of the format, i.e. threshold ties. That
+characterises the failure; it does not rescue the prediction. The paper
+reports P-L3 as failed, then the characterisation.
+
+**Why the classical ratio is not 1/(1−d).** 1/(1−d) is 2.7–4.4 here; the
+classical model misses by less because κ is off-lattice, and the κ lattice
+error (a T1 θ-term) adds to the measured error. T1 includes it; q²/12 does not.
+
+**P-L2 reading.** Width need tracks ‖M‖₂ → 1/ρ as the problem loses rows, the
+same resolvent story as T2. It is a trend across 12 cells at 40 instances, not
+a fitted law, and F* is not monotone inside m ≤ 8. Do not quote a formula.
+
+**Ground truth vs double precision.** Instance m = 8 (seed 5102) recovers
+support {3,5} against truth {5,6} — in double precision too. That is LASSO at
+m = 8, not quantization. Every comparison above is against double-precision
+LASSO on the same instance, never against x0.
+
+Claimable: T1 validated on a second problem at native high d with off-lattice
+κ; the design point (Q2.9) carries over to well-determined LASSO (m ≥ 16) and
+needs 1–2 more bits as m → N; the hardware runs it bit-exact unchanged.
+Not claimable: support fidelity ≥ 99%; any width formula in m.
+
+---
+
 ## SCOPE LIMIT FOUND BY ADVERSARIAL TEST (2026-09-06) — READ FIRST
 
 `model/adversarial.py` attacks the fitted loop-gain model with Kinsman &
@@ -155,6 +201,10 @@ annihilates its share of the injected error.
 
 Validation (`error_decomp.py`): T1/measured = **0.99 (L1), 1.00 (Box)**.
 Classical q²/12 is off by 3–4× typically and 900× at d=0.999.
+
+**Second problem (2026-09-20):** on LASSO's native distribution
+(d 0.62–0.77, κ off-lattice) T1/meas = 0.981–1.028 across five λ; see
+"SECOND PROBLEM: LASSO" above.
 
 **Caveat that must be stated: L2 gives 0.88, a 12% miss.** L2 has d=0, so the
 annihilation term is inactive and the miss lies in the θ term (γ coefficient
@@ -328,9 +378,12 @@ loop-gain model that generalises for the contractive L2 lane only (held-out
 0.046 bits, 1-bit margin covers 99% of instances), with the L1/Box fits
 retracted after a held-out test; and a fully measured hardware characterisation —
 SAIF power, swept Fmax, bit-exact gate-level validation — of six configurations
-on routed Artix-7 silicon.
+on routed Artix-7 silicon. A second problem, LASSO, runs bit-exact on the
+unchanged hardware and reproduces T1 (0.98–1.03) at native d up to 0.77.
 
 ## What the paper must NOT claim
+- LASSO support fidelity ≥ 99% (P-L3 failed; mismatches are ≤ 2 LSB,
+  a post-hoc characterisation). Any width formula in m.
 - That the L1 or Box loop-gain FITS generalise. They fail held-out seeds.
 - Any bit figure without saying whether it is in-sample, LOO or held-out.
 - A mechanism for the T2 L1-Box residual (two candidates refuted).

@@ -37,6 +37,9 @@ model/   fxp_admm.py          bit-exact model, mirrors each RTL primitive
          main_sweep.py        main-datapath sweep
          generalize.py        Sprint 1 generalisation
          loop_gain.py         Sprint 1b loop-gain model
+         margin.py            held-out test of the loop-gain fit
+         lasso.py             second problem (P-L1..P-L3; --e3 post-hoc)
+         gen_vectors_lasso.py LASSO golden vectors (P-L4), any F_MAIN
 syn/     run_ooc.tcl  harvest.tcl
 ```
 
@@ -51,6 +54,7 @@ research.
 ```
 build.bat 1          # Windows; or iverilog with files named explicitly
 build.bat 0
+build.bat 0 lasso    # second problem, same RTL
 ```
 Both must print `PASS: all lanes bit-exact vs golden model`.
 Regression also passes at F_MAIN = 16, 12, 10, 9.
@@ -103,6 +107,13 @@ LOO figures (0.340/0.234/0.031) were on the same seeds and could not see this.
 Any bit figure must say in-sample / LOO / held-out. What survives for L1/Box
 is the zero-parameter T2 gap predictor. No mechanism is claimed.
 
+**Second problem: LASSO (2026-09-20).** Same RTL, unchanged. T1 holds at
+0.981–1.028 on LASSO's native distribution (d 0.62–0.77, κ off-lattice) —
+the first L1 validation at native high d. F* tracks ‖M‖₂: 8 at m=32, 9 at
+m=16, 9–11 at m≤8. Support-fidelity prediction (≥99%) FAILED at 90–100%;
+post-hoc, every mismatch is ≤2 LSB. RTL bit-exact at F=16 and 9
+(`build.bat 0 lasso`). Table in THEOREM_LOCK.
+
 **Contraction lives at the loop, not the operator.** Resolvent saturates at
 3.18 with g = 0.667 vs divergence at g = 1. Composition (old Theorem 5) failed
 at 2.509 bits and is demoted.
@@ -131,11 +142,10 @@ RELATED_WORK.md, which also records the literature pass (P4 discharged).
 
 Board bring-up DONE. Done 2026-09-20: T2 restated, held-out test of loop gain (L1/Box retracted),
 per-instance margin (L2: +1 bit), 0.5-bit criterion justified, kappa term and
-outlier explanation refuted (L1-Box residual open). Remaining: LASSO decision,
-comparison table, wall power (blocked on a bench supply / meter
-with ≤1 mA resolution; the build-to-build delta is ~4 mW), T2 crossover sweep,
-relabel loop-gain figures as ensemble means, justify the 0.5-bit criterion
-(Li et al. hold ~0.17 bits), quote a per-instance margin. Then draft from
+outlier explanation refuted (L1-Box residual open). LASSO done (P-L3 failed, stated).
+Remaining: comparison table, wall power (blocked on a bench supply / meter
+with ≤1 mA resolution; the build-to-build delta is ~4 mW), optional LASSO
+board run at F=9 (BOARD.md). Then draft from
 `paper/admm_wordlength.tex` (internal record, not a submission).
 
 ## Working context

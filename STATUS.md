@@ -682,7 +682,10 @@ F=9 at NMSE 1e-4 directly, with no search. That is the contribution.
 ## Still open before submission
 
 1. Generalization: more channel models, operating points, a second problem size.
-2. A second demonstration problem (LASSO) to justify proximal-operator scope.
+2. ~~A second demonstration problem (LASSO)~~ DONE 2026-09-20. T1 0.98–1.03
+   at native d ≤ 0.77; F* 8 (m=32) to 10–11 (m=6); support ≥99% prediction
+   FAILED (90–100%, mismatches ≤2 LSB, post-hoc); RTL bit-exact at F=16 and 9.
+   Full table in THEOREM_LOCK.md, "SECOND PROBLEM: LASSO".
 3. ~~SAIF-based power~~ DONE 2026-09-04 for uniform18 and main9_uniform.
    Still vectorless for the other four builds and for the asymmetry study.
 4. ~~Fmax sweep~~ DONE 2026-09-04: 66.3 / 85.4 MHz, +28.8%. Other four

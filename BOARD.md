@@ -47,6 +47,20 @@ LEDs: [0] heartbeat, [2] PASS, [3] FAIL, [11:4] iteration count,
    `python tools/board_capture.py --port COMn --op l1 --fmain <F>` and press
    btnC **after** the script prints "waiting".
 
+## LASSO on the board (optional, F_MAIN = 9)
+
+The RTL is already bit-exact on LASSO at F=9 in simulation; this adds the
+hardware link. The ROM holds one set per operator, so LASSO goes in the L1 slot.
+
+1. `python model/gen_vectors_cfg.py 9 9 9 9 unif` (Box/L2 slots at F=9)
+2. `python model/gen_vectors_lasso.py 9`
+3. `python tools/make_rom.py --l1 lasso1` (m=16 instance; `lasso0` m=32,
+   `lasso2` m=8). It refuses if the slots are at different widths.
+4. Synthesise with `-verilog_define F_MAIN=9`, program, sw[2:1]=00, then
+   `python tools/board_capture.py --port COMn --op l1 --tag lasso1 --fmain 9`.
+5. Afterwards restore F=16: `python model/gen_vectors_cfg.py 16 16 16 16 unif`,
+   `python model/gen_vectors_lasso.py 16`, `python tools/make_rom.py`.
+
 ## Bugs hit, all fixed — recorded so they are not repeated
 
 1. **Wrong project part** — bank-34 "High Performance" / GT-terminal errors

@@ -51,6 +51,8 @@ uniformly. Measured against bit-exact simulation the resulting model achieves
 ratios of $0.99$ (L1) and $1.00$ (Box); the classical model is wrong by
 $3\text{--}4\times$ typically and by $900\times$ at $d = 0.999$. We derive a
 range-feasibility bound on the penalty parameter, pre-registered and confirmed.
+On a second problem, LASSO, run unchanged on the same hardware, the model
+holds at $0.98$--$1.03$ with $d$ up to $0.77$ and an off-lattice threshold.
 On routed Artix-7 silicon, narrowing the main datapath from Q2.16 to Q2.9
 reduces LUTs by $46.6\%$, raises $F_{\max}$ by $28.8\%$, and cuts dynamic power
 from 11\,mW to 7\,mW, giving $184 \to 117$\,nJ per solve. We report a negative
@@ -441,6 +443,59 @@ feed \texttt{converged\_reg} through the same comparison logic, so this is the
 \emph{convergence-test} path and must not be described as a specific residual.
 
 % =====================================================================
+\section{A second problem: LASSO}
+\label{sec:lasso}
+
+Every result above comes from one problem family. LASSO,
+$\min_x \tfrac12\|Ax-b\|^2+\lambda\|x\|_1$, maps onto the \emph{unchanged}
+datapath: $M=(A^\top A+\rho I)^{-1}$, $q=A^\top b$, and the L1 lane with
+$\kappa=\lambda/\rho$. We use $N=8$, a 2-sparse ground truth, Gaussian $A$ with
+$m$ rows and 20\,dB SNR. Four predictions were registered in
+\texttt{model/lasso.py} before it was run.
+
+The test is harder than it looks. On the MIMO workload the L1 lane has
+$d\approx0$, so Theorem~1's $(1-d)$ factor had been exercised for L1 only by
+sweeping $\kappa$ with $\kappa$ placed on the lattice. LASSO yields
+$d=0.62$--$0.77$ natively, with $\kappa$ wherever $\lambda$ puts it.
+
+\begin{center}\small
+\begin{tabular}{llll}
+\toprule
+ID & prediction & result & \\
+\midrule
+P-L1 & T1/meas $\in[0.9,1.1]$, native distribution & 0.981--1.028 (5 $\lambda$) & pass \\
+P-L2 & $m{=}32$: $F^\star\le9$; $m{=}6$: $F^\star>9$ & 8; 10--11 & pass \\
+P-L3 & support at $F^\star$ matches double $\ge99\%$ & 90--100\% per cell & \textbf{fail} \\
+P-L4 & RTL bit-exact on LASSO vectors & 3 instances, $F_{\text{MAIN}}=16,9$ & pass \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{P-L1.} At $\lambda/\lambda_{\max}=0.05,0.1,0.2,0.3,0.5$ the ratio of
+Theorem~1's prediction to measured lane error is 0.988, 1.028, 1.019, 0.981,
+0.993 (60 instances, $m=16$, $F=6$--$12$). The classical $q^2/12$ model is off
+by 1.6--2.7$\times$. That is less than $1/(1-d)$ (2.7--4.4) because $\kappa$ is
+off-lattice and its quantization adds error that Theorem~1's $\theta$-term
+includes and the classical model does not.
+
+\paragraph{P-L2.} Width need follows $\|M\|_2\to1/\rho$ as rows are removed:
+$F^\star=8$ at $m=32$ ($\|M\|_2=0.74$), 9 at $m=16$ (0.87), 9--11 at $m=8$ (0.99),
+10--11 at $m=6$ (1.00); no saturation in any cell. This is a trend over twelve
+cells, not a fitted law, and $F^\star$ is not monotone for $m\le8$.
+
+\paragraph{P-L3 failed.} Support agreement with double precision at $F^\star$ is
+90--100\% per cell, not $\ge99\%$. \emph{Post hoc} (\texttt{lasso.py --e3}), all
+11 disagreeing coefficients are $\le2$ LSB of $F^\star$ in magnitude (82\%
+$\le1$ LSB): threshold ties at the resolution of the format. This characterises
+the failure; it does not rescue the prediction.
+
+\paragraph{P-L4.} Three instances ($m=32,16,8$) run bit-exact through the
+unmodified RTL at $F_{\text{MAIN}}=16$ and 9. The $m=8$ instance recovers the
+wrong support relative to ground truth in double precision as well; every
+comparison in this section is against double-precision LASSO on the same
+instance, never against $x_0$.
+
+% =====================================================================
 \section{Measurement discipline}
 
 Three claims were withdrawn when vectorless estimates were replaced by
@@ -581,6 +636,8 @@ Loop-gain fit             & \texttt{model/loop\_gain.py}, \texttt{loop\_gain\_l1
 Churn refutation          & \texttt{model/box\_form.py} \\
 Composition refutation    & \texttt{model/generalize.py} \\
 Adversarial scope test    & \texttt{model/adversarial.py} \\
+LASSO (P-L1--P-L3)        & \texttt{model/lasso.py} \\
+LASSO vectors (P-L4)      & \texttt{model/gen\_vectors\_lasso.py} \\
 Golden vectors            & \texttt{model/gen\_vectors\_cfg.py} \\
 Builds                    & \texttt{syn/run\_ooc.tcl} \\
 SAIF power                & \texttt{syn/saif\_power.bat}, \texttt{saif\_log.tcl} \\
@@ -595,8 +652,7 @@ Literature pass           & \texttt{tools/lit\_sweep.py} \\
 \section{Outstanding}
 
 \begin{itemize}
-\item Board bring-up and measured wall power (Section~11 of the plan).
-\item LASSO as a second demonstration (scope).
+\item Measured wall power (blocked on instrumentation).
 \item Comparison table against prior accelerators.
 \end{itemize}
 

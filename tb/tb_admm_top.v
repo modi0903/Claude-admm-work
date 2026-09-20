@@ -74,9 +74,15 @@ module tb_admm_top;
 
         $display("ASYMMETRIC=%0d", ASYMMETRIC);
         if (ASYMMETRIC == 0) begin
+`ifdef LASSO   // second problem: model/gen_vectors_lasso.py, iverilog -DLASSO
+            load_and_run("l1_lasso0", `MODE_L1);
+            load_and_run("l1_lasso1", `MODE_L1);
+            load_and_run("l1_lasso2", `MODE_L1);
+`else
             load_and_run("l1_unif",  `MODE_L1);
             load_and_run("box_unif", `MODE_BOX);
             load_and_run("l2_unif",  `MODE_L2);
+`endif
         end else begin
             load_and_run("l1_asym",  `MODE_L1);
             load_and_run("box_asym", `MODE_BOX);
