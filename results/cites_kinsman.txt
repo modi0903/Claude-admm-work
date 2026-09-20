@@ -1,0 +1,44 @@
+
+=== OPENALEX FORWARD CITATIONS of W2131433010 (>= 2005) ===
+year	venue	title	doi
+2018	IEEE Transactions on Computers	Improved Affine Arithmetic-Based Precision Analysis for Polynomial Function Evaluation	https://doi.org/10.1109/tc.2018.2882537
+2015	IEEE Transactions on Computers	Bit-Width Optimization by Divide-and-Conquer for Fixed-Point Digital Signal Processing Systems	https://doi.org/10.1109/tc.2015.2394469
+2017	ACM Transactions on Design Automation of Electronic Systems	Training Fixed-Point Classifiers for On-Chip Low-Power Implementation	https://doi.org/10.1145/3057275
+2018		Analysis of Finite Word-Length Effects in Fixed-Point Systems	https://doi.org/10.1007/978-3-319-91734-4_29
+2018	Journal of Signal Processing Systems	Range Analysis of Matrix Factorization Algorithms for an Overflow Free Fixed-point Design	https://doi.org/10.1007/s11265-018-1394-3
+2016	Applied Soft Computing	Design and analysis of evolutionary bit-length optimization algorithms for floating to fixed-point conversion	https://doi.org/10.1016/j.asoc.2016.08.035
+2017	Journal of Signal Processing Systems	A Faddeev Systolic Array for EKF-SLAM and its Arithmetic Data Representation Impact on FPGA	https://doi.org/10.1007/s11265-017-1243-9
+2021	arXiv (Cornell University)	An Overflow/Underflow-Free Fixed-Point Bit-Width Optimization Method for OS-ELM Digital Circuit	https://doi.org/10.1587/transfun.2021vlp0017
+2017		An overflow free fixed-point eigenvalue decomposition algorithm: Case study of dimensionality reduction in hyperspectral images	https://doi.org/10.1109/dasip.2017.8122131
+2020		ACPA: Exploiting Approximate Computing for High-Level Imprecision Optimization of Fixed-point LTI systems	https://doi.org/10.1109/dcas51144.2020.9330657
+2021	IEICE Transactions on Fundamentals of Electronics Communications and Computer Sciences	An Overflow/Underflow-Free Fixed-Point Bit-Width Optimization Method for OS-ELM Digital Circuit	https://doi.org/10.1587/transfun.2021vlp0017
+# 11 kept of 16 citing works (dropped: 0 pre-2005, 0 noise, 5 no-keyword)
+
+=== OPENALEX FORWARD CITATIONS of W2109573698 (>= 2015) ===
+year	venue	title	doi
+2017		Efficient floating point precision tuning for approximate computing	https://doi.org/10.1109/aspdac.2017.7858297
+2017	Sensors	A Spaceborne Synthetic Aperture Radar Partial Fixed-Point Imaging System Using a Field- Programmable Gate Array−Application-Specific Integrated Circuit Hybrid Heterogeneous Parallel Acceleration Technique	https://doi.org/10.3390/s17071493
+2016	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	Enabling High-Level Synthesis Resource Sharing Design Space Exploration in FPGAs Through Automatic Internal Bitwidth Adjustments	https://doi.org/10.1109/tcad.2016.2550501
+2015	IFIP advances in information and communication technology	Fine Grain Precision Scaling for Datapath Approximations in Digital Signal Processing Systems	https://doi.org/10.1007/978-3-319-23799-2_6
+2015		Finite word length optimization for spaceborne SAR imaging systems	https://doi.org/10.1109/radar.2015.7131114
+2016	INTERNATIONAL JOURNAL OF EMERGING TRENDS IN SCIENCE AND TECHNOLOGY	A Review Paper on Arithmetic and Logical Unit for Graphics Processor	https://doi.org/10.18535/ijetst/v3i02.08
+2017		Algorithms and Arithmetic: Choose Wisely	https://doi.org/10.1109/arith.2017.17
+2017	ACM Transactions on Design Automation of Electronic Systems	Training Fixed-Point Classifiers for On-Chip Low-Power Implementation	https://doi.org/10.1145/3057275
+2017	Chaos Solitons & Fractals	Stochastic degradation of the fixed-point version of 2 D -chaotic maps	https://doi.org/10.1016/j.chaos.2017.09.007
+2018		A SoPC based Fixed Point System for Spaceborne SAR Real-Time Imaging Processing	https://doi.org/10.1109/hpec.2018.8547564
+2021		Leveraging Bayesian Optimization to Speed Up Automatic Precision Tuning	https://doi.org/10.23919/date51398.2021.9474209
+2018		Analysis of Finite Word-Length Effects in Fixed-Point Systems	https://doi.org/10.1007/978-3-319-91734-4_29
+2021		FPGA acceleration of bit-true simulations for word-length optimization	https://doi.org/10.1109/arith51176.2021.00033
+2023		Maximizing Computing Accuracy on Resource-Constrained Architectures	https://doi.org/10.23919/date56975.2023.10136991
+2017	Microelectronics Journal	Efficient utilization of imprecise computational blocks for hardware implementation of imprecision tolerant applications	https://doi.org/10.1016/j.mejo.2017.01.002
+2016	IEEE Transactions on Circuits & Systems II Express Briefs	Quantization Noise Power Estimation for Floating-Point DSP Circuits	https://doi.org/10.1109/tcsii.2016.2530802
+2020		Towards Generic and Scalable Word-Length Optimization	https://doi.org/10.23919/date48585.2020.9116564
+2022		Wordlength Optimization of Fixed-Point Algorithms	https://doi.org/10.1007/978-3-030-94705-7_9
+2019		Optimal Word-Length Allocation for the Fixed-Point Implementation of Linear Filters and Controllers	https://doi.org/10.1109/arith.2019.00040
+2020		Round-off noise estimation of fixed-point algorithms using Modified Affine Arithmetic and Legendre Polynomials	https://doi.org/10.1109/dcis51330.2020.9268668
+2017		Dynamic bitwidth assignment for efficient dot products	https://doi.org/10.23919/fpl.2017.8056829
+2016		Automated wordlength optimization framework for multi-source statistical interval-based analysis of nonlinear systems with control-flow structures	https://doi.org/10.20868/upm.thesis.40614
+2015	International Journal of Computational Vision and Robotics	Study of finite word-length effect on the performance of watermarking methods	https://doi.org/10.1504/ijcvr.2015.068802
+2015	The Sydney eScholarship Repository (The University of Sydney)	Automated Dynamic Error Analysis Methods for Optimization of Computer Arithmetic Systems	None
+2016	INTERNATIONAL JOURNAL OF EMERGING TRENDS IN SCIENCE AND TECHNOLOGY	Energy Aware 32 Bit Arithmetic and Logical Unit for Error Tolerant Applications	https://doi.org/10.18535/ijetst/v3i01.10
+# 25 kept of 145 citing works (dropped: 102 pre-2015, 1 noise, 17 no-keyword)

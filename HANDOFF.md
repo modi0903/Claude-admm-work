@@ -110,7 +110,9 @@ at 2.509 bits and is demoted.
 Claimed: T1 degenerate-set (1−d) annihilation (0.99 L1, 1.00 Box; L2 0.88 —
 say so); Prop 1 ρ bound (pre-registered); T4 asymmetry net-negative; linear
 lane-area law; measured hardware characterisation of 7 builds.
-Demoted: T2 ordering (measurement contradicts it), T5 composition.
+Restated: T2 ordering -- crossover confirmed; mechanism is operator coefficient
+x loop resolvent (zero fitted parameters), NOT the operator alone (see
+THEOREM_LOCK). Demoted: T5 composition.
 
 **Do not claim:** "first error model for fixed-point ADMM" (Jerez et al.,
 arXiv:1303.1090, have one); "analytic instead of search"; the DSP operand-width

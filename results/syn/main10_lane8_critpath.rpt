@@ -1,0 +1,1227 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Sat Sep  5 09:05:48 2026
+| Host         : LAPTOP-4H08TOOS running 64-bit major release  (build 9200)
+| Command      : report_timing -setup -max_paths 10 -nworst 10 -path_type full_clock_expanded -input_pins -file C:/College/Senorita/admm_project/results/syn/main10_lane8_critpath.rpt
+| Design       : admm_top
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 r  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 f  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 r  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 f  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 r  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 f  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 r  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 f  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 f  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 r  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+Slack (MET) :             0.132ns  (required time - arrival time)
+  Source:                 v_reg_reg[14]/C
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Destination:            G_PROX[1].u_prox/z_out_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk  {rise@0.000ns fall@7.258ns period=14.516ns})
+  Path Group:             clk
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            14.516ns  (clk rise@14.516ns - clk rise@0.000ns)
+  Data Path Delay:        14.381ns  (logic 7.834ns (54.476%)  route 6.547ns (45.524%))
+  Logic Levels:           21  (CARRY4=13 LUT2=2 LUT3=3 LUT6=3)
+  Clock Path Skew:        -0.049ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.924ns = ( 15.440 - 14.516 ) 
+    Source Clock Delay      (SCD):    0.973ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk rise edge)        0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=1510, unset)         0.973     0.973    clk
+    SLICE_X51Y63         FDRE                                         r  v_reg_reg[14]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X51Y63         FDRE (Prop_fdre_C_Q)         0.419     1.392 f  v_reg_reg[14]/Q
+                         net (fo=1, routed)           0.495     1.887    G_PROX[1].u_prox/u_cast_l1/din[2]
+    SLICE_X50Y63                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/S[2]
+    SLICE_X50Y63         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.677     2.564 r  G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.564    G_PROX[1].u_prox/u_cast_l1/dout[1]_INST_0_i_1_n_0
+    SLICE_X50Y64                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CI
+    SLICE_X50Y64         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.681 r  G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.681    G_PROX[1].u_prox/u_cast_l1/dout[5]_INST_0_i_1_n_0
+    SLICE_X50Y65                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CI
+    SLICE_X50Y65         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     2.798 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000     2.798    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_1_n_0
+    SLICE_X50Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CI
+    SLICE_X50Y66         CARRY4 (Prop_carry4_CI_CO[0])
+                                                      0.254     3.052 f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4/CO[0]
+                         net (fo=6, routed)           0.651     3.702    G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_4_n_3
+    SLICE_X51Y66                                                      f  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/S[1]
+    SLICE_X51Y66         CARRY4 (Prop_carry4_S[1]_CO[2])
+                                                      0.937     4.639 r  G_PROX[1].u_prox/u_cast_l1/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.811     5.451    G_PROX[1].u_prox/u_cast_l1/dout1
+    SLICE_X54Y66                                                      r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/I0
+    SLICE_X54Y66         LUT3 (Prop_lut3_I0_O)        0.313     5.764 r  G_PROX[1].u_prox/u_cast_l1/dout[0]_INST_0/O
+                         net (fo=11, routed)          0.664     6.427    G_PROX[1].u_prox/v_l1[0]
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_76/I1
+    SLICE_X56Y66         LUT2 (Prop_lut2_I1_O)        0.124     6.551 r  G_PROX[1].u_prox/u_cast_l2_out_i_76/O
+                         net (fo=1, routed)           0.000     6.551    G_PROX[1].u_prox/u_cast_l2_out_i_76_n_0
+    SLICE_X56Y66                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_52/S[1]
+    SLICE_X56Y66         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     7.084 r  G_PROX[1].u_prox/u_cast_l2_out_i_52/CO[3]
+                         net (fo=1, routed)           0.000     7.084    G_PROX[1].u_prox/u_cast_l2_out_i_52_n_0
+    SLICE_X56Y67                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_42/CI
+    SLICE_X56Y67         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.315     7.399 r  G_PROX[1].u_prox/u_cast_l2_out_i_42/O[3]
+                         net (fo=5, routed)           0.762     8.161    G_PROX[1].u_prox/u_cast_l2_out_i_42_n_4
+    SLICE_X55Y65                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_44/I2
+    SLICE_X55Y65         LUT3 (Prop_lut3_I2_O)        0.307     8.468 r  G_PROX[1].u_prox/u_cast_l2_out_i_44/O
+                         net (fo=3, routed)           0.962     9.430    G_PROX[1].u_prox/u_cast_l2_out_i_44_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_18/I1
+    SLICE_X55Y68         LUT6 (Prop_lut6_I1_O)        0.124     9.554 r  G_PROX[1].u_prox/u_cast_l2_out_i_18/O
+                         net (fo=1, routed)           0.000     9.554    G_PROX[1].u_prox/u_cast_l2_out_i_18_n_0
+    SLICE_X55Y68                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_2/S[1]
+    SLICE_X55Y68         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    10.104 r  G_PROX[1].u_prox/u_cast_l2_out_i_2/CO[3]
+                         net (fo=1, routed)           0.000    10.104    G_PROX[1].u_prox/u_cast_l2_out_i_2_n_0
+    SLICE_X55Y69                                                      r  G_PROX[1].u_prox/u_cast_l2_out_i_1/CI
+    SLICE_X55Y69         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    10.326 r  G_PROX[1].u_prox/u_cast_l2_out_i_1/O[0]
+                         net (fo=1, routed)           0.473    10.799    G_PROX[1].u_prox/u_cast_l2_out/din[15]
+    SLICE_X51Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/S[1]
+    SLICE_X51Y70         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.849    11.648 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1/CO[3]
+                         net (fo=1, routed)           0.000    11.648    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_1_n_0
+    SLICE_X51Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/CI
+    SLICE_X51Y71         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    11.982 f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5/O[1]
+                         net (fo=4, routed)           0.807    12.789    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_5_n_6
+    SLICE_X47Y71                                                      f  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/I1
+    SLICE_X47Y71         LUT2 (Prop_lut2_I1_O)        0.303    13.092 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21/O
+                         net (fo=1, routed)           0.000    13.092    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_21_n_0
+    SLICE_X47Y71                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/S[1]
+    SLICE_X47Y71         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    13.642 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9/CO[3]
+                         net (fo=1, routed)           0.000    13.642    G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_9_n_0
+    SLICE_X47Y72                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CI
+    SLICE_X47Y72         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    13.870 r  G_PROX[1].u_prox/u_cast_l2_out/dout[9]_INST_0_i_3/CO[2]
+                         net (fo=10, routed)          0.458    14.328    G_PROX[1].u_prox/u_cast_l2_out/dout1
+    SLICE_X47Y70                                                      r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/I0
+    SLICE_X47Y70         LUT3 (Prop_lut3_I0_O)        0.313    14.641 r  G_PROX[1].u_prox/u_cast_l2_out/dout[3]_INST_0/O
+                         net (fo=1, routed)           0.302    14.944    G_PROX[1].u_prox/l2_res[3]
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_2/I0
+    SLICE_X46Y69         LUT6 (Prop_lut6_I0_O)        0.124    15.068 r  G_PROX[1].u_prox/z_out[5]_i_2/O
+                         net (fo=1, routed)           0.162    15.230    G_PROX[1].u_prox/z_out[5]_i_2_n_0
+    SLICE_X46Y69                                                      r  G_PROX[1].u_prox/z_out[5]_i_1/I5
+    SLICE_X46Y69         LUT6 (Prop_lut6_I5_O)        0.124    15.354 r  G_PROX[1].u_prox/z_out[5]_i_1/O
+                         net (fo=1, routed)           0.000    15.354    G_PROX[1].u_prox/p_1_in[5]
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk rise edge)       14.516    14.516 r  
+                                                      0.000    14.516 r  clk (IN)
+                         net (fo=1510, unset)         0.924    15.440    G_PROX[1].u_prox/clk
+    SLICE_X46Y69         FDRE                                         r  G_PROX[1].u_prox/z_out_reg[5]/C
+                         clock pessimism              0.000    15.440    
+                         clock uncertainty           -0.035    15.405    
+    SLICE_X46Y69         FDRE (Setup_fdre_C_D)        0.081    15.486    G_PROX[1].u_prox/z_out_reg[5]
+  -------------------------------------------------------------------
+                         required time                         15.486    
+                         arrival time                         -15.354    
+  -------------------------------------------------------------------
+                         slack                                  0.132    
+
+
+
+

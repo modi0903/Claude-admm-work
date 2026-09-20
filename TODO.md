@@ -73,10 +73,14 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
       widths 16/10/9/8 and run_ooc.tcl emits LUT prox per build. Fit on three,
       predict the fourth, ~10% bar. Blocks claiming the cost model.
       — **C** analyses, needs T's run_ooc.tcl utilisation reports, ~1 h
-- [ ] **T2 crossover sweep** — `sweep_ordering.py` with d_Box and d_L1 as
-      measured outputs. Currently the measured ordering is FIXED at every
-      threshold, contradicting the theorem. Either widen the sweep or drop
-      the claim. — **C**, ~1 session
+- [x] **T2 crossover sweep — DONE 2026-09-20** (`model/t2_crossover.py`).
+      Headline HOLDS (Box-L2 crosses between cond 10 and 20). Stated mechanism
+      FAILS (operator-only: signs 2/8 and 0/14). Restated with the loop
+      resolvent, zero fitted parameters: Box-L2 0.288 bits, 8/8. Earlier
+      "measurement contradicts T2" was wrong -- corrected in THEOREM_LOCK.
+- [ ] **Test the kappa-quantisation term for L1** (Corollary 1a). The T2
+      predictor under-predicts L1-Box by 0.4-0.6 bits and is flat in kappa
+      while the measurement is not. — **C**, ~1 session
 - [~] superseded original P0.2b text: NOW UNBLOCKED. P0_RESULT.md fixes what
       may and may not be claimed: loop-gain is empirical with a per-operator
       term; no mechanism for the sign; Theorem 1's (1-d) stays derived.

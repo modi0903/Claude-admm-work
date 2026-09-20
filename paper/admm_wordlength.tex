@@ -1,0 +1,585 @@
+% =====================================================================
+%  INTERNAL TECHNICAL REPORT -- NOT FOR CIRCULATION
+%
+%  Fixed-point wordlength allocation for ADMM hardware accelerators.
+%  Drafted 2026-09-06 as complete documentation of the work to date.
+%
+%  This is deliberately NOT a submission draft. It records refuted
+%  hypotheses, withdrawn claims and scope limits alongside the results,
+%  because the reasoning that killed a claim is worth more later than
+%  the claim would have been. A submission version would cut Sections
+%  8 and 9 and compress Section 7.
+%
+%  Build:  pdflatex admm_wordlength.tex   (twice, for references)
+% =====================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+% Flags for things that must not silently become claims.
+\newcommand{\scoped}[1]{\textcolor{blue}{\textbf{[SCOPED: #1]}}}
+\newcommand{\refuted}[1]{\textcolor{red}{\textbf{[REFUTED: #1]}}}
+\newcommand{\todo}[1]{\textcolor{orange}{\textbf{[TODO: #1]}}}
+
+\title{Fixed-Point Wordlength Allocation for ADMM Hardware Accelerators\\
+       \large Internal technical report --- complete record including
+       refuted hypotheses}
+\author{}
+\date{6 September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study fixed-point wordlength allocation for an ADMM solver implemented on
+FPGA fabric. The central observation is that a proximal operator annihilates
+quantisation error on its degenerate set: the fraction $d$ of coordinates where
+the operator's derivative vanishes contributes no error to the output, so the
+effective noise scales with $(1-d)$ rather than the classical $q^2/12$ applied
+uniformly. Measured against bit-exact simulation the resulting model achieves
+ratios of $0.99$ (L1) and $1.00$ (Box); the classical model is wrong by
+$3\text{--}4\times$ typically and by $900\times$ at $d = 0.999$. We derive a
+range-feasibility bound on the penalty parameter, pre-registered and confirmed.
+On routed Artix-7 silicon, narrowing the main datapath from Q2.16 to Q2.9
+reduces LUTs by $46.6\%$, raises $F_{\max}$ by $28.8\%$, and cuts dynamic power
+from 11\,mW to 7\,mW, giving $184 \to 117$\,nJ per solve. We report a negative
+result: per-operator asymmetric lane allocation costs $4.3\%$ area at both main
+widths with no power or frequency compensation. All hardware figures are
+measured --- SAIF-based power, swept $F_{\max}$, gate-level bit-exact
+validation --- not estimated. We state explicitly where the model does not
+hold: it predicts ensemble-mean behaviour and under-predicts per-instance error
+by up to $7.6$ bits.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% =====================================================================
+\section{Introduction and scope}
+
+An accelerator for a proximal splitting method must choose a fixed-point format
+for every signal in its datapath. Too few fraction bits and the solver returns
+a wrong answer; too many and the fabric cost, critical path and switching
+energy all grow. The classical treatment models every quantisation as an
+independent additive noise source of power $q^2/12$ and propagates it through
+the algorithm. This report argues that treatment is substantially wrong for
+proximal operators, quantifies by how much, and validates the correction on
+silicon.
+
+\paragraph{What is claimed.} An error model in which the proximal operator's
+degenerate set annihilates a measurable fraction of injected quantisation
+noise; a pre-registered range-feasibility bound; a measured demonstration that
+per-operator asymmetric allocation is net-negative in fabric; and a fully
+measured hardware characterisation of seven configurations.
+
+\paragraph{What is not claimed.} This is not the first error model for
+fixed-point ADMM --- Jerez et al.\ have one. It is not a robustness bound. It
+does not supply a mechanism for every empirical relation reported. Section~8
+lists the hypotheses that were tested and failed; Section~9 lists the scope
+limits.
+
+% =====================================================================
+\section{Related work and precise positioning}
+
+\subsection{The primary prior art}
+
+Jerez, Goulart, Richter, Constantinides, Kerrigan and Morari
+(arXiv:1303.1090) implement fixed-point ADMM on FPGA with an explicit
+round-off error analysis: a two-step error recurrence, Schur stability via
+Lyapunov argument, and a converging upper bound. They state the bound
+determines a priori the minimum number of bits for a given accuracy
+specification. \textbf{Any claim of a first error model for fixed-point ADMM is
+unavailable.}
+
+The opening they leave is specific and is the basis of this work. In deriving
+their bound they observe that for the projection step no arithmetic error is
+introduced, and that the error \emph{can only be reduced by multiplication with
+a diagonal matrix with entries componentwise in $[0,1]$}. They then set that
+matrix to the identity to keep the bound conservative. That discarded diagonal
+is exactly the degenerate-set annihilation quantified here.
+
+\subsection{The second invitation}
+
+Kinsman and Nicolici (TCAD 30(9), 2011) allocate bit-widths for iterative
+computations by SMT, with conjugate gradient as their case study --- the
+nearest published problem to ours. Their quantisation constraints, they write,
+\emph{assume no correlation between quantisation error and value, when in
+reality correlation may exist. If the nature of the correlation is known, it
+can be captured into constraints.}
+
+Their paper has sixteen citations in fifteen years and none extends it to
+iterative optimisation solvers; the descendants went toward range and overflow
+analysis rather than precision models for nonlinear operators.
+
+\subsection{The gap, confirmed by the incumbents}
+
+Ha and Sentieys state in both DATE 2020 and DATE 2023 that existing analytical
+techniques are \emph{limited to modeling noise power metrics of Linear and
+Time-Invariant (LTI) systems (with some extensions)}. A proximal operator is
+not LTI. Two papers named the gap; a third confirms it was still open in 2023.
+
+\subsection{Comparisons that must not be made naively}
+
+Wu, Wallace, Mota et al.\ (J.\ Signal Process.\ Syst.\ 2022) report up to
+$67\%$ LUT and $60\%$ power reduction for mixed-precision ADMM. Those figures
+are \emph{not} comparable to ours. Their baseline is FP32 floating point, so
+most of the gain is the float-to-fixed conversion itself; ours is Q2.16 fixed
+narrowed to Q2.9, with the float-to-fixed gain already banked in the baseline.
+Their power is estimated with the Xilinx Power Estimator; ours is measured from
+post-route switching activity. Their precision axis is temporal (per iteration);
+ours is spatial (per operator lane).
+
+Usefully, their own Table~1 corroborates our negative result: for the ADMM
+solver in fixed point, consistent FXP24 uses 6775 LUTs while mixed FXP20$\to$24
+uses 6807 --- non-uniform precision costing area, unremarked.
+
+% =====================================================================
+\section{Error model}
+
+\subsection{Degenerate-set annihilation}
+
+Let $P_\theta$ be a proximal operator with parameter $\theta$, evaluated at
+fractional wordlength $W$ with step $q = 2^{-W}$. Partition the input
+coordinates into the degenerate set $D$, where $\partial P/\partial v = 0$, and
+its complement.
+
+\begin{theorem}[Operator error decomposition]
+\label{thm:t1}
+\begin{equation}
+\mathbb{E}\lVert e_P \rVert^2 =
+  \frac{|D^c|}{n}\left[L^2\frac{q^2}{12} + \sigma^2_{\theta,D^c}\right]
++ \frac{|D|}{n}\,\sigma^2_{\theta,D}
+\end{equation}
+\end{theorem}
+
+Writing $d = |D|/n$, the classical model overestimates by roughly $1/(1-d)$.
+On the degenerate set the operator's output does not depend on the input, so
+injected perturbation is annihilated rather than propagated.
+
+\paragraph{Validation.} \texttt{model/error\_decomp.py} measures the operator
+in isolation on a $v$-distribution harvested from float ADMM runs.
+
+\begin{table}[h]\centering
+\begin{tabular}{lccc}
+\toprule
+operator & model/measured & classical/measured & $d$ range \\
+\midrule
+L1 soft-threshold & 0.99 & 3--4$\times$ & 0.00--0.84 \\
+Box projection    & 1.00 & 3--4$\times$ & 0.00--0.86 \\
+L2 ridge scaling  & \textbf{0.88} & --- & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Theorem~\ref{thm:t1} against bit-exact simulation. At $d = 0.999$ the
+classical model is wrong by $900\times$.}
+\end{table}
+
+\scoped{L2 gives 0.88, a 12\% miss. L2 has $d = 0$, so the annihilation term is
+inactive and the discrepancy lies entirely in the $\theta$ term --- the
+$\gamma$ coefficient quantisation, which Corollary~1a states is not attenuated.
+The annihilation mechanism is validated; the coefficient-quantisation
+magnitude is not, to better than 12\%. Quoting ``0.99--1.00'' without naming
+the operators would be selective.}
+
+\subsection{Range feasibility}
+
+\begin{proposition}[Penalty lower bound]
+Weight representability requires $\rho \ge 2^{-(I-1)}$ for $I$ integer bits.
+\end{proposition}
+
+This was registered before measurement. With $I = 2$ it predicts $\rho \ge
+0.5$. Measured: $\max|M| = 2.116$ at $\rho = 0.125$ (infeasible in Q2.$x$),
+$1.117$ at $\rho = 0.5$ (feasible). The pre-registration is the point and
+should be stated as such.
+
+\subsection{Loop-gain relation}
+
+Operator-level error does not determine solver-level error; the ADMM loop
+amplifies it. We fit
+\begin{equation}
+\log G = a\log\!\frac{1}{1 - \lVert M\rVert_2} + b\,R_{\text{op}} + c,
+\qquad
+R_{\text{L1}} = d,\;\; R_{\text{Box}} = d^2,\;\; R_{\text{L2}} = \varnothing
+\end{equation}
+where $G$ is measured loop gain. Leave-one-out cross-validated error: 0.340
+(L1), 0.234 (Box), 0.031 (L2) bits, all inside a 0.5-bit criterion.
+
+\paragraph{The confound was tested.} $d$ correlates with conditioning at
+$r^2 = 0.94$, so the obvious objection is that it proxies conditioning where
+$\log(1/(1-\lVert M\rVert_2))$ saturates. It does not: $\log(\text{cond})$ as
+the second regressor gives LOO 1.237 for L1, \emph{worse than baseline}, and
+contributes nothing alongside $d$.
+
+\scoped{This relation is empirical. No mechanism is claimed --- see
+Section~8.2. The coefficient signs differ between L1 ($+20.6$) and Box
+($-20.4$) because $d$ moves in opposite directions with conditioning in the two
+operators ($r = +0.969$ and $-0.975$), not because two mechanisms are at work.
+Box prefers $d^2$ over $d$ (paired LOO, $t = 2.56$, $p < 0.05$), so the
+operators do not share a functional form; several candidates were tried before
+this one, so the exponent is fitted, not derived.}
+
+\subsection{Ordering of lane precision needs}
+
+Which operator needs the most lane precision is not fixed. Continuous $W^*$
+over a conditioning sweep shows the Box--L2 gap moving from $-0.33$ bits at
+$\kappa(H^{\top}H)=2$ to $+2.33$ at 1000, crossing between 10 and 20.
+
+The operator coefficient alone does not predict this: it gets the sign wrong in
+6 of 8 resolvable Box--L2 cases and all 14 L1--L2 cases, missing by 1.2--1.5
+bits. Multiplying by the loop resolvent $R=\lVert (I-T)^{-1}\rVert$, computed
+from $M$ with no fitted parameter,
+\begin{equation}
+\Delta W_{ab} = \tfrac12\log_2\frac{A_a R_a}{A_b R_b},
+\end{equation}
+gives 0.288 bits and 8/8 signs for Box--L2 and places the crossover near 20.
+L2's contraction pins its resolvent ($2.1\to3.2$) while L1 and Box grow
+($2.7\to200$), so the contractive lane becomes relatively cheaper as the problem
+hardens.
+
+\scoped{L1--L2 is 0.621 bits and misses the two smallest gaps in sign. L1--Box
+is under-predicted by 0.4--0.6 bits and the predictor is blind to $\kappa$; the
+omitted $\kappa$-quantisation term of Corollary~1a is the likely cause and is
+untested. The exponents fitted in the loop-gain model make Box--L2 \emph{worse}
+(1.05 bits, 4/8): the zero-parameter resolvent generalises across problem
+generators, the fitted model does not.}
+
+% =====================================================================
+\section{Fabric cost model}
+
+\begin{theorem}[Lane area]
+$A_{\text{lane}}(W) = bW + c$, with $b \approx 19.6$ LUT/bit.
+\end{theorem}
+
+\refuted{The originally proposed quadratic form
+$A(W) = aW^2 + bW + c$ fails its held-out test.} Fitting on the three
+no-cast points (lane width $=$ $F_{\text{MAIN}}$: $16 \to 269.9$,
+$10 \to 159.0$, $9 \to 129.0$ LUT/lane) and predicting lane~8 (actual 122.0):
+
+\begin{table}[h]\centering
+\begin{tabular}{lccc}
+\toprule
+form & fit & predicts $W\!=\!8$ & error \\
+\midrule
+quadratic & exact (3 pts, 3 params) & 95.7 & $-21.6\%$ \\
+linear    & 3.0\% max residual      & 114.3 & $-6.3\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The fitted $a$ is negative ($-1.646$): the measured slope \emph{falls} from
+30\,LUT/bit ($9\to10$) to 18.5 ($10\to16$). A fabric-multiplier area law must
+be convex.
+
+\paragraph{Resolution.} The $166$ vs $35$ LUT measurement supporting a
+quadratic law was taken on the $\gamma$ multiplier \emph{in isolation}, where it
+does hold (4.74 measured against 4 predicted). At whole-lane granularity the
+multiplier is a small share --- L1 and Box contain no multiplier at all --- so
+casts, comparisons and saturating adds dominate and the total is linear. The
+$W^2$ term is not refuted; it is undetectable at lane granularity on this
+design. Both laws may be quoted provided the granularity is stated.
+
+\paragraph{Cast cost, measured directly.} Two builds share lane width 8 but
+differ in cast depth: 122.0\,LUT/lane at $F_{\text{MAIN}} = 10$ against
+127.5 at $F_{\text{MAIN}} = 16$, giving $c_{\text{cast}} \approx
+0.9$\,LUT/bit/lane.
+
+% =====================================================================
+\section{Profitability of asymmetric allocation --- a negative result}
+
+\begin{theorem}[Profitability]
+Asymmetric lane allocation is profitable only if area saved exceeds cast
+overhead. With lane area linear, saving is $b\,\Delta W$ --- linear and small
+--- so cast overhead dominates and asymmetry is net-negative.
+\end{theorem}
+
+Note this derivation now rests on the linear law, which survived its falsifier,
+rather than on the rejected quadratic one.
+
+\begin{table}[h]\centering
+\begin{tabular}{lcc}
+\toprule
+matched pair (same $F_{\text{MAIN}}$, one lane narrowed) & LUT & $F_{\max}$ \\
+\midrule
+\texttt{asym\_derived} vs \texttt{uniform10} ($F_{\text{MAIN}}\!=\!16$)
+  & $+4.3\%$ & $-5.5\%$ \\
+\texttt{main9\_asym} vs \texttt{main9\_uniform} ($F_{\text{MAIN}}\!=\!9$)
+  & $+4.3\%$ & $+1.3\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The area penalty is $+4.3\%$ at both widths, identical to one decimal place ---
+a reproducible cost rather than two coincidentally similar numbers. Dynamic
+power is identical across three measured pairs. The $F_{\max}$ effect is
+inconsistent in sign and the $+1.3\%$ is one binary-search step, so no
+frequency claim is made in either direction.
+
+\textbf{Statement:} per-operator asymmetry costs $4.3\%$ area at both
+main-datapath widths, buys no measurable dynamic power, and has no consistent
+frequency effect.
+
+% =====================================================================
+\section{Hardware results}
+
+\subsection{Method}
+
+Artix-7 XC7A35T, out-of-context synthesis. Power from post-route gate-level
+simulation writing SAIF, consumed by \texttt{report\_power}; every run
+Confidence High with 72--75\% of nets matched, and bit-exact against the golden
+model in the same run that produced the activity. $F_{\max}$ by binary search
+on the clock constraint, seven full implementations per build, reported as
+$1000/(\text{tightest period that met timing})$ --- never
+$1000/(\text{period} - \text{slack})$.
+
+\subsection{All seven builds}
+
+\begin{table}[h]\centering\small
+\begin{tabular}{lccrrrr}
+\toprule
+build & $F_{\text{MAIN}}$ & lanes & LUT & $F_{\max}$ (MHz) & dyn (mW) & total (mW)\\
+\midrule
+\texttt{uniform18}      & 16 & 16/16/16 & 6308 & 66.3 & 11 & 80 \\
+\texttt{uniform10}      & 16 & 8/8/8    & 4439 & 67.6 & 10 & 78 \\
+\texttt{asym\_derived}  & 16 & 8/7/8    & 4631 & 63.9 & 11 & 79 \\
+\texttt{main10\_uniform}& 10 & 10/10/10 & 4081 & 79.7 &  7 & 76 \\
+\texttt{main10\_lane8}  & 10 & 8/8/8    & 3665 & 68.9 &  7 & 75 \\
+\textbf{\texttt{main9\_uniform}} & \textbf{9} & \textbf{9/9/9}
+                                          & \textbf{3366} & \textbf{85.4}
+                                          & \textbf{7} & \textbf{76} \\
+\texttt{main9\_asym}    &  9 & 9/8/9    & 3510 & 86.5 &  7 & 76 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Headline}
+
+\texttt{uniform18} $\to$ \texttt{main9\_uniform}: LUT $-46.6\%$, $F_{\max}$
+$+28.8\%$ (bracketed $+27.6\%$ to $+30.4\%$ by the search resolution), dynamic
+power $11 \to 7$\,mW, energy per solve $184 \to 117$\,nJ.
+
+\paragraph{Report absolutes, not the percentage.} Power reports round to
+1\,mW, so 7 and 11 carry $\pm 0.5$\,mW and the honest bound on the reduction is
+29--44\%. Energy per solve is the better figure: dynamic energy per cycle is
+$CV^2$ and therefore frequency-independent, so $-36\%$ holds regardless of the
+operating clock a reader imagines.
+
+\paragraph{Static power dominates.} Device static is 68\,mW of the 76--80\,mW
+total and is identical across builds. Total on-chip power falls only $5.0\%$.
+\textbf{Any power claim must say \emph{dynamic} explicitly or it is wrong by a
+factor of seven.}
+
+\subsection{Throughput}
+
+Cycles $= 26K + 3$ exactly, across all seven builds, four main widths,
+symmetric and asymmetric. Cycles per iteration are invariant to every width
+parameter, so all performance gain comes from $F_{\max}$.
+
+\scoped{Iteration counts are \emph{not} comparable across widths. With
+$\varepsilon = 0$ the early exit fires when the residual quantises to exactly
+zero, which happens sooner at coarser precision --- stagnation, not
+convergence. \texttt{main9} needs 15/19/12 iterations against
+\texttt{uniform18}'s 28/32/22; computing solutions per second from each build's
+own iteration count bakes in a spurious $1.8\times$. Hold iterations fixed.}
+
+\subsection{Two critical-path regimes}
+
+Worst-path endpoints split the builds into two families with no overlap:
+
+\begin{table}[h]\centering\small
+\begin{tabular}{lccc}
+\toprule
+build & worst path endpoint & levels & $F_{\max}$ \\
+\midrule
+\texttt{uniform18}, \texttt{uniform10}, & \multirow{2}{*}{prox lane
+  \texttt{z\_out\_reg}} & \multirow{2}{*}{21--24} & \multirow{2}{*}{63.9--68.9}\\
+\texttt{asym\_derived}, \texttt{main10\_lane8} & & & \\
+\midrule
+\texttt{main10\_uniform}, \texttt{main9\_uniform}, & \multirow{2}{*}{
+  \texttt{converged\_reg}} & \multirow{2}{*}{16--17} &
+  \multirow{2}{*}{79.7--86.5}\\
+\texttt{main9\_asym} & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+$F_{\max} = 1/\max(\text{prox path}, \text{convergence-test path})$. Narrowing
+a lane below $F_{\text{MAIN}}$ inserts a narrowing cast into the prox path;
+when that lifts it above the convergence-test path the build drops into the
+slow regime. \texttt{main10\_lane8} and \texttt{main10\_uniform} isolate this to
+one variable: same $F_{\text{MAIN}}$, same main datapath, different lane width,
+different binding path, 11\,MHz apart.
+
+\textbf{Design rule:} narrowing the main datapath raises $F_{\max}$ only while
+the convergence-test path binds. Once a lane cast pushes the prox path above
+it, further narrowing buys area and nothing else.
+
+Within-family spread is $\approx 8\%$ and is implementation variance. The
+family names the primal or dual residual interchangeably across builds; both
+feed \texttt{converged\_reg} through the same comparison logic, so this is the
+\emph{convergence-test} path and must not be described as a specific residual.
+
+% =====================================================================
+\section{Measurement discipline}
+
+Three claims were withdrawn when vectorless estimates were replaced by
+measurement, and they are recorded because the near-miss is instructive.
+
+\begin{enumerate}
+\item Vectorless power was $\approx 10\times$ too high (112 vs 11\,mW;
+      78 vs 7\,mW). The ratio survived roughly intact by luck.
+\item \refuted{``Asymmetric pruning cuts dynamic power 18.8\%''} --- measured,
+      both configurations give 11\,mW. The difference was an artefact of the
+      estimator.
+\item $F_{\max}$ of 71.1\,MHz was $1000/(20\,\text{ns} - \text{slack})$ at a
+      deliberately loose constraint. Swept properly it is 85.4\,MHz.
+\end{enumerate}
+
+\textbf{The near-miss.} Comparing a vectorless \texttt{uniform18} (112\,mW)
+against a measured \texttt{main9} (7\,mW) would have produced a fabricated
+$94\%$ power reduction. It was caught only because an object-count guard in the
+SAIF flow printed zero. Every number in Section~6 is measured, and the closest
+competing work estimates its power with a spreadsheet tool.
+
+% =====================================================================
+\section{Hypotheses tested and refuted}
+
+Recorded because each would have read plausibly in a submission draft.
+
+\subsection{Composition (Theorem 5 as originally planned)}
+\refuted{2.509 bits mean error against a 0.5-bit criterion.} The original
+theory placed contraction at the operator. The falsifier showed it is not
+there; contraction lives at the loop. The resolvent saturates at 3.18 with
+$g = 0.667$ against divergence to 47{,}669 at $g = 1$. This negative result
+produced the loop-gain reframing and was predicted in advance as the claim most
+likely to fail.
+
+\subsection{Active-set churn}
+The L1/Box coefficient sign difference invited a mechanism: L1's degenerate set
+churns (entries crossing the soft threshold) while Box's freezes (entries
+pinned to a clip bound). Churn was measured directly as the fraction of
+coordinates changing degenerate-set membership per iteration.
+
+\refuted{Two of three predictions fail.} L1 churn averages 0.0011; Box averages
+0.0028 --- Box churns \emph{more}, and both are $\approx 0.1\%$, i.e.\ both
+essentially frozen. Churn also fits worse than $d$ (LOO 0.781 against 0.340 for
+L1). No mechanism is available and none is claimed.
+
+\subsection{$F_{\text{MAIN}}$ dominance}
+An earlier claim that narrowing the main datapath dominates lane width on all
+three axes was carried by a confound: \texttt{uniform10} and
+\texttt{main10\_uniform} differ in both parameters. The control build
+\texttt{main10\_lane8} was added and \refuted{the frequency half fails} ---
+holding lanes at 8, narrowing $F_{\text{MAIN}}$ from 16 to 10 buys $+1.9\%$
+$F_{\max}$, while \emph{widening} lanes to match $F_{\text{MAIN}}$ buys
+$+15.7\%$. On area both axes are real and lanes are better per bit
+($-5.1\%$/bit against $-2.9\%$/bit). The correct account is the two-regime
+mechanism of Section~6.5.
+
+% =====================================================================
+\section{Scope limits}
+
+\subsection{The model predicts ensemble means, not instances}
+
+\texttt{model/adversarial.py} attacks the fitted loop-gain model using Kinsman
+and Nicolici's own construction --- right-hand sides aligned across the
+eigenvectors of the system matrix --- plus a greedy search maximising model
+error. Errors are reported signed, because the sign is the whole story:
+positive means the model \emph{under}-predicts error, so wordlengths chosen
+from it would be too few.
+
+\begin{table}[h]\centering
+\begin{tabular}{lcc}
+\toprule
+operator & worst under-prediction, random rhs & adversarial \\
+\midrule
+L1  & $+7.58$ bits & $+11.43$ bits \\
+Box & $+2.16$ bits & $+3.43$ bits \\
+L2  & $+0.60$ bits & $+2.25$ bits \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\scoped{Random instances already break the 0.5-bit criterion. The cause is not
+an exotic corner: \texttt{loop\_gain.py} fits 20-trial \emph{ensemble averages}
+at each conditioning point, so the reported figures (0.834 / 0.399 / 0.031
+bits) are ensemble-level quantities. A per-instance refit gives 0.979 / 0.611 /
+0.339 bits before any attack.}
+
+\textbf{Consequence.} The loop-gain relation is a design-space exploration tool
+predicting mean loop gain for an ensemble at fixed conditioning. It is
+\emph{not} a per-instance safety guarantee. Every bit figure must be labelled
+``ensemble mean over $N$ trials at fixed conditioning''.
+
+\textbf{What this does not invalidate.} The Q2.9 design point was chosen with
+model guidance and then verified bit-exact against the golden model on routed
+silicon. The model proposes; measurement disposes. That division of labour is
+the methodology and should be stated, not hidden.
+
+\textbf{Why not a bound instead.} Converting Theorem~\ref{thm:t1} into a
+guaranteed bound requires the Lyapunov or interval machinery that Jerez et al.\
+and Kinsman and Nicolici already possess. Their bounds are conservative by
+construction --- hundreds of bits for conjugate gradient, reducing to roughly
+single-to-double precision only after heavy input-space restriction --- which
+is the deficiency a predictive model exists to address. Competing there means
+losing on their ground with their tools. \todo{Quote a per-instance margin for
+wordlength selection, or state that per-instance safety requires the prior
+art's bounds.}
+
+\subsection{Other limits}
+\begin{itemize}
+\item Absolute LUT counts depend on the timing constraint --- \texttt{uniform18}
+      is 4673 at 20\,ns and 6308 at 15.079\,ns. The ratio survives ($-44.9\%$
+      against $-46.6\%$) but tables at different constraints must never be mixed.
+\item Power reports round to 1\,mW; this is the binding constraint on every
+      power claim, including the apparent saturation at $F_{\text{MAIN}} = 10$.
+\item $N = 8$, one problem family, one device. No claim is made about scaling.
+\item The 0.5-bit criterion is looser than Li et al.'s $<\!1$\,dB
+      ($\approx 0.17$ bits). \todo{Justify the criterion rather than asserting it.}
+\end{itemize}
+
+% =====================================================================
+\section{Reproducibility}
+
+No number in this report exists without a script that produces it.
+
+\begin{center}\small
+\begin{tabular}{ll}
+\toprule
+artefact & produced by \\
+\midrule
+Theorem 1 validation      & \texttt{model/error\_decomp.py} \\
+Loop-gain fit             & \texttt{model/loop\_gain.py}, \texttt{loop\_gain\_l1.py} \\
+Churn refutation          & \texttt{model/box\_form.py} \\
+Composition refutation    & \texttt{model/generalize.py} \\
+Adversarial scope test    & \texttt{model/adversarial.py} \\
+Golden vectors            & \texttt{model/gen\_vectors\_cfg.py} \\
+Builds                    & \texttt{syn/run\_ooc.tcl} \\
+SAIF power                & \texttt{syn/saif\_power.bat}, \texttt{saif\_log.tcl} \\
+$F_{\max}$ sweep          & \texttt{syn/fmax\_sweep.tcl} \\
+Critical-path location    & \texttt{syn/critpath.tcl} \\
+Literature pass           & \texttt{tools/lit\_sweep.py} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% =====================================================================
+\section{Outstanding}
+
+\begin{itemize}
+\item Board bring-up and measured wall power (Section~11 of the plan).
+\item Relabel all loop-gain figures as ensemble means.
+\item Justify the 0.5-bit criterion.
+\item Answer the per-instance margin question.
+\end{itemize}
+
+\end{document}

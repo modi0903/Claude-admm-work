@@ -94,6 +94,14 @@ proc build {tag asym dsp n {fl1 -1} {fbox -1} {fl2 -1} {fmain 16}} {
 # F_M. Narrow lanes buy no accuracy and (per the previous sweep) cost LUTs, so
 # the design point is FULLY UNIFORM at the derived width.
 #
+# main10_lane8 (added 2026-09-04) is the single-variable control for the
+# F_MAIN-dominance result. uniform10 (F_MAIN=16, lanes 8) and main10_uniform
+# (F_MAIN=10, lanes 10) differ in BOTH parameters, so neither comparison is
+# clean. main10_lane8 (F_MAIN=10, lanes 8) sits between them and gives two
+# one-variable comparisons:
+#   vs uniform10      -> lanes fixed at 8, F_MAIN 16 vs 10  : isolates F_MAIN
+#   vs main10_uniform -> F_MAIN fixed at 10, lanes 8 vs 10  : isolates lanes
+#
 #            tag          ASYM DSP  F_L1 F_BOX F_L2  F_MAIN
 foreach {tag asym dsp fl1 fbox fl2 fm} {
     uniform18             0   0    16   16    16     16
@@ -102,6 +110,7 @@ foreach {tag asym dsp fl1 fbox fl2 fm} {
     main10_uniform        0   0    10   10    10     10
     main9_uniform         0   0     9    9     9      9
     main9_asym            1   0     9    8     9      9
+    main10_lane8          0   0     8    8     8     10
 } {
     puts "
 =========== $tag  (lanes $fl1/$fbox/$fl2, F_MAIN=$fm) ==========="

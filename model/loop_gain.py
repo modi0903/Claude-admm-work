@@ -64,7 +64,7 @@ print(f"{'cond':>6s} {'op':4s} {'G_meas':>12s} {'||M||2':>8s} "
       f"{'rho(I-rM)':>10s} {'resolv':>10s} {'d':>7s}")
 for c in CONDS:
     for mode, nm in ((0, "L1"), (1, "Box"), (2, "L2")):
-        mses, As, nms, sps, res = [], [], [], [], []
+        mses, As, nms, sps, res, ds = [], [], [], [], [], []
         for t in range(TRIALS):
             M, q, a = system_cond(c, 7000 + t)
             kap, hi, gam = (snap_lat(KAPPA*a, F), snap_lat(BOXHI*a, F), snap_lat(GAMMA, F))
@@ -77,10 +77,11 @@ for c in CONDS:
             nms.append(np.linalg.norm(M, 2))
             sps.append(max(abs(np.linalg.eigvals(np.eye(N) - RHO * M))))
             res.append(resolvent(M, GAMMA if mode == 2 else 1.0))
+            ds.append(d)          # averaged like every other quantity
         G = float(np.mean(mses) / q2_12 / np.mean(As))
         r = dict(cond=c, op=nm, mode=mode, G=G, nm=float(np.mean(nms)),
                  sp=float(np.mean(sps)), res=float(np.mean(res)),
-                 d=float(d), A=float(np.mean(As)))
+                 d=float(np.mean(ds)), A=float(np.mean(As)))
         rows.append(r)
         print(f"{c:6.0f} {nm:4s} {G:12.1f} {r['nm']:8.4f} {r['sp']:10.4f} "
               f"{r['res']:10.2f} {r['d']:7.4f}")

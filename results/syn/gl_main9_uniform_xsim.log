@@ -1,0 +1,94 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Fri Sep  4 09:06:26 2026
+# Process ID         : 42160
+# Current directory  : C:/College/Senorita/admm_project
+# Command line       : xsim.exe -log results/syn/gl_main9_uniform/xsim.log -mode tcl -source {xsim.dir/gl_main9_uniform/xsim_script.tcl}
+# Log file           : C:/College/Senorita/admm_project/results/syn/gl_main9_uniform/xsim.log
+# Journal file       : C:/College/Senorita/admm_project\xsim.jou
+# Running On         : LAPTOP-4H08TOOS
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : Intel(R) Core(TM) Ultra 7 155H
+# CPU Frequency      : 2995 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 22
+# Host memory        : 33752 MB
+# Swap memory        : 3758 MB
+# Total Virtual      : 37511 MB
+# Available Virtual  : 7142 MB
+#-----------------------------------------------------------
+source xsim.dir/gl_main9_uniform/xsim_script.tcl
+# xsim {gl_main9_uniform} -autoloadwcfg -tclbatch {syn/saif_log.tcl}
+Time resolution is 1 ps
+source syn/saif_log.tcl
+## set saif [file normalize $::env(SAIF_OUT)]
+## run 200 ns
+## puts "SAIF: ---- scopes visible from root ----"
+SAIF: ---- scopes visible from root ----
+## catch {report_scopes /} rs
+      Verilog Instance: {/tb_admm_top_gl}
+
+## puts $rs
+
+## puts "SAIF: ------------------------------------"
+SAIF: ------------------------------------
+## set objs {}
+## set chosen ""
+## foreach c [list /tb_admm_top_gl/dut tb_admm_top_gl/dut dut] {
+##     if {[catch {current_scope $c} err]} {
+##         puts "SAIF: current_scope '$c' failed: $err"
+##         continue
+##     }
+##     set here ""
+##     catch {set here [current_scope]}
+##     puts "SAIF: entered scope '$c' (reports as '$here')"
+##     if {[catch {set try [get_objects -r *]} err2]} {
+##         puts "SAIF: get_objects in '$c' failed: $err2"
+##         continue
+##     }
+##     puts "SAIF: '$c' -> [llength $try] objects"
+##     if {[llength $try] > 0} {
+##         set objs $try
+##         set chosen $c
+##         break
+##     }
+## }
+SAIF: entered scope '/tb_admm_top_gl/dut' (reports as '/tb_admm_top_gl/dut')
+SAIF: '/tb_admm_top_gl/dut' -> 6238 objects
+## if {[llength $objs] == 0} {
+##     puts ""
+##     puts "SAIF NOT USABLE: no objects found in any DUT scope."
+##     puts "---- hierarchy dump, send this to Claude ----"
+##     catch {current_scope /}
+##     catch {report_scopes} r1 ; puts $r1
+##     catch {report_objects}  r2 ; puts $r2
+##     puts "---- end dump ----"
+##     quit
+## }
+## puts "SAIF: logging [llength $objs] objects from scope '$chosen'"
+SAIF: logging 6238 objects from scope '/tb_admm_top_gl/dut'
+## open_saif $saif
+## log_saif $objs
+## run all
+GATE-LEVEL  N=8  F_MAIN=9  W=11  ASYMMETRIC=0
+  l1_unif : iters=15  cycles=393    OK
+  box_unif : iters=19  cycles=497    OK
+  l2_unif : iters=12  cycles=315    OK
+
+THROUGHPUT: 1205 cycles over 3 solves, 46 iterations total
+THROUGHPUT: 26 cycles/iteration (averaged over actual iters)
+  cycles/solve is DATA-DEPENDENT (early exit fires) -- quote
+  the per-case cycles above, or cycles = c/iter * K + overhead.
+  -> solutions/s = Fmax / (cycles/solve); use the Fmax the
+     sweep actually closed at, not the 50 MHz sim clock.
+PASS: all lanes bit-exact vs golden model
+$finish called at time : 24380 ns : File "C:/College/Senorita/admm_project/tb/tb_admm_top_gl.v" Line 161
+## close_saif
+## puts "SAIF written to $saif"
+SAIF written to C:/College/Senorita/admm_project/results/syn/main9_uniform.saif
+## quit
+INFO: [Common 17-206] Exiting xsim at Fri Sep  4 09:06:31 2026...

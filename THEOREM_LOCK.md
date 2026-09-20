@@ -118,17 +118,56 @@ p<0.05 but several forms were tried first, so present the exponent as fitted.
 
 ## TIER 3 — DEMOTED TO DISCUSSION
 
-### T2. Ordering as a function of problem statistics — DEMOTED
-Claims no fixed ordering holds across (κ, γ, box width, conditioning).
-**Measurement contradicts it:** W*_L1 ≥ W*_L2 > W*_Box at EVERY threshold
-tested (STATUS §F*), a fixed ordering. Its falsifier — trace the predicted
-crossover through `sweep_ordering.py` with d_Box and d_L1 as outputs — was
-never run.
+### T2. Ordering — RESTATED after its falsifier (2026-09-20)
 
-Either the sweep is too narrow to reach the crossover, or the theorem is
-wrong. Both are possible; neither is established. **It cannot be claimed.**
-Report the measured ordering as an observation and state that the conditions
-under which it inverts are open.
+**Correction.** The earlier demotion said measurement showed a fixed ordering.
+That was read from a single-point table. `results/ordering_sweep.json` already
+showed crossovers across conditioning, and `model/t2_crossover.py` (continuous
+W*, 14 sweep points, 30 trials each, zero saturation) confirms them: Box - L2
+goes from -0.33 bits at cond=2 to +2.33 at cond=1000, crossing between cond 10
+and 20. **T2's headline -- no fixed ordering -- HOLDS.**
+
+**T2's stated mechanism FAILS.** Operator coefficient alone,
+dW = 0.5*log2(A_a/A_b):
+
+| pair | mean abs error | sign right |
+|---|---|---|
+| L1 - Box | 0.355 bits | 12/12 |
+| Box - L2 | 1.214 bits | **2/8** |
+| L1 - L2 | 1.514 bits | **0/14** |
+
+**Restated mechanism, zero fitted parameters.** Multiply by the loop resolvent
+R = ||(I-T)^-1||, computed from M with prox gain gamma for L2 and 1 for L1/Box:
+dW = 0.5*log2(A_a*R_a / (A_b*R_b)).
+
+| pair | mean abs error | sign right |
+|---|---|---|
+| L1 - Box | 0.355 bits | 12/12 |
+| Box - L2 | **0.288 bits** | **8/8** |
+| L1 - L2 | 0.621 bits | 12/14 |
+
+Box-L2 crossover predicted near cond=20; measured between 10 and 20. L2's
+contraction pins its resolvent (2.1 -> 3.2 over three decades of conditioning)
+while L1/Box resolvents grow 2.7 -> 200, so the contractive lane gets
+relatively cheaper as the problem hardens.
+
+**CLAIM:** lane-width ordering = operator coefficient x loop resolvent,
+predicted with no fitted parameters. The operator coefficient alone does not
+determine it -- the paper's operator/loop split, shown on ordering as well as
+error magnitude.
+
+**Caveats that must be stated.**
+- L1-L2 is 0.621 bits, outside 0.5, and misses the two smallest gaps
+  (cond 2, 3) in sign.
+- L1-Box is under-predicted by ~0.4-0.6 bits and the predictor is flat in
+  kappa while the measurement is not (d_L1 ~ 0 across that sweep). Corollary
+  1a's kappa-quantisation term, omitted from A_op, is the likely cause.
+  UNTESTED.
+- The loop_gain.py FITTED exponents (1.06 / 0.51 / 0.96) make Box-L2 WORSE
+  (1.051 bits, sign 4/8). The fitted Box exponent does not transfer to this
+  problem generator; the zero-parameter resolvent does. Consistent with the
+  ensemble-only scope limit on the fitted loop-gain model.
+- W* here is LANE precision with F_MAIN fixed at 16, not main-datapath width.
 
 ### T5. Composition — DEMOTED (this was predicted)
 Sprint 1 falsifier: 2.509 bits mean error against a 0.5-bit criterion, worse

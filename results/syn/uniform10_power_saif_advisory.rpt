@@ -1,0 +1,243 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version     : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date             : Fri Sep  4 21:50:04 2026
+| Host             : LAPTOP-4H08TOOS running 64-bit major release  (build 9200)
+| Command          : report_power -advisory -file C:/College/Senorita/admm_project/results/syn/uniform10_power_saif_advisory.rpt
+| Design           : admm_top
+| Device           : xc7a35tcpg236-1
+| Design State     : routed
+| Grade            : commercial
+| Process          : typical
+| Characterization : Production
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Power Report
+
+Table of Contents
+-----------------
+1. Summary
+1.1 On-Chip Components
+1.2 Power Supply Summary
+1.3 Confidence Level
+2. Settings
+2.1 Environment
+2.2 Clock Constraints
+3. Detailed Reports
+3.1 By Hierarchy
+4. Advisory
+
+1. Summary
+----------
+
++--------------------------+-------------------------------------------------------------+
+| Total On-Chip Power (W)  | 0.078                                                       |
+| Design Power Budget (W)  | Unspecified*                                                |
+| Power Budget Margin (W)  | NA                                                          |
+| Dynamic (W)              | 0.010                                                       |
+| Device Static (W)        | 0.068                                                       |
+| Effective TJA (C/W)      | 5.0                                                         |
+| Max Ambient (C)          | 84.6                                                        |
+| Junction Temperature (C) | 25.4                                                        |
+| Confidence Level         | High                                                        |
+| Setting File             | ---                                                         |
+| Simulation Activity File | C:/College/Senorita/admm_project/results/syn/uniform10.saif |
+| Design Nets Matched      | 75%   (9507/12728)                                          |
++--------------------------+-------------------------------------------------------------+
+* Specify Design Power Budget using, set_operating_conditions -design_power_budget <value in Watts>
+
+
+1.1 On-Chip Components
+----------------------
+
++----------------+-----------+----------+-----------+-----------------+
+| On-Chip        | Power (W) | Used     | Available | Utilization (%) |
++----------------+-----------+----------+-----------+-----------------+
+| Clocks         |     0.005 |        3 |       --- |             --- |
+| Slice Logic    |    <0.001 |     7565 |       --- |             --- |
+|   LUT as Logic |    <0.001 |     3259 |     20800 |           15.67 |
+|   CARRY4       |    <0.001 |      769 |      8150 |            9.44 |
+|   Register     |    <0.001 |     1975 |     41600 |            4.75 |
+|   F7/F8 Muxes  |    <0.001 |       26 |     32600 |            0.08 |
+|   Others       |     0.000 |      356 |       --- |             --- |
+| Signals        |     0.001 |     8190 |       --- |             --- |
+| DSPs           |     0.002 |       64 |        90 |           71.11 |
+| Static Power   |     0.068 |          |           |                 |
+| Total          |     0.078 |          |           |                 |
++----------------+-----------+----------+-----------+-----------------+
+
+
+1.2 Power Supply Summary
+------------------------
+
++-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+| Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
++-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+| Vccint    |       1.000 |     0.019 |       0.010 |      0.010 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vccbram   |       1.000 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
+| Vccadc    |       1.800 |     0.020 |       0.000 |      0.020 |       NA    | Unspecified | NA         |
++-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
+
+
+1.3 Confidence Level
+--------------------
+
++-----------------------------+------------+------------------------------------------------+--------+
+| User Input Data             | Confidence | Details                                        | Action |
++-----------------------------+------------+------------------------------------------------+--------+
+| Design implementation state | High       | Design is routed                               |        |
+| Clock nodes activity        | High       | User specified more than 95% of clocks         |        |
+| I/O nodes activity          | High       | User specified more than 95% of inputs         |        |
+| Internal nodes activity     | High       | User specified more than 25% of internal nodes |        |
+| Device models               | High       | Device models are Production                   |        |
+|                             |            |                                                |        |
+| Overall confidence level    | High       |                                                |        |
++-----------------------------+------------+------------------------------------------------+--------+
+
+
+2. Settings
+-----------
+
+2.1 Environment
+---------------
+
++-----------------------+--------------------------+
+| Ambient Temp (C)      | 25.0                     |
+| ThetaJA (C/W)         | 5.0                      |
+| Airflow (LFM)         | 250                      |
+| Heat Sink             | medium (Medium Profile)  |
+| ThetaSA (C/W)         | 4.6                      |
+| Board Selection       | medium (10"x10")         |
+| # of Board Layers     | 12to15 (12 to 15 Layers) |
+| Board Temperature (C) | 25.0                     |
++-----------------------+--------------------------+
+
+
+2.2 Clock Constraints
+---------------------
+
++-------+--------+-----------------+
+| Clock | Domain | Constraint (ns) |
++-------+--------+-----------------+
+| clk   | clk    |            20.0 |
++-------+--------+-----------------+
+
+
+3. Detailed Reports
+-------------------
+
+3.1 By Hierarchy
+----------------
+
++-----------+-----------+
+| Name      | Power (W) |
++-----------+-----------+
+| admm_top  |     0.010 |
+|   u_array |     0.006 |
++-----------+-----------+
+
+
+4. Advisory
+-----------
+
++------------------+--------+--------+-------------+-------------+--------------------+-----------------+------------------------------------+
+| Confidence Level | Status | Fanout | Signal Type | Polarity    | Static Probability | Toggle Rate (%) | Net                                |
++------------------+--------+--------+-------------+-------------+--------------------+-----------------+------------------------------------+
+| Medium           |        |    240 |             | Active High |               0.04 |             7.6 | r_abs_reg[0]                       |
+| Medium           |        |    224 |             | Active High |               0.04 |             7.6 | z_reg[143]_i_1_n_0                 |
+| Medium           |        |    144 |             | Active High |               0.04 |             7.6 | w_reg[0]                           |
+| Medium           |        |    144 |             | Active High |               0.04 |             7.6 | x_reg[0]                           |
+| Medium           |        |     96 |             | Active High |               0.04 |             7.6 | v_reg[0]                           |
+| Medium           |        |     80 |             | Active High |               0.08 |             7.6 | prox_en_reg_n_0                    |
+| Medium           |        |     16 |             | Active High |               0.68 |            16.2 | flush_cnt[15]_i_1_n_0              |
+| Medium           |        |     11 |             | Active High |               0.28 |            40.5 | FSM_onehot_state[10]_i_1_n_0       |
+| Medium           |        |      8 |             | Active High |               0.04 |             7.6 | iter_count[7]_i_1_n_0              |
+| High             |        |    887 | Set/Reset   | Active High |               0.00 |             0.0 | done_i_1_n_0                       |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[0].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[1].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[2].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[3].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[4].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[5].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[6].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[0].COL[7].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[0].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[1].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[2].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[3].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[4].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[5].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[6].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[1].COL[7].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[0].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[1].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[2].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[3].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[4].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[5].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[6].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[2].COL[7].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[0].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[1].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[2].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[3].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[4].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[5].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[6].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[3].COL[7].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[0].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[1].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[2].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[3].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[4].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[5].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[6].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[4].COL[7].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[0].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[1].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[2].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[3].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[4].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[5].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[6].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[5].COL[7].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[0].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[1].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[2].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[3].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[4].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[5].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[6].u_pe/RSTA    |
+| High             |        |     20 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[6].COL[7].u_pe/RSTA    |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[0].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[1].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[2].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[3].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[4].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[5].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[6].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |     10 | Reset       | Active High |               0.00 |             0.0 | G_PROX[7].u_prox/z_out[17]_i_1_n_0 |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[0].u_pe/RSTA    |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[1].u_pe/RSTA    |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[2].u_pe/RSTA    |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[3].u_pe/RSTA    |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[4].u_pe/RSTA    |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[5].u_pe/RSTA    |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[6].u_pe/RSTA    |
+| High             |        |      2 | Reset       | Active High |               0.00 |             0.0 | u_array/ROW[7].COL[7].u_pe/RSTA    |
++------------------+--------+--------+-------------+-------------+--------------------+-----------------+------------------------------------+
+* High:  No action required.  Calculated activity values are consistent with signal type and polarity.
+** Medium:  Switching activity should be reviewed and corrected if necessary.  Calculated activity values may be inconsistent with signal type and polarity which can result in inaccurate power analysis.
+*** Low: Switching activity must be reviewed and corrected to prevent incorrect power analysis. Calculated activity values are inappropriate for the signal type and polarity.
+
+

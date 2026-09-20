@@ -1,0 +1,79 @@
+
+=== OPENALEX FORWARD CITATIONS of W2109573698 (>= 2005) ===
+year	venue	title	doi
+2006	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	Accuracy-Guaranteed Bit-Width Optimization	https://doi.org/10.1109/tcad.2006.873887
+2017		Efficient floating point precision tuning for approximate computing	https://doi.org/10.1109/aspdac.2017.7858297
+2007	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	Improved Interval-Based Characterization of Fixed-Point LTI Systems With Feedback Loops	https://doi.org/10.1109/tcad.2007.896306
+2010	EURASIP Journal on Advances in Signal Processing	SQNR Estimation of Fixed-Point DSP Algorithms	https://doi.org/10.1155/2010/171027
+2012	IEEE Transactions on Circuits and Systems I Regular Papers	Analytical Approach for Numerical Accuracy Estimation of Fixed-Point Systems Based on Smooth Operations	https://doi.org/10.1109/tcsi.2012.2188938
+2012	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	Analytical Optimization of Bit-Widths in Fixed-Point LTI Systems	https://doi.org/10.1109/tcad.2011.2170988
+2017	Sensors	A Spaceborne Synthetic Aperture Radar Partial Fixed-Point Imaging System Using a Field- Programmable Gate Array−Application-Specific Integrated Circuit Hybrid Heterogeneous Parallel Acceleration Technique	https://doi.org/10.3390/s17071493
+2013		Fine grain word length optimization for dynamic precision scaling in DSP systems	https://doi.org/10.1109/vlsi-soc.2013.6673287
+2008	IEEE Transactions on Computers	Efficient Approximate Wordlength Optimization	https://doi.org/10.1109/tc.2008.87
+2016	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	Enabling High-Level Synthesis Resource Sharing Design Space Exploration in FPGAs Through Automatic Internal Bitwidth Adjustments	https://doi.org/10.1109/tcad.2016.2550501
+2006	ACM Transactions on Design Automation of Electronic Systems	Word-length optimization for differentiable nonlinear systems	https://doi.org/10.1145/1124713.1124716
+2006	EURASIP Journal on Advances in Signal Processing	Optimum Wordlength Search Using Sensitivity Information	https://doi.org/10.1155/asp/2006/92849
+2007	EURASIP Journal on Advances in Signal Processing	Design and Implementation of Numerical Linear Algebra Algorithms on Fixed Point DSPs	https://doi.org/10.1155/2007/87046
+2007	IEEE Transactions on Circuits and Systems I Fundamental Theory and Applications	Design and Complexity Optimization of a New Digital IF for Software Radio Receivers With Prescribed Output Accuracy	https://doi.org/10.1109/tcsi.2006.886003
+2006	IEEE Transactions on Circuits and Systems II Analog and Digital Signal Processing	Optimal combined word-length allocation and architectural synthesis of digital signal processing circuits	https://doi.org/10.1109/tcsii.2005.862175
+2013	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	On the Fixed-Point Accuracy Analysis and Optimization of Polynomial Specifications	https://doi.org/10.1109/tcad.2013.2238290
+2011	Asia and South Pacific Design Automation Conference	An efficient hybrid engine to perform range analysis and allocate integer bit-widths for arithmetic circuits	https://doi.org/10.5555/1950815.1950910
+2011		An efficient hybrid engine to perform range analysis and allocate integer bit-widths for arithmetic circuits	https://doi.org/10.1109/aspdac.2011.5722233
+2012	Journal of Electrical and Computer Engineering	High‐Level Synthesis under Fixed‐Point Accuracy Constraint	https://doi.org/10.1155/2012/906350
+2011	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	Automated Range and Precision Bit-Width Allocation for Iterative Computations	https://doi.org/10.1109/tcad.2011.2152840
+2010		Automated Precision Analysis: A Polynomial Algebraic Approach	https://doi.org/10.1109/fccm.2010.32
+2011	International Journal of Reconfigurable Computing	A Dynamic Dual Fixed-Point Arithmetic Architecture for FPGAs	https://doi.org/10.1155/2011/518602
+2006		Automatic Floating-Point to Fixed-Point Transformations	https://doi.org/10.1109/acssc.2006.356588
+2014	IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems	A Formal Method for Optimal High-Level Casting of Heterogeneous Fixed-Point Adders and Subtractors	https://doi.org/10.1109/tcad.2014.2365094
+2015	IFIP advances in information and communication technology	Fine Grain Precision Scaling for Datapath Approximations in Digital Signal Processing Systems	https://doi.org/10.1007/978-3-319-23799-2_6
+2015		Finite word length optimization for spaceborne SAR imaging systems	https://doi.org/10.1109/radar.2015.7131114
+2012	HAL (Le Centre pour la Communication Scientifique Directe)	Many-core parallelization of fixed-point optimization of VLSI circuits through GPU devices	None
+2010		Fast fixed-point optimization of DSP algorithms	https://doi.org/10.1109/vlsisoc.2010.5642659
+2010		Challenges in verifying and optimizing fixed-point arithmetic-intensive designs	https://doi.org/10.1109/aqtr.2010.5520840
+2012	IEEE Transactions on Circuits & Systems II Express Briefs	A Discrete Model for Correlation Between Quantization Noises	https://doi.org/10.1109/tcsii.2012.2222838
+2016	INTERNATIONAL JOURNAL OF EMERGING TRENDS IN SCIENCE AND TECHNOLOGY	A Review Paper on Arithmetic and Logical Unit for Graphics Processor	https://doi.org/10.18535/ijetst/v3i02.08
+2017		Algorithms and Arithmetic: Choose Wisely	https://doi.org/10.1109/arith.2017.17
+2011	ISRN Signal Processing	An Automated Fixed-Point Optimization Tool in MATLAB XSG/SynDSP Environment	https://doi.org/10.5402/2011/414293
+2017	ACM Transactions on Design Automation of Electronic Systems	Training Fixed-Point Classifiers for On-Chip Low-Power Implementation	https://doi.org/10.1145/3057275
+2017	Chaos Solitons & Fractals	Stochastic degradation of the fixed-point version of 2 D -chaotic maps	https://doi.org/10.1016/j.chaos.2017.09.007
+2018		A SoPC based Fixed Point System for Spaceborne SAR Real-Time Imaging Processing	https://doi.org/10.1109/hpec.2018.8547564
+2012		ALU Architecture with Dynamic Precision Support	https://doi.org/10.1109/saahpc.2012.29
+2012	IFIP International Federation for Information Processing/IFIP	Fast Fixed-Point Optimization of DSP Algorithms	https://doi.org/10.1007/978-3-642-28566-0_8
+2021		Leveraging Bayesian Optimization to Speed Up Automatic Precision Tuning	https://doi.org/10.23919/date51398.2021.9474209
+2018		Analysis of Finite Word-Length Effects in Fixed-Point Systems	https://doi.org/10.1007/978-3-319-91734-4_29
+2014	Journal of Circuits Systems and Computers	ICAT: Engine to Perform Range Analysis and Allocate Bit-Widths for Arithmetic Datapaths	https://doi.org/10.1142/s0218126615500206
+2021		FPGA acceleration of bit-true simulations for word-length optimization	https://doi.org/10.1109/arith51176.2021.00033
+2023		Maximizing Computing Accuracy on Resource-Constrained Architectures	https://doi.org/10.23919/date56975.2023.10136991
+2017	Microelectronics Journal	Efficient utilization of imprecise computational blocks for hardware implementation of imprecision tolerant applications	https://doi.org/10.1016/j.mejo.2017.01.002
+2016	IEEE Transactions on Circuits & Systems II Express Briefs	Quantization Noise Power Estimation for Floating-Point DSP Circuits	https://doi.org/10.1109/tcsii.2016.2530802
+2009	Control Engineering Practice	Fixed-point DSP implementation of nonlinear H∞ controller for large gap electromagnetic suspension system	https://doi.org/10.1016/j.conengprac.2009.04.014
+2011		An efficient algorithm of performing range analysis for fixed-point arithmetic circuits based on SAT checking	https://doi.org/10.1109/iscas.2011.5937918
+2020		Towards Generic and Scalable Word-Length Optimization	https://doi.org/10.23919/date48585.2020.9116564
+2022		Wordlength Optimization of Fixed-Point Algorithms	https://doi.org/10.1007/978-3-030-94705-7_9
+2008		Optimizing imprecise fixed-point arithmetic circuits specified by Taylor Series through arithmetic transform	https://doi.org/10.1145/1391469.1391574
+2008	IFAC Proceedings Volumes	Fixed-Point DSP Implementation of Nonlinear H∞ Controller for Large Gap Electromagnetic Suspension System	https://doi.org/10.3182/20080706-5-kr-1001.02411
+2008		Word length selection method based on mixed simulation for digital PID controllers implemented in FPGA	https://doi.org/10.1109/isie.2008.4677004
+2009		Genetic Algorithm-Aided Fixed-Point Design Of E-Utra Prach Detector On Multi-Core Dsp	https://doi.org/10.5281/zenodo.41297
+2019		Optimal Word-Length Allocation for the Fixed-Point Implementation of Linear Filters and Controllers	https://doi.org/10.1109/arith.2019.00040
+2020		Round-off noise estimation of fixed-point algorithms using Modified Affine Arithmetic and Legendre Polynomials	https://doi.org/10.1109/dcis51330.2020.9268668
+2013	Journal of Circuits Systems and Computers	DESIGNING OPTIMIZED IMPRECISE FIXED-POINT ARITHMETIC CIRCUITS SPECIFIED BY POLYNOMIALS WITH VARIOUS CONSTRAINTS	https://doi.org/10.1142/s0218126614500108
+2014		An analytical framework for area and switching power optimization of a fixed-point FFT algorithm	https://doi.org/10.1109/techsym.2014.6808060
+2014		Floating to Fixed-Point Translation with Its Application to Speech-Based Emotion Recognition	https://doi.org/10.1109/eait.2014.57
+2014		Toward scalable source level accuracy analysis for floating-point to fixed-point conversion	https://doi.org/10.1109/iccad.2014.7001432
+2010	European Signal Processing Conference	SQNR estimation of non-linear fixed-point algorithms	None
+2010	Zenodo (CERN European Organization for Nuclear Research)	Precision-Wise Architectural Synthesis Of Dsp Circuits	https://doi.org/10.5281/zenodo.42207
+2017		Dynamic bitwidth assignment for efficient dot products	https://doi.org/10.23919/fpl.2017.8056829
+2007	Conference proceedings	Selection of floating-point or fixed-point For Adaptive Noise Canceller In Somatosensory Evoked Potential Measurement	https://doi.org/10.1109/iembs.2007.4353028
+2008		Combined Word-Length Allocation and High-Level Synthesis of Digital Signal Processing Circuits	https://doi.org/10.20868/upm.thesis.1822
+2013	arXiv (Cornell University)	SWATI: Synthesizing Wordlengths Automatically Using Testing and Induction	https://doi.org/10.48550/arxiv.1302.1920
+2016		Automated wordlength optimization framework for multi-source statistical interval-based analysis of nonlinear systems with control-flow structures	https://doi.org/10.20868/upm.thesis.40614
+2008		Study on Adaptive Noise Canceller Based on Fixed-Point Algorithm for Real-Time Somatosensory Evoked Potential Monitoring	https://doi.org/10.1109/icbbe.2008.884
+2014	Journal of information science and engineering	Probability-Based Static Scaling Optimization for Fixed Wordlength FFT Processors	https://doi.org/10.6688/jise.2014.30.4.4
+2014	International Journal of Embedded and Real-Time Communication Systems	Integration of Optimization Approach Based on Multiple Wordlength Operation Grouping in the AAA Methodology for Real-Time Systems	https://doi.org/10.4018/ijertcs.2014010103
+2012	Journal of Computers	Using Arithmetic Transform to Calculate Ranges of Arithmetic Datapaths	https://doi.org/10.4304/jcp.7.12.2906-2912
+2015	International Journal of Computational Vision and Robotics	Study of finite word-length effect on the performance of watermarking methods	https://doi.org/10.1504/ijcvr.2015.068802
+2015	The Sydney eScholarship Repository (The University of Sydney)	Automated Dynamic Error Analysis Methods for Optimization of Computer Arithmetic Systems	None
+2014	PolyPublie (École Polytechnique de Montréal)	Accuracy-Guaranteed Fixed-Point Optimization in Hardware Synthesis and Processor Customization	None
+2007	International Conference on Circuits	OWL: word-length optimization via extreme value theory and affine arithmetic/interval arithmetic model	None
+2016	INTERNATIONAL JOURNAL OF EMERGING TRENDS IN SCIENCE AND TECHNOLOGY	Energy Aware 32 Bit Arithmetic and Logical Unit for Error Tolerant Applications	https://doi.org/10.18535/ijetst/v3i01.10
+# 75 kept of 145 citing works (dropped: 4 pre-2005, 1 noise, 65 no-keyword)

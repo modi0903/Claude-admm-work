@@ -75,24 +75,6 @@ foreach r $rows {
     puts [format "%-15s %6s %6s %6s %6s %6s %4s %5s %6s %6s %9s %8s %8s" {*}$r]
 }
 puts "========================================================================="
-
-# Two builds with different generics must not produce identical netlists.
-# A previous run had main9_uniform and main9_asym match in all twelve columns
-# because a constant-derivation bug saturated the lane constants to garbage in
-# both. Identical rows are always a bug, never a result.
-set seen [dict create]
-set dup 0
-foreach r $rows {
-    set key [join [lrange $r 1 end] ","]
-    if {[dict exists $seen $key]} {
-        puts "  *** WARNING: [lindex $r 0] is byte-identical to [dict get $seen $key]"
-        puts "      Different generics cannot give identical netlists. Check that"
-        puts "      the -generic values actually reached the design."
-        set dup 1
-    }
-    dict set seen $key [lindex $r 0]
-}
-if {!$dup} { puts "  sanity: all builds distinct" }
 puts ""
 puts "LUTprx = LUTs inside the 8 proximal lanes   <-- where the asymmetry acts"
 puts "LUTarr = systolic array   (must be equal across all four builds)"

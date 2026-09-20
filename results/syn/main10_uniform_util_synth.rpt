@@ -1,0 +1,48 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Fri Sep  4 22:36:25 2026
+| Host         : LAPTOP-4H08TOOS running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file C:/College/Senorita/admm_project/results/syn/main10_uniform_util_synth.rpt
+| Design       : admm_top
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Optimized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++------------------------+------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|        Instance        |         Module         | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++------------------------+------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| admm_top               |                  (top) |       3134 |       3134 |       0 |    0 | 1479 |      0 |      0 |         64 |
+|   (admm_top)           |                  (top) |        256 |        256 |       0 |    0 |  711 |      0 |      0 |          0 |
+|   G_PROX[0].u_prox     | reconfigurable_prox__1 |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[0].u_prox) | reconfigurable_prox__1 |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   G_PROX[1].u_prox     | reconfigurable_prox__2 |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[1].u_prox) | reconfigurable_prox__2 |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   G_PROX[2].u_prox     | reconfigurable_prox__3 |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[2].u_prox) | reconfigurable_prox__3 |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   G_PROX[3].u_prox     | reconfigurable_prox__4 |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[3].u_prox) | reconfigurable_prox__4 |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   G_PROX[4].u_prox     | reconfigurable_prox__5 |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[4].u_prox) | reconfigurable_prox__5 |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   G_PROX[5].u_prox     | reconfigurable_prox__6 |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[5].u_prox) | reconfigurable_prox__6 |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   G_PROX[6].u_prox     | reconfigurable_prox__7 |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[6].u_prox) | reconfigurable_prox__7 |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   G_PROX[7].u_prox     |    reconfigurable_prox |        166 |        166 |       0 |    0 |   12 |      0 |      0 |          0 |
+|     (G_PROX[7].u_prox) |    reconfigurable_prox |        144 |        144 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   u_array              |         systolic_array |        272 |        272 |       0 |    0 |  672 |      0 |      0 |         64 |
+|   u_rmax               |            max_tree__1 |        135 |        135 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   u_smax               |               max_tree |        135 |        135 |       0 |    0 |    0 |      0 |      0 |          0 |
++------------------------+------------------------+------------+------------+---------+------+------+--------+--------+------------+
+
+

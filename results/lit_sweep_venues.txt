@@ -1,0 +1,51 @@
+=== DBLP VENUE SWEEP ===
+venue	year	title	authors	doi
+FCCM	2026	Precision-aware Communication in CGRAs.	Shwet Chitnis, Fergus Xu, Ayush Kulkarni, Jiayi Wang	10.1109/FCCM68464.2026.00057
+FCCM	2026	Chariot: Compiler-Aware Heterogeneous Graph Representation Learning for Automated HLS Optimization.	Yanlong Huang, Jierui Liu, Yuhan She, Rongliang Fu	10.1109/FCCM68464.2026.00052
+FCCM	2026	Sparse Compressed Quantized Dataflow Architecture (QUDA) for Neuromorphic Computing.	Shadi Matinizadeh, Anup Das 0001	10.1109/FCCM68464.2026.00071
+FCCM	2026	Accelerating Topology Optimization on AMD Versal AIE-ML Engines.	Kaustubh Manohar Mhatre, Vedant Tewari, Aditya Ray, Farhan Khan	10.1109/FCCM68464.2026.00047
+FCCM	2026	TransDot: An Area-efficient Reconfigurable Floating-Point Unit for Trans-Precision Dot-Product Accumulation for FPGA AI Engines.	Jiayi Wang, Maohua Nie, Sin-Chen Lin, C.-J. Richard Shi	10.1109/FCCM68464.2026.00034
+FCCM	2025	Performance Modeling and Comparisons of an FPGA-based Direct Simulation Monte Carlo Solver.	Saleen Bhattarai, Edwin G. W. Peters, Sean O&apos;Byrne, David Petty	10.1109/FCCM62733.2025.00073
+FCCM	2025	Accelerating Scientific Model Optimization with a Pipelined FPGA-Based Differential Evolution Engine.	Manuel de Castro, Roberto R. Osorio, Yuri Torres, Diego R. Llanos	10.1109/FCCM62733.2025.00055
+FPL	2025	Multiplexer Optimizations for Virtex FPGAs.	Nicolai Fiege, Martin Hardieck, Peter Zipf	10.1109/FPL68686.2025.00019
+FPL	2025	FINN-GL: Generalized Mixed-Precision Extensions for FPGA-Accelerated LSTMS.	Shashwat Khandelwal, Jakoba Petri-Koenig, Thomas B. Preu er, Michaela Blott	10.1109/FPL68686.2025.00018
+FPL	2025	Aspo: Constraint-Aware Bayesian Optimization for Fpga-Based Soft Processors.	Haoran Wu, Ce Guo 0002, Wayne Luk, Robert Mullins 0001	10.1109/FPL68686.2025.00036
+FPL	2025	DEFA: Design Space Exploration for FPGA Overlay Accelerators Through Frequency Prediction and Bayesian Optimization.	Qilong Zhu, Yunfei Dai, Shiyan Bi, Huizhen Kuang	10.1109/FPL68686.2025.00017
+FPL	2024	Shedding the Bits: Pushing the Boundaries of Quantization with Minifloats on FPGAs.	Shivam Aggarwal, Hans Jakob Damsgaard, Alessandro Pappalardo, Giuseppe Franco	10.1109/FPL64840.2024.00048
+FPL	2024	Revealing Untapped DSP Optimization Potentials for FPGA-Based Systolic Matrix Engines.	Jindong Li 0001, Tenglong Li, Guobin Shen, Dongcheng Zhao	10.1109/FPL64840.2024.00035
+FPL	2024	SA4: A Comprehensive Analysis and Optimization of Systolic Array Architecture for 4-bit Convolutions.	Geng Yang 0001, Jie Lei 0001, Zhenman Fang, Jiaqing Zhang	10.1109/FPL64840.2024.00036
+TRETS	2026	Pipelined FPGA Implementation of a Differential Evolution Engine for Optimization of Scientific Models.	Manuel de Castro, Roberto R. Osorio, Yuri Torres, Diego R. Llanos	10.1145/3804449
+TRETS	2025	CollectiveHLS: A Collaborative Approach to High-Level Synthesis Design Optimization.	Aggelos Ferikoglou, Andreas Kosmas Kakolyris, Dimosthenis Masouros, Dimitrios Soudris	10.1145/3702005
+TRETS	2025	LHAM: Low-Cost and High-Accuracy Approximate Multiplier for FPGA-Based Computing.	Mingyu Shu, Qiang Liu 0011	10.1145/3770757
+FPGA	2026	FlexMSM: A Flexible FPGA-Based Accelerator for Multi-Scalar Multiplication with Reconfigurable Modular Arithmetic and Optimized Pippenger Scheduling.	Cheng Chen 0076, Gangqiang Yang, Hongchao Zhou, Hailiang Xiong	10.1145/3748173.3779559
+FPGA	2026	ViM-Q: Energy Efficient Algorithm-Hardware Co-Design for Dynamically Quantized Vision Mamba Models.	Shengzhe Lyu, Yuhan She, Patrick S. Y. Hung, Ray C. C. Cheung	10.1145/3748173.3779565
+FPGA	2026	Analysis and Optimization of Input-Dependent Stream Processing Pipelines on FPGAs.	Shashank Obla, Bin Li, James C. Hoe	10.1145/3748173.3779555
+FPGA	2026	Striking the Balance: GEMM Performance Optimization Across Generations of Ryzen  AI NPUs.	Endri Taka, Andre Roesti, Joseph Melber, Pranathi Vasireddy	10.1145/3748173.3779551
+FPGA	2026	UDP: A Universal DSP Packing Framework for Low-bitwidth MAC Acceleration on FPGAs.	Jundong Wu, Zhendong Zheng, Lei Gong 0003, Chao Wang 0003	10.1145/3748173.3779194
+FPGA	2026	Hardware Software Optimizations for Fast Model Recovery on Reconfigurable Architectures (FPGAs) for Edge and Physical AI.	Bin Xu, Ayan Banerjee 0001, Sandeep K. S. Gupta	10.1145/3748173.3779554
+FPGA	2025	Two-Phase Transistor Sizing for FPGAs via Bayesian Optimization.	Xianfeng Cao, Huizhen Kuang, Yuanqi Wang, Lingli Wang	10.1145/3706628.3708825
+FPGA	2025	FlightVGM: Efficient Video Generation Model Inference with Online Sparsification and Hybrid Precision on FPGAs.	Jun Liu 0117, Shulin Zeng, Li Ding 0012, Widyadewi Soedarmadji	10.1145/3706628.3708864
+FPGA	2025	SAT-Accel: A Modern SAT Solver on a FPGA.	Michael Lo, Mau-Chung Frank Chang, Jason Cong	10.1145/3706628.3708869
+FPGA	2025	RRNS Arith Lib - An Open-Source Redundant Residue Number System Arithmetic VHDL Library.	Tim Oberschulte, Enno Sievers, Holger Blume	10.1145/3706628.3708847
+FPGA	2025	HEDWIG: Homomorphic Encryption Accelerator Design Using BFV-HPS With HiGh-Speed Fixed-Point Approximation.	Antian Wang, Weihang Tan, Zhenyu Xu 0007, Tao Wei 0001	10.1145/3706628.3708853
+TCAD	2026	Partial Recomputation Fault Detection Architecture for Multiple-Precision Montgomery Modular Multiplication.	Saeed Aghapour, Kasra Ahmadi, Mehran Mozaffari Kermani, Reza Azarderakhsh	10.1109/TCAD.2025.3592590
+TCAD	2026	AnaCraft: Duel-Play Probabilistic-Model-Based Reinforcement Learning for Sample-Efficient PVT-Robust Analog Circuit Sizing Optimization.	Mohsen Ahmadzadeh, Jan Lappas, Norbert Wehn, Georges G. E. Gielen	10.1109/TCAD.2025.3582175
+TCAD	2026	RelOps: Reliability Optimization in Standard Cells Across PVT Variations in FinFET Digital Circuits.	Mohammad Rehan Akhtar, Ritwik Basyas Goswami, Zia Abbas	10.1109/TCAD.2025.3593207
+TCAD	2026	Vendor-Independent Design Space Exploration and Resource Optimization Framework for 3-D Networks-on-Chip Using Hypergraph-Genetic Algorithm Integration.	Ahmed Al-Alousi, Maozhen Li 0001, Hongying Meng	10.1109/TCAD.2025.3616073
+TCAD	2026	Physical-Aware Multicorner Timing Prediction for Pre-Placement Optimization Using BiLSTM and GNN Networks.	Peng Cao 0002, Xu Cheng, Pengcheng Fan, Jiaqi Lyu	10.1109/TCAD.2025.3646591
+TCAD	2026	High-Dimensional Yield Optimization for Analog Circuits via Monte Carlo Tree Search and Self-Regressive Auto-Encoder Promoted Subspace Decomposed Gaussian Process.	Zhaoting Chen, Jianping Guo 0002, Zhaori Bi, Changhao Yan	10.1109/TCAD.2025.3573229
+TCAD	2026	Data Transfer Optimization for Loop Mapping on CGRAs via Polyhedral Transformation.	Zhaorui Chen, Liao Huang, Xiao Xiong, Dajiang Liu	10.1109/TCAD.2025.3630548
+TCAD	2026	CirOPT: Toward Effective Combinational Equivalence Checking via Compiler Optimization.	Shaoke Cui, Chuan Luo 0002, Zhenwei Yang, Jiabao Lin	10.1109/TCAD.2025.3608060
+TCAD	2026	Division-Free Four-Way Toom-Cook Polynomial Multiplication Architecture for Large Integer Arithmetic on FPGAs and ASICs.	Monalisa Das, Babita Jajodia	10.1109/TCAD.2025.3608645
+TCAD	2026	Multiscenario Coupled Model of GaN-on-Si HEMTs Epitaxial Design and Performance Improvement Based on Multiobjective Optimization Method.	Borui Deng, Yulong Fang, He Guan, Ziqiang Zeng	10.1109/TCAD.2025.3624685
+TCAD	2026	CATCH: A Cost Analysis Tool for Co-Optimization of Chiplet-Based Heterogeneous Systems.	Alexander Graening, Jonti Talukdar, Saptadeep Pal, Krishnendu Chakrabarty	10.1109/TCAD.2025.3597570
+TCAD	2026	Configurable Dataflow and Adaptive Mapping Optimization for Hybrid ReRAM and SRAM Compute-in-Memory Accelerator.	Jingyu He, Xiaomeng Wang, Kunming Shao, Kwang-Ting Cheng	10.1109/TCAD.2025.3596765
+TCAD	2026	Optimization Heuristics for Grid-Based Integer Linear Programming Package Substrate Router.	Chen-Yu Hsieh, Yu-En Lin, Yi-Yu Liu	10.1109/TCAD.2025.3578328
+TCAD	2026	When High Reliability Meets Low Cost: Exploring Approximate-TMR via Efficient Multiobjective Optimization Frameworks.	Yueming Hu, Yan Li 0084, Xiaoyang Zeng	10.1109/TCAD.2025.3580656
+TCAD	2026	KD-Finder: A Karatsuba Decomposition Optimization Finder for NTT-Friendly Montgomery Modular Multiplication.	Yicheng Huang, Xueyan Wang, Shicheng Ma, Song Bian 0001	10.1109/TCAD.2025.3634196
+TCAD	2026	Path-Driven Washing and Drying Co-Optimization in Continuous-Flow Lab-on-Chips.	Xing Huang 0001, Jiaxuan Wang, Zhiwen Yu 0001, Bin Guo 0001	10.1109/TCAD.2025.3581133
+# 44 venue hits in 2024-2027
+
+=== OPENALEX FORWARD CITATIONS of W2109573698 (>= 2024) ===
+year	venue	title	doi
+# 0 kept of 145 citing works

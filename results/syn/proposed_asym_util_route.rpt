@@ -1,0 +1,47 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Fri Aug 28 00:34:06 2026
+| Host         : LAPTOP-4H08TOOS running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file C:/College/Senorita/admm_project/results/syn/proposed_asym_util_route.rpt
+| Design       : admm_top
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++------------------------+------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|        Instance        |         Module         | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++------------------------+------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| admm_top               |                  (top) |       4866 |       4866 |       0 |    0 | 1763 |      0 |      0 |         64 |
+|   (admm_top)           |                  (top) |       1248 |       1248 |       0 |    0 |  609 |      0 |      0 |          0 |
+|   G_PROX[0].u_prox     | reconfigurable_prox__1 |        187 |        187 |       0 |    0 |   20 |      0 |      0 |          0 |
+|     (G_PROX[0].u_prox) | reconfigurable_prox__1 |        123 |        123 |       0 |    0 |   20 |      0 |      0 |          0 |
+|   G_PROX[1].u_prox     | reconfigurable_prox__2 |        188 |        188 |       0 |    0 |   18 |      0 |      0 |          0 |
+|     (G_PROX[1].u_prox) | reconfigurable_prox__2 |        124 |        124 |       0 |    0 |   18 |      0 |      0 |          0 |
+|   G_PROX[2].u_prox     | reconfigurable_prox__3 |        187 |        187 |       0 |    0 |   18 |      0 |      0 |          0 |
+|     (G_PROX[2].u_prox) | reconfigurable_prox__3 |        123 |        123 |       0 |    0 |   18 |      0 |      0 |          0 |
+|   G_PROX[3].u_prox     | reconfigurable_prox__4 |        187 |        187 |       0 |    0 |   18 |      0 |      0 |          0 |
+|     (G_PROX[3].u_prox) | reconfigurable_prox__4 |        123 |        123 |       0 |    0 |   18 |      0 |      0 |          0 |
+|   G_PROX[4].u_prox     | reconfigurable_prox__5 |        187 |        187 |       0 |    0 |   18 |      0 |      0 |          0 |
+|     (G_PROX[4].u_prox) | reconfigurable_prox__5 |        123 |        123 |       0 |    0 |   18 |      0 |      0 |          0 |
+|   G_PROX[5].u_prox     | reconfigurable_prox__6 |        187 |        187 |       0 |    0 |   18 |      0 |      0 |          0 |
+|     (G_PROX[5].u_prox) | reconfigurable_prox__6 |        123 |        123 |       0 |    0 |   18 |      0 |      0 |          0 |
+|   G_PROX[6].u_prox     | reconfigurable_prox__7 |        187 |        187 |       0 |    0 |   18 |      0 |      0 |          0 |
+|     (G_PROX[6].u_prox) | reconfigurable_prox__7 |        123 |        123 |       0 |    0 |   18 |      0 |      0 |          0 |
+|   G_PROX[7].u_prox     |    reconfigurable_prox |        187 |        187 |       0 |    0 |   18 |      0 |      0 |          0 |
+|     (G_PROX[7].u_prox) |    reconfigurable_prox |        123 |        123 |       0 |    0 |   18 |      0 |      0 |          0 |
+|   u_array              |         systolic_array |        316 |        316 |       0 |    0 | 1008 |      0 |      0 |         64 |
++------------------------+------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
