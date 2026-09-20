@@ -358,12 +358,18 @@ Search bracket (last MISS to last MET): uniform18 14.938 -> 15.079 ns,
 main9 11.562 -> 11.703 ns. True Fmax lies in 66.3-67.0 and 85.4-86.5 MHz, so
 the ratio is bounded **+27.6% to +30.4%**.
 
-**CORRECTION (2026-09-04): LUT counts are NOT identical between the 20 ns
-builds and the own-Fmax builds.** Timing-driven replication is large --
-uniform18 is 4673 LUT at 20 ns but 6308 at 15.079 ns (+35%). The RATIO
-survives (-44.9% at 20 ns vs -46.6% at own Fmax) so the headline holds, but
-absolute LUT figures must always state their constraint, and the two tables
-must never be mixed. Area and speed therefore come from the same design points and
+**CORRECTION (2026-09-20, supersedes the 09-04 correction below): the
+4673-vs-6308 gap is the COUNTING METHOD, not the timing constraint.**
+`harvest.tcl` and `fmax_sweep.tcl` count LUT *cells*
+(`get_cells REF_NAME =~ LUT*`); after LUT combining two cells share one
+physical LUT6, so the cell count runs high. `report_utilization` gives the
+Slice LUTs every other paper quotes. For uniform18 both are from the SAME
+20 ns checkpoint: 6308 cells, 4673 Slice LUTs. The fmax sweep log prints
+LUT=6308 at EVERY period it tried, met or missed, which is the proof that the
+constraint is not what moves it. Ratios: -46.6% by cells, -44.9% by Slice
+LUTs; the headline survives either way. Use `tools/util_table.py` (Slice LUTs)
+for anything compared against other work -- COMPARISON.md does. The earlier
+"+35% from timing-driven replication" reading was wrong. Area and speed therefore come from the same design points and
 -46.6% / +28.8% may be quoted together. (One artefact worth knowing: uniform18
 synthesised to 6420 LUTs at an infeasible 11.0 ns, timing-driven replication
 under a constraint it could not meet. It does not enter any result.)

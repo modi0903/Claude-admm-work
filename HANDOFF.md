@@ -40,13 +40,15 @@ model/   fxp_admm.py          bit-exact model, mirrors each RTL primitive
          margin.py            held-out test of the loop-gain fit
          lasso.py             second problem (P-L1..P-L3; --e3 post-hoc)
          gen_vectors_lasso.py LASSO golden vectors (P-L4), any F_MAIN
+tools/   util_table.py        routed Slice LUT/FF/DSP (the metric others quote)
+         comparison_table.py  COMPARISON.md and the paper's table
 syn/     run_ooc.tcl  harvest.tcl
 ```
 
 Docs, in reading order: **TODO.md** (what to do next) → **STATUS.md** (all
 measured results) → **THEORY_PLAN.md** (proofs, appendices A–D) →
 **SPRINT1_RESULT.md** (latest experiments) → **RELATED_WORK.md** (novelty
-position). SPRINT.md is superseded by TODO.md; keep it only for the venue
+position) → **COMPARISON.md** (prior accelerators, with provenance). SPRINT.md is superseded by TODO.md; keep it only for the venue
 research.
 
 ## Verify in two minutes
@@ -143,7 +145,9 @@ RELATED_WORK.md, which also records the literature pass (P4 discharged).
 Board bring-up DONE. Done 2026-09-20: T2 restated, held-out test of loop gain (L1/Box retracted),
 per-instance margin (L2: +1 bit), 0.5-bit criterion justified, kappa term and
 outlier explanation refuted (L1-Box residual open). LASSO done (P-L3 failed, stated).
-Remaining: comparison table, wall power (blocked on a bench supply / meter
+Comparison table done
+(COMPARISON.md; T must vet fairness and verify the AccelMPC row).
+Remaining: wall power (blocked on a bench supply / meter
 with ≤1 mA resolution; the build-to-build delta is ~4 mW), optional LASSO
 board run at F=9 (BOARD.md). Then draft from
 `paper/admm_wordlength.tex` (internal record, not a submission).
@@ -181,6 +185,11 @@ every two weeks that requires no reply.
   forward slashes in every tool argument; .bat → .bat needs `call`; xelab needs
   `-debug typical` for log_saif; `-generic_top` escapes the top name and
   corrupts SAIF — pass config as quoted `-d "FM=9"` macros; never log `/*`.
+- **LUT cells ≠ Slice LUTs.** `harvest.tcl` counts LUT cells (6308 / 3366);
+  `report_utilization` gives physical LUTs (4673 / 2574, −44.9%). Anything
+  compared with another paper uses `tools/util_table.py`. See COMPARISON.md §0.
+- **SAIF power was measured at 50 MHz (20 ns),** not at Fmax. Energy/solve is
+  frequency-independent; power is not. Always state the clock next to mW.
 - **Binary over UART has no delimiter.** A payload byte can equal 0x0A. Read a
   fixed length.
 

@@ -337,9 +337,19 @@ multiplier at all -- so casts, compares and saturating adds dominate and the
 total is linear. The W^2 term is NOT refuted; it is undetectable at lane
 granularity on this design.
 
-**CLAIM: A_lane(W) = b*W + c, b ~ 19.6 LUT/bit, validated out-of-sample at
--6.3%.** Keep the quadratic term only for the isolated multiplier, and state
+**CLAIM: A_lane(W) = b*W + c, b ~ 19.6 SLICE LUT/bit, validated out-of-sample
+at -6.3%.** Keep the quadratic term only for the isolated multiplier, and state
 which granularity each applies to.
+
+**Metric check (2026-09-20, `model/lane_area.py`).** The law is quoted on
+Slice LUTs (`report_utilization`), the metric other papers report and the one
+COMPARISON.md uses. Refitting the identical procedure on LUT *cell* counts
+gives b = 26.4 LUT/bit and misses the held-out lane-8 build by -15.5%, against
+-6.3% on Slice LUTs. So the linear law is a Slice-LUT statement; say which
+metric whenever b is quoted. c_cast = 0.92 LUT/bit/lane is likewise Slice
+LUTs. (main10_lane8 has no cell count -- it was never harvested -- and a
+scaled estimate would be a fabricated measurement, so the cells column has one
+held-out point, not two.)
 
 **This STRENGTHENS T4.** T4 says asymmetry pays only when the quadratic term
 is active. With lane area linear, narrowing saves b*dW -- linear and small --

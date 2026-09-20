@@ -39,6 +39,7 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
 - [x] **P1 Throughput** (2026-09-04) — cycles = 26×iterations + 3, IDENTICAL
       across both builds. Energy/solve 184 → 117 nJ, −36%, frequency-
       independent. Lead with this figure.
+- [x] **Comparison table vs prior accelerators** (2026-09-20) — COMPARISON.md
 - [x] **LASSO second problem** (2026-09-20) — see P2 and THEOREM_LOCK.
 - [x] Gate-level SAIF/Fmax infrastructure: `tb/tb_admm_top_gl.v`,
       `syn/saif_power.{bat,tcl}`, `syn/saif_log.tcl`, `syn/fmax_sweep.tcl`.
@@ -142,6 +143,16 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
       post-hoc: all 11 mismatches ≤2 LSB); P-L4 RTL bit-exact at F=16 and 9
       PASS. THEOREM_LOCK "SECOND PROBLEM". Optional: board run at F=9
       (BOARD.md, "LASSO on the board").
+- [x] **Comparison table against prior accelerators** (2026-09-20).
+      `COMPARISON.md`, `tools/comparison_table.py`, `data/comparison_lit.json`,
+      paper Sect. "Comparison with prior accelerators". 8 prior works, each
+      with a URL and a verification record. **T to vet fairness**, and to
+      check two IEEE-only papers (Peccin TLA 2020, Escarate ICA-ACCA 2022)
+      through the college subscription, plus AccelMPC arXiv:2609.09380, whose
+      row is UNVERIFIED. Lane-area slope re-checked on both LUT metrics
+      (`model/lane_area.py`): 19.6 Slice LUT/bit stands, cells give 26.4 and a
+      worse held-out miss. Headline stays −46.6% (cells) with −44.9% (Slice
+      LUTs) stated beside it; both come from the same checkpoints.
 - [ ] **Re-derive widths on the final configuration** and re-run the synthesis
       sweep once, so every number in the paper comes from one scripted pass.
       — **C** derives, **T** runs Vivado, ~1 session + 1 h

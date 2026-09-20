@@ -1,0 +1,58 @@
+{
+ "uniform18": {
+  "lut": 4673,
+  "ff": 2199,
+  "ramb36": 0,
+  "ramb18": 0,
+  "dsp": 64,
+  "lut_prox": 2159
+ },
+ "uniform10": {
+  "lut": 3259,
+  "ff": 1975,
+  "ramb36": 0,
+  "ramb18": 0,
+  "dsp": 64,
+  "lut_prox": 1020
+ },
+ "asym_derived": {
+  "lut": 3392,
+  "ff": 1975,
+  "ramb36": 0,
+  "ramb18": 0,
+  "dsp": 64,
+  "lut_prox": 1153
+ },
+ "main10_uniform": {
+  "lut": 3043,
+  "ff": 1479,
+  "ramb36": 0,
+  "ramb18": 0,
+  "dsp": 64,
+  "lut_prox": 1272
+ },
+ "main10_lane8": {
+  "lut": 2698,
+  "ff": 1447,
+  "ramb36": 0,
+  "ramb18": 0,
+  "dsp": 64,
+  "lut_prox": 976
+ },
+ "main9_uniform": {
+  "lut": 2574,
+  "ff": 1359,
+  "ramb36": 0,
+  "ramb18": 0,
+  "dsp": 64,
+  "lut_prox": 1032
+ },
+ "main9_asym": {
+  "lut": 2669,
+  "ff": 1359,
+  "ramb36": 0,
+  "ramb18": 0,
+  "dsp": 64,
+  "lut_prox": 1128
+ }
+}
