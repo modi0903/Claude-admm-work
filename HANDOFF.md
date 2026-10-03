@@ -87,12 +87,19 @@ power: static is 68 mW of ~76–80 total, so total falls only 5%. The old
 "power −30.4% / Fmax +20.7%" figures were vectorless / extrapolated and are
 WITHDRAWN. Cycles = 26·iters + 3 in every build.
 
+**Board at speed (silicon, 2026-10-03) — this is the hardware claim.** MMCM
+clock, timing met in context: main9 bit-exact at 82.5 MHz, uniform18 at
+65 MHz, LASSO (3 instances) bit-exact. Speed-up +26.9% in context vs +28.8%
+OOC, brackets overlap. `tools/board_table.py`. The 2026-09-17 bring-up below
+used a divider clock that never met timing in context; functional evidence
+only.
+
 **Board (silicon, 2026-09-17).** Basys3, both uniform18 and main9_uniform, all
 three operators bit-exact vs golden over UART (`tools/board_capture.py`). Chain
 is complete: model → golden → post-route gate-level → hardware. See BOARD.md.
 
 **Negative result (silicon).** Per-operator asymmetry costs +4.3% LUT at BOTH
-F_MAIN=16 and 9, with identical dynamic power (three measured null pairs) and
+F_MAIN=16 and 9, with identical dynamic power (two rebuildable null pairs + one legacy) and
 no consistent Fmax effect. Wu et al. 2022 Table 1 corroborates independently.
 
 **Fmax mechanism.** Two critical-path regimes: prox-lane path (21–24 levels,
@@ -196,6 +203,9 @@ every two weeks that requires no reply.
   compared with another paper uses `tools/util_table.py`. See COMPARISON.md §0.
 - **SAIF power was measured at 50 MHz (20 ns),** not at Fmax. Energy/solve is
   frequency-independent; power is not. Always state the clock next to mW.
+- **A GUI bitstream is not a timing-clean bitstream.** The bring-up divider
+  clock failed timing by 5.7 ns and the GUI wrote it anyway. Build boards with
+  `syn/board_build.tcl`, which refuses.
 - **Binary over UART has no delimiter.** A payload byte can equal 0x0A. Read a
   fixed length.
 

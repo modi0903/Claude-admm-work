@@ -504,3 +504,42 @@ the results "un piso referencial" at default HLS settings.
 **Why it matters to us:** it does not, except as evidence that ADMM-on-FPGA
 papers routinely report neither precision nor resources. Cite once, do not
 tabulate.
+
+
+# Hamadouche et al., the two remaining bound papers (2026-09-20)
+
+Read to settle whether either already contains the (1-d) mechanism. **Neither
+does**, and the second assumes something our mechanism violates.
+
+**arXiv:2210.02094, Fully Inexact Generalized ADMM.** Proximal error enters as
+additive residuals r_x = x_bar - x against the exact iterate, with the errors
+bounded almost surely (0 <= eps_g^k <= eps_0) and stationary, related through a
+conditional mean-independence property. The tolerances eps_g, eps_h are INPUTS
+to the algorithm -- a suboptimality budget for an inexact prox -- not
+quantities the operator reduces. No diagonal scaling, no support or active-set
+argument, no attenuation of any kind. Results are deterministic and
+probabilistic upper BOUNDS. No hardware: simulated truncated-Gaussian errors
+on LASSO, CVX tolerance, loop perforation.
+
+**arXiv:2203.02204, Sharper Bounds for Proximal Gradient with Errors.** Two
+gradient-error models, absolute (|eps| <= delta) and relative
+(|eps| <= delta|grad g(x)|), with "delta ... known as the machine precision".
+Assumption 2: zero mean, bounded w.p. 1, conditionally mean-independent of
+history. Assumption 3 on the prox residual: E[r] = 0 and **E[r^T x] = 0**.
+That orthogonality is exactly what degenerate-set annihilation breaks: which
+coordinates are annihilated depends on the iterate, so the residual is
+correlated with it by construction. Their subscript Omega is the probability
+sample space, NOT a support set -- the one place that looked like a collision
+is not one. Errors pass through undiminished and are amplified by alpha_i^2 in
+the accelerated case. Bounds again, no FPGA numbers.
+
+**Positioning sentence this licenses.** The Heriot-Watt line models proximal
+error as an additive, zero-mean, iterate-independent perturbation and bounds
+its propagation; we show that assumption is wrong in a measurable way -- the
+prox annihilates a fraction d of the injected error, d is iterate-dependent,
+and the resulting predictive model tracks measurement to 0.99-1.00 on silicon.
+Refinement of their model, not a competing bound.
+
+CAVEAT ON PROVENANCE: extracted through a fetch summariser, not a full-text
+grep of the PDFs. The two or three sentences the related-work section leans on
+hardest must be re-verified against the PDFs before submission. -- T

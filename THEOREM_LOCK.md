@@ -114,7 +114,7 @@ d = 0.62–0.77 natively, with κ wherever λ puts it.
 | P-L1 | T1/meas ∈ [0.9, 1.1] on the native LASSO v-distribution | **PASS**: 0.988, 1.028, 1.019, 0.981, 0.993 at λ/λmax = 0.05, 0.1, 0.2, 0.3, 0.5 (d 0.62–0.77; F = 6–12; 60 instances, m = 16). Classical q²/12 off by 1.6–2.7× |
 | P-L2 | m = 32: F* ≤ 9; m = 6: F* > 9 (NMSE ≤ 1e-4) | **PASS**: m = 32 (‖M‖₂ 0.74) F* = 8 at every λ; m = 16 (0.87) 9; m = 8 (0.99) 9–11; m = 6 (1.00) 10–11. No saturation anywhere |
 | P-L3 | support at F* matches double precision on ≥ 99% of instances | **FAILED as registered**: 90–100% per cell |
-| P-L4 | RTL bit-exact on LASSO vectors | **PASS** at F_MAIN = 16 and 9, three instances (m = 32, 16, 8), unmodified RTL (`build.bat 0 lasso`) |
+| P-L4 | RTL bit-exact on LASSO vectors | **PASS** at F_MAIN = 16 and 9, three instances (m = 32, 16, 8), unmodified RTL (`build.bat 0 lasso`); **and on the Basys3 at F_MAIN = 9 (2026-10-03)** |
 
 **P-L3, post-hoc — say it is post-hoc.** `python model/lasso.py --e3`, written
 after the failure. All 11 disagreeing coefficients across the 12 cells are
@@ -231,7 +231,7 @@ and asymmetry is provably net-negative.
 
 **Now strongly validated.** Measured asymmetry cost is **+4.3% LUT at BOTH
 F_MAIN=16 and F_MAIN=9** — identical to one decimal, two independent widths —
-with no dynamic-power benefit (three measured null pairs) and no consistent
+with no dynamic-power benefit (two null pairs from rebuildable tags, one legacy; `tools/power_table.py`) and no consistent
 Fmax effect. Independently corroborated in Wu et al. 2022 Table 1 (their ADMM
 FXP20→24 uses 6807 LUT vs consistent FXP24's 6775).
 

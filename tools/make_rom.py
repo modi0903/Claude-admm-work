@@ -3,6 +3,7 @@
 
     python tools/make_rom.py            # from tb/vectors/*_unif.mem
     python tools/make_rom.py --l1 lasso1   # L1 slot <- l1_lasso1 (LASSO run)
+    python tools/make_rom.py --lasso       # all three slots <- l1_lasso0/1/2
 
 The wrapper holds one flat ROM per quantity with the three operator sets laid
 end to end in the order L1, Box, L2, selected by sw[2:1]. Regenerate these
@@ -14,14 +15,19 @@ import argparse, os
 ap = argparse.ArgumentParser()
 ap.add_argument("--tag", default="unif")
 ap.add_argument("--n", type=int, default=8)
+ap.add_argument("--lasso", action="store_true",
+                help="all three slots hold l1_lasso0/1/2; synthesise the wrapper "
+                     "with -verilog_define LASSO_ROM=1 so the lane stays L1 and "
+                     "sw[2:1] selects the instance")
 ap.add_argument("--l1", default=None,
                 help="tag for the L1 slot only, e.g. lasso1 (gen_vectors_lasso.py)")
 a = ap.parse_args()
 here = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tb", "vectors")
+slots = ([("l1", "lasso0"), ("l1", "lasso1"), ("l1", "lasso2")] if a.lasso
+         else [("l1", a.l1 or a.tag), ("box", a.tag), ("l2", a.tag)])
 for kind, per in (("M", a.n * a.n), ("q", a.n), ("z", a.n)):
     out = []
-    for op in ("l1", "box", "l2"):
-        tag = a.l1 if (op == "l1" and a.l1) else a.tag
+    for op, tag in slots:
         p = os.path.join(here, f"{kind}_{op}_{tag}.mem")
         lines = [l.strip() for l in open(p) if l.strip()]
         if len(lines) != per:

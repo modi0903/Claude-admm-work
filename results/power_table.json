@@ -1,0 +1,74 @@
+[
+ {
+  "tag": "asym_derived",
+  "dyn_mw": 10,
+  "total_mw": 78,
+  "confidence": "High",
+  "rebuildable": true,
+  "nets_matched": "74%(9603/13040)"
+ },
+ {
+  "tag": "asym_nodsp",
+  "dyn_mw": 11,
+  "total_mw": 79,
+  "confidence": "High",
+  "rebuildable": false,
+  "nets_matched": "72%(10622/14742)"
+ },
+ {
+  "tag": "main10_lane8",
+  "dyn_mw": 7,
+  "total_mw": 75,
+  "confidence": "High",
+  "rebuildable": true,
+  "nets_matched": "75%(7350/9856)"
+ },
+ {
+  "tag": "main10_uniform",
+  "dyn_mw": 7,
+  "total_mw": 76,
+  "confidence": "High",
+  "rebuildable": true,
+  "nets_matched": "73%(7950/10904)"
+ },
+ {
+  "tag": "main9_asym",
+  "dyn_mw": 7,
+  "total_mw": 76,
+  "confidence": "High",
+  "rebuildable": true,
+  "nets_matched": "73%(6491/8947)"
+ },
+ {
+  "tag": "main9_uniform",
+  "dyn_mw": 7,
+  "total_mw": 76,
+  "confidence": "High",
+  "rebuildable": true,
+  "nets_matched": "72%(6347/8763)"
+ },
+ {
+  "tag": "uniform10",
+  "dyn_mw": 10,
+  "total_mw": 78,
+  "confidence": "High",
+  "rebuildable": true,
+  "nets_matched": "75%(9507/12728)"
+ },
+ {
+  "tag": "uniform18",
+  "dyn_mw": 11,
+  "total_mw": 80,
+  "confidence": "High",
+  "rebuildable": true,
+  "nets_matched": "74%(12246/16519)"
+ },
+ {
+  "tag": "uniform_nodsp",
+  "dyn_mw": 11,
+  "total_mw": 80,
+  "confidence": "High",
+  "rebuildable": false,
+  "nets_matched": "75%(12358/16519)"
+ }
+]

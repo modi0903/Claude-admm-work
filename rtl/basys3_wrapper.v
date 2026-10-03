@@ -16,7 +16,9 @@
 //                     the wall-power measurement -- power must be measured
 //                     with the datapath busy, not idle.
 //
-// sw[2:1] selects which operator vector set is loaded (00=L1, 01=Box, 10=L2).
+// sw[2:1] selects which ROM slot is loaded (00=L1, 01=Box, 10=L2). Built with
+// -verilog_define LASSO_ROM=1 the three slots instead hold the three LASSO
+// instances and the lane is forced to L1, so one bitstream covers all three.
 //
 // LEDs:
 //   led[0]   heartbeat, ~1.5 Hz. If this is dark the clock or reset is wrong
@@ -25,14 +27,20 @@
 //   led[2]   PASS  -- last solve matched the golden z, all N lanes
 //   led[3]   FAIL  -- last solve mismatched
 //   led[11:4] iter_count of the last solve
+//   led[13]  clock locked (MMCM build; always lit on the divider build)
+//   led[14]  ROM failed to load -- PASS is suppressed
 //   led[15]  UART transmitter busy
 //
 // CLOCKING. The Basys3 oscillator is 100 MHz; main9_uniform closes at
-// 85.4 MHz, so the design CANNOT be clocked directly from it. A clock divider
-// is used rather than an MMCM to keep the bring-up dependency-free: sw[3]
-// picks /2 (50 MHz, safe for every build) or /1 (100 MHz, WILL FAIL timing,
-// present only to demonstrate the failure deliberately). Replace with an MMCM
-// at the measured Fmax once bring-up is confirmed.
+// 85.4 MHz, so the design CANNOT be clocked directly from it. Two builds:
+//   default    fabric /2 divider, 50 MHz, safe for every build. sw[3]=1
+//              selects the raw 100 MHz and WILL FAIL -- kept only to show it.
+//   MMCM_MULT  AT-SPEED. One MMCME2_BASE + BUFG, no fabric clock mux:
+//              f = 100 MHz * MMCM_MULT / MMCM_DIV, CLK_HZ passed alongside so
+//              the UART divider follows the clock. sw[3] is ignored. The
+//              design is held in reset until the MMCM locks (led[13]).
+//              syn/board_build.tcl chooses the values and refuses to write a
+//              bitstream that does not meet timing in context.
 // ============================================================================
 module basys3_wrapper #(
     parameter integer N        = 8,
@@ -48,13 +56,34 @@ module basys3_wrapper #(
     localparam integer W = `W_MAIN;
 
     // ---- clock ------------------------------------------------------------
+`ifdef MMCM_MULT
+    // VCO = 100 MHz * MMCM_MULT must lie in 600-1200 MHz on -1 silicon.
+    wire clk_fb_out, clk_fb_in, clk_mmcm, locked;
+    MMCME2_BASE #(
+        .CLKIN1_PERIOD    (10.0),
+        .DIVCLK_DIVIDE    (1),
+        .CLKFBOUT_MULT_F  (`MMCM_MULT),
+        .CLKOUT0_DIVIDE_F (`MMCM_DIV)
+    ) u_mmcm (
+        .CLKIN1(clk100), .CLKFBIN(clk_fb_in), .CLKFBOUT(clk_fb_out),
+        .CLKOUT0(clk_mmcm), .LOCKED(locked), .PWRDWN(1'b0), .RST(1'b0)
+    );
+    BUFG u_fb_buf  (.I(clk_fb_out), .O(clk_fb_in));
+    wire clk;
+    BUFG u_clk_buf (.I(clk_mmcm),   .O(clk));
+    localparam integer CLK_HZ = `CLK_HZ;
+`else
     reg div = 1'b0;
     always @(posedge clk100) div <= ~div;
     wire clk = sw[3] ? clk100 : div;   // sw[3]=0 -> 50 MHz (use this)
+    wire locked = 1'b1;
+    localparam integer CLK_HZ = 50_000_000;
+`endif
 
     // ---- reset synchroniser ------------------------------------------------
+    // Held in reset until the clock is stable (always true for the divider).
     reg [3:0] rst_sr = 4'hF;
-    always @(posedge clk) rst_sr <= {rst_sr[2:0], btnU};
+    always @(posedge clk) rst_sr <= {rst_sr[2:0], btnU | ~locked};
     wire rst_n = ~rst_sr[3];
 
     // ---- button debounce + edge -------------------------------------------
@@ -80,7 +109,15 @@ module basys3_wrapper #(
         $readmemh("z_all.mem", z_rom);
     end
 
-    wire [1:0] op = (sw[2:1] > 2'd2) ? 2'd0 : sw[2:1];
+    wire [1:0] slot = (sw[2:1] > 2'd2) ? 2'd0 : sw[2:1];
+`ifdef LASSO_ROM
+    // All three ROM slots hold LASSO instances (tools/make_rom.py --lasso), so
+    // the lane is always L1 and sw[2:1] selects the INSTANCE, not the operator.
+    // Build with: -verilog_define LASSO_ROM=1 -verilog_define F_MAIN=9
+    wire [1:0] op   = 2'd0;
+`else
+    wire [1:0] op   = slot;
+`endif
 
     reg [(N*N*W)-1:0] weight_bus;
     reg [(N*W)-1:0]   q_bus;
@@ -97,10 +134,10 @@ module basys3_wrapper #(
     end
     always @(*) begin
         for (i = 0; i < N*N; i = i + 1)
-            weight_bus[(i*W) +: W] = m_rom[op*N*N + i];
+            weight_bus[(i*W) +: W] = m_rom[slot*N*N + i];
         for (i = 0; i < N; i = i + 1) begin
-            q_bus[(i*W) +: W]  = q_rom[op*N + i];
-            z_gold[(i*W) +: W] = z_rom[op*N + i];
+            q_bus[(i*W) +: W]  = q_rom[slot*N + i];
+            z_gold[(i*W) +: W] = z_rom[slot*N + i];
         end
     end
 
@@ -198,12 +235,12 @@ module basys3_wrapper #(
         hb <= hb + 25'd1;
         if (done) stretch <= 22'h3FFFFF;
         else if (stretch != 22'd0) stretch <= stretch - 22'd1;
-        led <= {tx_busy, rom_bad, 2'b00, iter_r,
+        led <= {tx_busy, rom_bad, locked, 1'b0, iter_r,
                 (!pass_r || rom_bad), (pass_r && !rom_bad),
                 (stretch != 22'd0), hb[24]};
     end
 
-    uart_tx #(.CLK_HZ(50_000_000), .BAUD(115200)) u_tx (
+    uart_tx #(.CLK_HZ(CLK_HZ), .BAUD(115200)) u_tx (
         .clk(clk), .rst_n(rst_n), .start(tx_start), .data(tx_data),
         .tx(uart_tx), .busy(tx_busy)
     );

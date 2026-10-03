@@ -58,3 +58,7 @@ desktop.ini
 *.out
 *.toc
 *.synctex.gz
+
+# board builds (syn/board_build.tcl): bitstreams and run folders regenerate
+results/board/*.bit
+results/board/run_*

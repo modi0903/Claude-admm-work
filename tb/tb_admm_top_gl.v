@@ -127,12 +127,24 @@ module tb_admm_top_gl;
                  N, FM, W, ASYMMETRIC);
 
         if (ASYMMETRIC == 0) begin
+`ifdef LASSO
+            // Second problem on the post-route netlist. Generate the vectors
+            // first: python model/gen_vectors_lasso.py <FM>, then add
+            // -d "LASSO=1" to the xvlog call. All three are L1-lane runs.
+            load_and_run("l1_lasso0", 2'b00, "tb/vectors/M_l1_lasso0.mem",
+                         "tb/vectors/q_l1_lasso0.mem", "tb/vectors/z_l1_lasso0.mem");
+            load_and_run("l1_lasso1", 2'b00, "tb/vectors/M_l1_lasso1.mem",
+                         "tb/vectors/q_l1_lasso1.mem", "tb/vectors/z_l1_lasso1.mem");
+            load_and_run("l1_lasso2", 2'b00, "tb/vectors/M_l1_lasso2.mem",
+                         "tb/vectors/q_l1_lasso2.mem", "tb/vectors/z_l1_lasso2.mem");
+`else
             load_and_run("l1_unif",  2'b00, "tb/vectors/M_l1_unif.mem",
                          "tb/vectors/q_l1_unif.mem", "tb/vectors/z_l1_unif.mem");
             load_and_run("box_unif", 2'b01, "tb/vectors/M_box_unif.mem",
                          "tb/vectors/q_box_unif.mem", "tb/vectors/z_box_unif.mem");
             load_and_run("l2_unif",  2'b10, "tb/vectors/M_l2_unif.mem",
                          "tb/vectors/q_l2_unif.mem", "tb/vectors/z_l2_unif.mem");
+`endif
         end else begin
             load_and_run("l1_asym",  2'b00, "tb/vectors/M_l1_asym.mem",
                          "tb/vectors/q_l1_asym.mem", "tb/vectors/z_l1_asym.mem");

@@ -30,6 +30,8 @@ ap.add_argument("--tag", default="unif")
 ap.add_argument("--fmain", type=int, default=16)
 ap.add_argument("--n", type=int, default=8)
 ap.add_argument("--solves", type=int, default=1)
+ap.add_argument("--build", default="",
+                help="bitstream name, e.g. main9_unif_mmcm82p5 -- recorded in captures.csv")
 ap.add_argument("--timeout", type=float, default=30.0,
                 help="seconds to wait per solve -- press btnC within this")
 a = ap.parse_args()
@@ -68,4 +70,17 @@ for s in range(a.solves):
         print(f"solve {s}: PASS  all {a.n} lanes bit-exact")
 ser.close()
 print(f"\n{a.solves - fails}/{a.solves} solves bit-exact")
+
+# Every capture is appended to a log, so board evidence is a file in the repo
+# rather than a terminal scrollback. A failed capture is logged too.
+import csv, datetime
+log = os.path.join(here, "results", "board", "captures.csv")
+os.makedirs(os.path.dirname(log), exist_ok=True)
+new = not os.path.exists(log)
+with open(log, "a", newline="") as fh:
+    w = csv.writer(fh)
+    if new:
+        w.writerow(["time", "build", "op", "tag", "fmain", "solves", "bit_exact", "result"])
+    w.writerow([datetime.datetime.now().isoformat(timespec="seconds"), a.build, a.op,
+                a.tag, a.fmain, a.solves, a.solves - fails, "PASS" if not fails else "FAIL"])
 sys.exit(1 if fails else 0)

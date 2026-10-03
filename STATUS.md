@@ -699,3 +699,72 @@ F=9 at NMSE 1e-4 directly, with no search. That is the contribution.
 5. ~~Throughput~~ DONE: 26 cycles/iteration + 3, both builds; solves/s and
    energy per solve derived above. A LUTs*s/bit efficiency figure still needs
    a defined payload size.
+
+
+# PRE-DRAFT AUDIT (2026-09-20)
+
+Three P1b items closed by audit rather than by new silicon.
+
+## Checkpoint/script drift — RESOLVED, one legacy tag remains
+
+`results/syn/` holds reports for 13 tags; `syn/run_ooc.tcl` builds 7. The
+difference is renaming, not lost configurations, with one exception:
+
+| legacy tag | status |
+|---|---|
+| `uniform_nodsp` | same configuration as `uniform18` (both 6308 LUT cells, 11 mW). Superseded name. |
+| `asym_nodsp` | NOT reproducible by the current script (5299 LUT cells, 1712 prox — matches no current tag). |
+| `uniform_dsp`, `asym_dsp` | USE_DSP_L2=1. The study is all USE_DSP_L2=0; these back the "it disappears on a DSP-bearing device" discussion only. |
+| `baseline_uniform`, `proposed_asym`, `asym_manuscript` | pre-study builds, quoted nowhere. |
+
+Consequence for the asymmetry null: `tools/power_table.py` shows **two null
+pairs from rebuildable tags** — uniform10 vs asym_derived (10 vs 10 mW,
+F_MAIN=16) and main9_uniform vs main9_asym (7 vs 7 mW, F_MAIN=9) — plus the
+legacy pair uniform_nodsp vs asym_nodsp (11 vs 11 mW). The paper should claim
+the two rebuildable pairs and cite the third as corroboration from a
+superseded build. Nothing else in the paper depends on an unbuildable tag.
+
+## Iteration count — DECIDED
+
+`eps=0` makes the early exit fire when the residual quantises to zero, i.e. on
+stagnation, so per-build iteration counts (main9 15/19/12 vs uniform18
+28/32/22) are NOT a convergence comparison and using them for throughput bakes
+in a fake ~1.8x. **Rule for the draft: every throughput, power and energy
+figure is quoted at a FIXED iteration count (K=32), using cycles = 26K+3,
+which is identical across builds.** Per-build iteration counts appear only in
+the bit-exactness table, labelled as termination behaviour, with the note that
+`box_unif` at uniform18 hit MAX_ITER and was truncated rather than solved.
+
+## Power rounding — DECIDED
+
+Reports round to 1 mW. The draft quotes absolutes (11 mW and 7 mW) and energy
+per solve (184 and 117 nJ), and states the -36% with its 29-44% bound whenever
+the percentage appears. `tools/power_table.py` prints the rounding note with
+every table so it cannot be lost.
+
+## T3 held-out width — CLOSED
+
+`model/lane_area.py` fits A(W) = bW + c on the three builds whose lanes equal
+F_MAIN (W = 16, 10, 9) and predicts the held-out lane-8 builds: -6.3%
+(main10_lane8) and -10.4% (uniform10, deeper cast). Inside the 10% bar on the
+matched-cast point. The fit is on Slice LUTs; on LUT cells the same procedure
+gives b = 26.4 and -15.5% held out.
+
+
+# BOARD SESSION 2 (2026-10-03) — at speed, in context, LASSO on silicon
+
+Details and commands: BOARD.md. Numbers: `python tools/board_table.py`.
+
+| | OOC sweep | in context (met / missed) | on the board |
+|---|---|---|---|
+| uniform18 | 66.3 MHz | 65 / 66.25 MHz | L1, Box, L2 bit-exact at 65 MHz |
+| main9_uniform | 85.4 MHz | 82.5 / 85 MHz | L1, Box, L2 bit-exact at 82.5 MHz |
+| main9, LASSO | -- | met at 50 MHz | 3 instances bit-exact |
+
+Speed-up: +28.8% OOC (bracket +27.6/+30.4); **+26.9% in context at the met
+points (bracket +24.5/+30.8)**. Overlapping brackets: the Fmax headline holds
+in a real design. Quote OOC as the architecture number and in-context as the
+system number; never compute either from slack.
+
+Finding on the way: the session-1 bring-up clock (fabric divider + LUT mux)
+never met timing in context. The paper's board claim rests on session 2.

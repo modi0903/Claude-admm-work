@@ -71,10 +71,10 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
       empirical; T2 and T5 demoted to discussion; **T3 blocked** — its
       held-out-width falsifier was never run, and the model is currently
       fitted and reported on the same points, which violates the repo rule.
-- [ ] **T3 held-out width test** — now cheap: the six-build sweep spans lane
-      widths 16/10/9/8 and run_ooc.tcl emits LUT prox per build. Fit on three,
-      predict the fourth, ~10% bar. Blocks claiming the cost model.
-      — **C** analyses, needs T's run_ooc.tcl utilisation reports, ~1 h
+- [x] **T3 held-out width test — DONE 2026-09-20** (`model/lane_area.py`).
+      Fit on W = 16/10/9 (lanes = F_MAIN, no cast), predict lane 8: **-6.3%**
+      on the matched-cast build, -10.4% on the deeper-cast one. Inside the 10%
+      bar; cost model unblocked. Slice LUTs; on cells b = 26.4 and -15.5%.
 - [x] **T2 crossover sweep — DONE 2026-09-20** (`model/t2_crossover.py`).
       Headline HOLDS (Box-L2 crosses between cond 10 and 20). Stated mechanism
       FAILS (operator-only: signs 2/8 and 0/14). Restated with the loop
@@ -110,29 +110,41 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
 - [x] **Basys3 bring-up — DONE 2026-09-17.** uniform18 and main9_uniform, all
       three operators, bit-exact vs golden over UART. Four wrapper bugs found
       and fixed (see BOARD.md).
-- [ ] **Measured wall power.** Needs the board and a meter. Report alongside
-      the Vivado estimate, as Li et al. do. — **T**, ~2 h after bring-up
+- [x] **Board session 2 — DONE 2026-10-03.** LASSO bit-exact on silicon
+      (3 instances); main9 bit-exact at 82.5 MHz and uniform18 at 65 MHz,
+      timing met in context; speed-up +26.9% in context vs +28.8% OOC,
+      brackets overlap. Session-1 divider builds found never to have met
+      timing -- superseded. See BOARD.md / STATUS.md.
+      ~~**Board session 2 (2026-10-03): LASSO on silicon + at-speed in
+      context.** Three scripted builds (`syn/board_build.tcl`), plan and
+      commands in BOARD.md. Closes: LASSO only ever simulated; board only ever
+      at 50 MHz while the paper quotes 85.4 MHz OOC. — **T** runs, **C**
+      folds results into BOARD/STATUS/paper.~~
+- [~] **Measured wall power — DROPPED 2026-09-20** (T's call, instrumentation
+      not available). The build-to-build delta is ~4 mW, below what a USB
+      meter resolves. SAIF power stands as the measured figure; the paper says
+      "post-route, activity-annotated" and claims nothing about wall power.
+      Reopen only if a bench supply or a ≤1 mA meter appears.
 
 ## P1b — discovered during measurement, not previously tracked
 
-- [ ] **Commit the gate-level flow and its five files** with a short README
-      note on the two traps: xsim needs `-debug typical` for `log_saif`, and
-      `-generic_top` escapes the top-level name, which corrupts SAIF instance
-      names. Pass config as `-d` macros instead. — **C**, ~30 min
-- [ ] **`eps=0` makes the early exit fire on quantisation stagnation**, not
-      convergence, so iteration counts are NOT comparable across widths
-      (main9 15/19/12 vs uniform18 28/32/22 — a fake ~1.8× if used naively).
-      Decide how the paper reports iteration count. Also `box_unif` at
-      uniform18 hit MAX_ITER=32, i.e. truncated rather than solved.
-      — **C** decides, ~30 min
-- [ ] **Checkpoint/script drift.** `results/syn/` holds 13 routed checkpoints
-      but `run_ooc.tcl` no longer builds all those tags (baseline_uniform,
-      proposed_asym, asym_manuscript, *_dsp/*_nodsp). Any number taken from a
-      tag the script cannot rebuild violates the "one scripted pass" rule.
-      Reconcile before the final pass. — **C** audits, **T** re-runs, ~1 h
-- [ ] **Power reports round to 1 mW**, so 7 and 11 carry ±0.5 mW and the −36%
-      has a real 29–44% bound. Quote absolutes and energy/solve, not the
-      percentage. Already noted in STATUS.md; must survive into the draft.
+- [x] **Gate-level flow committed + `syn/README.md`** (2026-09-20): run order
+      and all seven traps, including `-debug typical` and the `-generic_top`
+      SAIF corruption.
+- [x] **Iteration count — DECIDED 2026-09-20.** Every throughput/power/energy
+      figure is quoted at FIXED K=32 via cycles = 26K+3 (identical across
+      builds). Per-build iteration counts appear only as termination
+      behaviour, with the `box_unif` MAX_ITER truncation stated. See STATUS
+      "PRE-DRAFT AUDIT".
+- [x] **Checkpoint/script drift — AUDITED 2026-09-20.** Only `asym_nodsp` is
+      genuinely unbuildable; `uniform_nodsp` is a superseded name for
+      `uniform18`, the `*_dsp` pair is the USE_DSP_L2=1 discussion only, and
+      the rest are quoted nowhere. Asymmetry power null now rests on **two
+      rebuildable pairs** (`tools/power_table.py`), with the legacy pair as
+      corroboration.
+- [x] **Power rounding — DECIDED.** Draft quotes absolutes (11/7 mW) and
+      energy per solve (184/117 nJ); any percentage carries its 29–44% bound.
+      `tools/power_table.py` prints the rounding note with every table.
       — **C**, at drafting time
 
 ## P2 — scope justification
@@ -213,11 +225,18 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
           may surface more. Scholar is not machine-accessible to Claude.
         - Systematic FCCM / FPL / TRETS 2024–2027 sweep via IEEE Xplore and
           ACM DL. Everything found so far came via secondary citation.
-        - Hamadouche arXiv:2210.02094 and 2203.02204 (snippets only).
+        - ~~Hamadouche arXiv:2210.02094 and 2203.02204~~ READ 2026-09-20,
+          no collision (RELATED_WORK). Re-verify the quoted sentences against
+          the PDFs before submission -- they came via a fetch summariser.
         - Li et al. SQNR derivation — their <1 dB (~0.17 bit) bar is ~3x
           tighter than our 0.5-bit criterion, which must be justified.
       Absence of search hits is not proof of novelty. — **T**, ~3 h remaining
-- [ ] Confirm FCCM 2027 dates when the CFP posts. FCCM 2026 ran abstract
+- [ ] Confirm FCCM 2027 dates when the CFP posts (checked 2026-09-20: not yet
+      up; FCCM 2026 was abstract 10 Jan / paper 17 Jan, no extensions,
+      notification 16 Mar, ≤8 pp excl. refs. DATE 2027 closed 20 Sep 2026 —
+      6 pp, double-blind, missed. FPL 2027 ≈ late Mar 2027, ≤8 pp + refs.
+      TCAS-I rolling, ≤14 pp incl. refs/bios, single-blind, page charges
+      above 11 pp.) FCCM 2026 ran abstract
       10 Jan / paper 17 Jan / notification 16 Mar, held 13–16 May in Atlanta,
       which supports the mid-Jan estimate. **If the current date is past
       Jan 2027, this deadline has gone and the venue decision reopens — FPL
