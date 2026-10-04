@@ -166,9 +166,16 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
       (`model/lane_area.py`): 19.6 Slice LUT/bit stands, cells give 26.4 and a
       worse held-out miss. Headline stays −46.6% (cells) with −44.9% (Slice
       LUTs) stated beside it; both come from the same checkpoints.
-- [ ] **Re-derive widths on the final configuration** and re-run the synthesis
-      sweep once, so every number in the paper comes from one scripted pass.
-      — **C** derives, **T** runs Vivado, ~1 session + 1 h
+- [x] **Model-side pass — DONE 2026-10-03** (`tools/model_pass.py`). Every
+      analysis script rerun from scratch in dependency order: 41 committed
+      outputs (all results/*.json + golden vectors) reproduce EXACTLY. F* = 9
+      re-derived. Printed-only numbers now stored in results/model_pass/.
+- [ ] **Synthesis-side check** — **T**, ~40 min unattended:
+      `vivado -mode batch -source syn/run_ooc.tcl -nojournal -log results/syn/run_ooc_pass.log`
+      then `python tools/syn_pass_check.py`. If all seven builds reproduce
+      exactly (Vivado is already shown deterministic here: two full Fmax
+      sweeps identical), the hardware numbers stand and no 8-hour re-sweep is
+      needed. Any drift -> full pass before drafting.
 
 ## P3 — writing
 

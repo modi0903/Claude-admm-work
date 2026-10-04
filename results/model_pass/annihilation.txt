@@ -1,0 +1,38 @@
+ANNIHILATION TEST — does effective noise power scale with (1-d)?
+
+harvested 48000 samples of v = x+u   |v|: mean 0.507  max 0.972
+
+=== L1 soft-threshold — sweeping L1 threshold kappa at F=8 ===
+  standard model predicts a flat 1.2716e-06 regardless of d
+
+   param      d=|D|/n   MSE_meas     (1-d)*q^2/12   T1/meas   naive/meas
+    0.0195     0.0000   1.2833e-06    1.2716e-06     0.991      0.991
+    0.0508     0.0001   1.2830e-06    1.2714e-06     0.991      0.991
+    0.1016     0.0011   1.2819e-06    1.2702e-06     0.991      0.992
+    0.1992     0.0190   1.2601e-06    1.2474e-06     0.990      1.009
+    0.3516     0.1721   1.0688e-06    1.0527e-06     0.985      1.190
+    0.5000     0.4854   6.6865e-07    6.5433e-07     0.979      1.902
+    0.6992     0.8801   1.5096e-07    1.5246e-07     1.010      8.423
+    1.0000     1.0000   0.0000e+00    0.0000e+00       nan        nan
+    1.3984     1.0000   0.0000e+00    0.0000e+00       nan        nan
+
+=== Box projection — sweeping Box bound hi at F=8 ===
+  standard model predicts a flat 1.2716e-06 regardless of d
+
+   param      d=|D|/n   MSE_meas     (1-d)*q^2/12   T1/meas   naive/meas
+    1.3984     0.0000   1.2833e-06    1.2716e-06     0.991      0.991
+    1.0000     0.0000   1.2833e-06    1.2716e-06     0.991      0.991
+    0.6992     0.1199   1.1323e-06    1.1191e-06     0.988      1.123
+    0.5000     0.5146   6.1463e-07    6.1724e-07     1.004      2.069
+    0.3516     0.8279   2.1452e-07    2.1884e-07     1.020      5.928
+    0.1992     0.9810   2.3143e-08    2.4186e-08     1.045     54.943
+    0.1016     0.9989   1.4080e-09    1.3510e-09     0.960    903.132
+    0.0508     0.9999   2.3172e-10    1.5895e-10     0.686   5487.398
+    0.0195     1.0000   0.0000e+00    0.0000e+00       nan        nan
+
+========================================================================
+  L1   over d in [0.17,0.88]:  T1/meas = 0.991   standard/meas = 3.838
+  Box  over d in [0.12,0.83]:  T1/meas = 1.004   standard/meas = 3.040
+
+T1 near 1.0 across a wide d range, standard model drifting with d,
+is the signature the theorem predicts.

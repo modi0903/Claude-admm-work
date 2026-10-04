@@ -1,0 +1,65 @@
+SIGNED bits: + = model UNDER-predicts error (UNSAFE, too few bits)
+             - = model OVER-predicts (conservative, safe)
+op              attack    cond    worst+    worst-      d verdict
+# L1: baseline in-sample error 0.979 bits (random right-hand sides)
+L1           eig-equal     1.0     +0.97     -1.37  0.125  UNSAFE
+L1           eig-equal    10.0     +5.89     +0.60  0.255  UNSAFE
+L1           eig-equal    60.0     +5.56     +0.10  0.328  UNSAFE
+L1           eig-equal   300.0     +3.01     -1.72  0.253  UNSAFE
+L1             eig-max     1.0     +0.25     -1.49  0.000      ok
+L1             eig-max    10.0     +2.69     +0.10  0.174  UNSAFE
+L1             eig-max    60.0     +2.01     -1.48  0.234  UNSAFE
+L1             eig-max   300.0     +0.77     -2.17  0.312  UNSAFE
+L1             eig-min     1.0     +6.33     -1.05  0.141  UNSAFE
+L1    hill-climb-under     1.0     +8.43     +0.31  0.245  UNSAFE
+L1    hill-climb-under    10.0    +11.43     +1.94  0.659  UNSAFE
+L1    hill-climb-under    60.0     +9.86     +1.36  0.784  UNSAFE
+L1    hill-climb-under   300.0     +8.16     +0.52  0.547  UNSAFE
+L1              random     1.0     +0.04     -1.10  0.008      ok
+L1              random    10.0     +7.58     -1.13  0.284  UNSAFE
+L1              random    60.0     +2.62     -2.94  0.844  UNSAFE
+L1              random   300.0     +2.94     -1.83  0.833  UNSAFE
+# Box: baseline in-sample error 0.611 bits (random right-hand sides)
+Box          eig-equal     1.0     +0.15     -1.58  0.245      ok
+Box          eig-equal    10.0     +1.63     -1.49  0.404  UNSAFE
+Box          eig-equal    60.0     +1.03     -1.59  0.250  UNSAFE
+Box          eig-equal   300.0     +0.78     -2.40  0.078  UNSAFE
+Box            eig-max     1.0     +1.77     -1.05  0.370  UNSAFE
+Box            eig-max    10.0     +2.82     -0.04  0.594  UNSAFE
+Box            eig-max    60.0     +1.80     -3.02  0.755  UNSAFE
+Box            eig-max   300.0     +0.02     -2.64  0.758      ok
+Box            eig-min     1.0     +0.29     -2.28  0.229      ok
+Box            eig-min    10.0     +0.79     -1.47  0.003  UNSAFE
+Box            eig-min    60.0     +0.40     -1.94  0.000      ok
+Box            eig-min   300.0     -3.53     -4.57  0.000      ok
+Box   hill-climb-under     1.0     +1.81     -0.15  0.576  UNSAFE
+Box   hill-climb-under    10.0     +3.43     +0.90  0.336  UNSAFE
+Box   hill-climb-under    60.0     +2.79     +0.75  0.419  UNSAFE
+Box   hill-climb-under   300.0     +1.80     -0.21  0.299  UNSAFE
+Box             random     1.0     +2.16     -0.67  0.086  UNSAFE
+Box             random    10.0     +1.60     -1.50  0.096  UNSAFE
+Box             random    60.0     +1.73     -0.66  0.000  UNSAFE
+Box             random   300.0     +0.76     -0.83  0.000  UNSAFE
+# L2: baseline in-sample error 0.339 bits (random right-hand sides)
+L2           eig-equal     1.0     +0.60     -1.33  0.000  UNSAFE
+L2           eig-equal    10.0     +0.71     -0.12  0.000  UNSAFE
+L2           eig-equal    60.0     +0.70     -0.42  0.000  UNSAFE
+L2           eig-equal   300.0     +0.64     -0.24  0.000  UNSAFE
+L2             eig-max     1.0     +0.21     -0.63  0.000      ok
+L2             eig-max    10.0     +0.62     -0.38  0.000  UNSAFE
+L2             eig-max    60.0     +0.73     -0.55  0.000  UNSAFE
+L2             eig-max   300.0     +0.81     -1.00  0.000  UNSAFE
+L2             eig-min     1.0     +0.27     -1.42  0.000      ok
+L2             eig-min    10.0     +0.16     -0.66  0.000      ok
+L2             eig-min    60.0     -0.08     -1.50  0.000      ok
+L2             eig-min   300.0     -0.48     -3.48  0.000      ok
+L2    hill-climb-under     1.0     +1.01     +0.05  0.000  UNSAFE
+L2    hill-climb-under    10.0     +1.12     +0.34  0.000  UNSAFE
+L2    hill-climb-under    60.0     +1.10     +0.34  0.000  UNSAFE
+L2    hill-climb-under   300.0     +1.10     +0.46  0.000  UNSAFE
+L2              random     1.0     +0.56     -0.25  0.000  UNSAFE
+L2              random    10.0     +0.73     -0.54  0.000  UNSAFE
+L2              random    60.0     +0.60     -0.71  0.000  UNSAFE
+L2              random   300.0     +0.56     -0.50  0.000  UNSAFE
+
+  saved -> results/adversarial.json

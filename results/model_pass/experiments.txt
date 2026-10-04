@@ -1,0 +1,31 @@
+E1  per-operator minimum fractional wordlength (target NMSE <= 0.001 vs float)
+
+  L1  soft-threshold     F* = 6  (total width 8 bits)
+  Box projection         F* = 5  (total width 7 bits)
+  L2  ridge              F* = 6  (total width 8 bits)
+
+  saturation events during sweep: 89 (RANGE PROBLEM)
+
+  ordering claim  W*_L1 > W*_Box >= W*_L2 : 6 > 5 >= 6  ->  DOES NOT HOLD
+
+E2  iterations to ||r||_inf,||s||_inf <= 0.002
+
+  L1   uniform   K_mean = 13.90   K_max = 24
+  L1   asym      K_mean = 13.90   K_max = 24
+  Box  uniform   K_mean = 12.61   K_max = 22
+  Box  asym      K_mean = 14.05   K_max = 64
+  L2   uniform   K_mean =  8.72   K_max = 10
+  L2   asym      K_mean = 12.05   K_max = 64
+
+E3  uncoded BER, Box-constrained detection (BPSK, 32x8 real)
+
+  SNR   0.0 dB   MMSE 4.53e-02   float 3.25e-02   unif18 3.25e-02   asym 3.28e-02
+  SNR   2.0 dB   MMSE 2.41e-02   float 1.22e-02   unif18 1.22e-02   asym 1.22e-02
+  SNR   4.0 dB   MMSE 1.34e-02   float 5.94e-03   unif18 5.94e-03   asym 5.94e-03
+  SNR   6.0 dB   MMSE 4.06e-03   float 6.25e-04   unif18 6.25e-04   asym 6.25e-04
+  SNR   8.0 dB   MMSE 2.19e-03   float 0.00e+00   unif18 0.00e+00   asym 0.00e+00
+  SNR  10.0 dB   MMSE 6.25e-04   float 0.00e+00   unif18 0.00e+00   asym 0.00e+00
+  SNR  12.0 dB   MMSE 1.56e-03   float 0.00e+00   unif18 0.00e+00   asym 0.00e+00
+  SNR  14.0 dB   MMSE 9.37e-04   float 0.00e+00   unif18 0.00e+00   asym 0.00e+00
+
+saved -> results/experiments.json

@@ -1,0 +1,4 @@
+F_MAIN=16  W=18  kappa(lane)=0.100006  lam=0.3*lam_max
+  wrote l1_lasso0: m=32  ||M||2=0.741  nonzeros=2/8  true support=[0, 2]  found=[0, 2]
+  wrote l1_lasso1: m=16  ||M||2=0.789  nonzeros=2/8  true support=[1, 5]  found=[1, 5]
+  wrote l1_lasso2: m=8  ||M||2=0.977  nonzeros=2/8  true support=[5, 6]  found=[3, 5]

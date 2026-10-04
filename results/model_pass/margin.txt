@@ -1,0 +1,11 @@
+L1   arith fit 0.279 | HELD-OUT 1.382 | seed sd 0.593 bits | per-inst p50 -3.06 p90 +0.60 p95 +1.13 p99 +1.90  max +4.22
+L1   geo   fit 0.307 | HELD-OUT 0.866 | seed sd 0.309 bits | per-inst p50 -0.61 p90 +1.24 p95 +2.25 p99 +5.43  max +5.67
+L1         largest single instance = 68% of ensemble MSE (median cell)
+Box  arith fit 0.146 | HELD-OUT 0.734 | seed sd 0.156 bits | per-inst p50 -0.92 p90 +1.67 p95 +2.76 p99 +3.46  max +4.05
+Box  geo   fit 0.138 | HELD-OUT 0.632 | seed sd 0.181 bits | per-inst p50 -0.41 p90 +1.60 p95 +2.39 p99 +3.15  max +3.65
+Box        largest single instance = 19% of ensemble MSE (median cell)
+L2   arith fit 0.061 | HELD-OUT 0.046 | seed sd 0.075 bits | per-inst p50 -0.09 p90 +0.41 p95 +0.53 p99 +0.66  max +0.73
+L2   geo   fit 0.073 | HELD-OUT 0.050 | seed sd 0.078 bits | per-inst p50 +0.01 p90 +0.51 p95 +0.64 p99 +0.77  max +0.84
+L2         largest single instance = 12% of ensemble MSE (median cell)
+
+  saved -> results/margin.json

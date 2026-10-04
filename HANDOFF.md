@@ -40,7 +40,9 @@ model/   fxp_admm.py          bit-exact model, mirrors each RTL primitive
          margin.py            held-out test of the loop-gain fit
          lasso.py             second problem (P-L1..P-L3; --e3 post-hoc)
          gen_vectors_lasso.py LASSO golden vectors (P-L4), any F_MAIN
-tools/   util_table.py        routed Slice LUT/FF/DSP (the metric others quote)
+tools/   model_pass.py        rerun every model script, diff vs committed (exact)
+         syn_pass_check.py    fresh run_ooc.tcl vs committed reports
+         util_table.py        routed Slice LUT/FF/DSP (the metric others quote)
          comparison_table.py  COMPARISON.md and the paper's table
 syn/     run_ooc.tcl  harvest.tcl
 ```

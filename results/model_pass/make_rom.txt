@@ -1,0 +1,3 @@
+wrote M_all.mem  192 words x 20 bits
+wrote q_all.mem  24 words x 20 bits
+wrote z_all.mem  24 words x 20 bits

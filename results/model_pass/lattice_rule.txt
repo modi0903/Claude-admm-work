@@ -1,0 +1,22 @@
+LATTICE RULE TEST
+
+=== (1)+(2) operator level, F=8 ===
+  target kappa chosen to hit a range of degenerate fractions
+
+   kappa_nom     d      MSE(on-lattice)  MSE(off-lattice)   ratio    MSE(Box, same d)
+     0.200   0.0190      1.2601e-06       4.9140e-06     3.90       1.2659e-06
+     0.350   0.1721      1.0688e-06       4.0840e-06     3.82       1.0541e-06
+     0.500   0.4854      6.6865e-07       2.5107e-06     3.75       6.3922e-07
+     0.700   0.8801      1.5096e-07       5.5529e-07     3.68       1.5113e-07
+
+  predicted off/on ratio = 4.00 (= 2 bits); (1-d)*q^2/12 baseline at d=0 is 1.2716e-06
+
+=== (3) full ADMM loop: does F* drop?  kappa_nom=0.35, target NMSE 0.0001 ===
+
+   mode                       F*   
+   L1 kappa on-lattice        7
+   L1 kappa off-lattice       8
+   Box on-lattice             6
+
+   lattice alignment saves 1 bit(s) on the L1 lane
+   on-lattice L1 vs Box: 7 vs 6

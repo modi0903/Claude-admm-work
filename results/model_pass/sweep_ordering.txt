@@ -1,0 +1,40 @@
+metric=abs, target <= 0.0001, 60 channels per point
+
+A. contraction factor gamma  (rho=1, kappa=0.1, Gaussian)
+  gamma=0.95                   L1=   7 Box=   6 L2=   6   HOLDS
+  gamma=0.9                    L1=   7 Box=   6 L2=   6   HOLDS
+  gamma=0.75                   L1=   7 Box=   6 L2=   6   HOLDS
+  gamma=0.5                    L1=   7 Box=   6 L2=   6   HOLDS
+  gamma=0.25                   L1=   7 Box=   6 L2=   5   HOLDS
+  gamma=0.1                    L1=   7 Box=   6 L2=   5   HOLDS
+  gamma=0.05                   L1=   7 Box=   6 L2=   6   HOLDS
+
+B. L1 threshold kappa  (rho=1, gamma=0.667, Gaussian)
+  kappa=0.02                   L1=   7 Box=   6 L2=   6   HOLDS
+  kappa=0.05                   L1=   6 Box=   6 L2=   6   fails
+  kappa=0.1                    L1=   7 Box=   6 L2=   6   HOLDS
+  kappa=0.2                    L1=   6 Box=   6 L2=   6   fails
+  kappa=0.3                    L1=   6 Box=   6 L2=   6   fails
+  kappa=0.5                    L1=   6 Box=   6 L2=   6   fails
+
+C. penalty rho  (kappa=0.1, gamma=0.667, Gaussian)
+  rho=0.125                    L1=None Box=None L2=None   fails  !! 734938 SAT EVENTS - INVALID
+  rho=0.25                     L1=None Box=None L2=None   fails  !! 512642 SAT EVENTS - INVALID
+  rho=0.5                      L1=None Box=None L2=None   fails  !! 203481 SAT EVENTS - INVALID
+  rho=1.0                      L1=   7 Box=   6 L2=   6   HOLDS
+  rho=2.0                      L1=None Box=None L2=None   fails
+  rho=4.0                      L1=None Box=None L2=None   fails
+
+D. channel condition number  (rho=1, kappa=0.1, gamma=0.667)
+  cond=3                       L1=   6 Box=   5 L2=   6   fails
+  cond=10                      L1=   7 Box=   6 L2=   6   HOLDS
+  cond=30                      L1=   7 Box=   7 L2=   6   fails
+  cond=100                     L1=   8 Box=   8 L2=   6   fails
+  cond=300                     L1=   8 Box=   8 L2=   6   fails
+  cond=1000                    L1=   9 Box=   9 L2=   6   fails
+
+  ordering holds in 11 / 25 operating points
+  -> regime-dependent. Condition the theorem on the sweep
+     variable that separates the two groups.
+
+saved -> results/ordering_sweep.json

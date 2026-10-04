@@ -1,0 +1,8 @@
+l1_unif      mode=0 asym=0 iters=32
+l1_asym      mode=0 asym=1 iters=32
+box_unif     mode=1 asym=0 iters=32
+box_asym     mode=1 asym=1 iters=32
+l2_unif      mode=2 asym=0 iters=32
+l2_asym      mode=2 asym=1 iters=32
+
+wrote 18 files to tb/vectors
