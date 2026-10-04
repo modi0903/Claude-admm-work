@@ -1,0 +1,8 @@
+L2 loop gain across held-out cells: G = 6.4 .. 12.1  (0.46 bits of spread)
+
+predictor       params  held-out |err|  per-inst p99     max
+resolvent            2           0.046         +0.66   +0.73
+constant             1           0.094         +0.70   +0.79
+no loop (G=1)        0           1.651         +2.36   +2.45
+
+saved -> results/l2_baseline.json

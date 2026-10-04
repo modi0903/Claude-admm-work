@@ -376,6 +376,69 @@ T3, and the +4.3% measurement does not.
 
 ---
 
+## METRIC CORRECTIONS FOR THE SUBMISSION (2026-10-04) — READ FIRST
+
+The submission quotes **Slice LUTs** (`report_utilization`, `tools/util_table.py`)
+everywhere, because that is what every comparator reports and what the
+lane-area law is fitted on. Two headline figures were LUT-cell counts:
+
+| claim | LUT cells (old) | Slice LUTs (submission) |
+|---|---|---|
+| uniform18 -> main9_uniform | -46.6% | **-44.9%** (4673 -> 2574) |
+| asymmetry penalty, F_MAIN=16 | +4.3% | **+4.1%** (3259 -> 3392) |
+| asymmetry penalty, F_MAIN=9 | +4.3% | **+3.7%** (2574 -> 2669) |
+| same, proximal lanes only | -- | **+13.0% / +9.3%** |
+
+The negative result SURVIVES (positive at both widths), but "+4.3% at both
+widths, identical to one decimal place" was a property of the cell count and
+must not appear. The lane-level +13.0% / +9.3% is the better evidence: the
+lanes themselves grow when one is narrowed -- cast overhead, shown directly.
+
+Also now claimable (stale entries below corrected): T3's linear lane-area law,
+held-out test run 2026-09-20 (`model/lane_area.py`, -6.3% on Slice LUTs); and
+the board at speed (BOARD.md session 2).
+
+## INDEPENDENT REVIEW OF THE FCCM DRAFT (2026-10-04) — corrections
+
+A separate reviewer pass over paper/fccm/admm_fccm.tex. Verified and acted on:
+
+- **L2 adversarial numbers were stale.** results/model_pass/adversarial.txt:
+  L2 worst random +0.73, adversarial (hill-climb) +1.12. The +0.60 / +2.25 in
+  the table further down are from an older harness. The one-bit L2 margin
+  covers random held-out instances (p99 +0.66), NOT adversarial ones (+1.12).
+- **L2 loop model vs a constant** (`model/l2_baseline.py`): resolvent 0.046
+  bits held out, constant 0.094, no loop (G=1) 1.65. G spans only 6.4-12.1
+  over 300x conditioning. Claim the MAGNITUDE (ignoring the loop costs 1.65
+  bits; contraction pins the gain), not fine tracking of conditioning.
+- **Proposition 1 re-measured by script** (`model/range_check.py`): detection
+  max|M| 2.91 at rho=0.125, 1.34 at rho=0.5; underdetermined (singular H'H)
+  1.99 at rho=0.5. The prose 2.116 / 1.117 had no script and are retired. The
+  bound needs rho > 2^-(I-1) strictly (or 1-LSB saturation of M).
+- **4.74x isolated-multiplier ratio** is a LUT-CELL figure from legacy
+  (unrebuildable) tags. Not used in the submission.
+- **c_cast = 0.92 LUT/bit/lane** is confounded with F_MAIN (16 vs 10) and
+  cannot explain the asymmetry penalty (17 / 12 LUTs per proximal instance for
+  a 1-bit narrowing). Not used in the submission; the penalty is quoted as
+  measured, scoped to one lane narrowed by one bit.
+- **Second held-out lane-area build** (uniform10, deeper cast): -10.4%. Quote
+  it next to the -6.3%.
+- **"Main width dominates"** holds at NMSE 1e-4 only; at 1e-5 pinned 8/7/8
+  lanes never reach the target.
+- **Energy is DYNAMIC energy** everywhere, and the -36% carries the 29-44%
+  bound like the power figure it is computed from.
+- **BER** (`model/ber_design.py`, new): double-precision BER inside the 95% CI
+  of the Q2.9 estimate at every SNR (registered, holds). Decision agreement
+  >= 99.9% registered, FAILS at 0 dB (99.896%, 25 of 24 000 bits). The "MMSE"
+  column was a fixed-rho ridge detector; relabelled.
+- Theorem 1 now states its hypotheses (delta_theta = O(q), distance
+  q/2 + |delta_theta|, d = Pr(v in D)) and is explicitly operator-level; the
+  draft concedes (1-d)L^2 = E[P'(v)^2] and argues from d's data-dependence.
+
+Still open for T: verify the Hamadouche "orthogonal to the iterate" quote and
+Li et al.'s "measured hardware" against the PDFs; clear the VERIFY flags in
+paper/fccm/refs.bib; anonymise C:/College/Senorita/... paths in results/syn
+before any artifact goes to reviewers.
+
 ## What the paper claims, in one paragraph
 
 An error model in which the proximal operator's degenerate set annihilates a
@@ -387,8 +450,9 @@ area at two independent widths with no power or frequency compensation; a
 loop-gain model that generalises for the contractive L2 lane only (held-out
 0.046 bits, 1-bit margin covers 99% of instances), with the L1/Box fits
 retracted after a held-out test; and a fully measured hardware characterisation —
-SAIF power, swept Fmax, bit-exact gate-level validation — of six configurations
-on routed Artix-7 silicon. A second problem, LASSO, runs bit-exact on the
+SAIF power, swept Fmax, bit-exact gate-level validation — of seven configurations
+on routed Artix-7 silicon, with both headline designs bit-exact on a board at
+their in-context Fmax (65 / 82.5 MHz). A second problem, LASSO, runs bit-exact on the
 unchanged hardware and reproduces T1 (0.98–1.03) at native d up to 0.77.
 
 ## What the paper must NOT claim
@@ -402,5 +466,10 @@ unchanged hardware and reproduces T1 (0.98–1.03) at native d up to 0.77.
 - A unified functional form across operators. d vs d² is significant.
 - The DSP/macro operand-width threshold as a contribution. Prior art.
 - "Analytic instead of search." Prior art.
-- T3's cost model as validated, until the held-out width is run.
+- ~~T3's cost model as validated, until the held-out width is run.~~ Run
+  2026-09-20, -6.3%: the LINEAR form on Slice LUTs is claimable.
+- "+4.3% asymmetry at both widths, identical" -- cell-count artefact. Use
+  +4.1% / +3.7% Slice LUTs.
+- "Width derived, not searched" -- Q2.9 was chosen by bit-exact sweep; the
+  model explains it. Same prior-art issue as "analytic instead of search".
 - T2's ordering condition in any form.

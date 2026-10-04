@@ -38,6 +38,9 @@ RUNS = [
     ("model/lasso.py", []),
     ("model/lasso.py", ["--e3"]),           # post-hoc, reads lasso.json
     ("model/lane_area.py", []),             # reads util_table.json
+    ("model/ber_design.py", []),            # design-point BER
+    ("model/l2_baseline.py", []),           # L2 loop model vs constant
+    ("model/range_check.py", []),           # Proposition 1
     ("model/gen_vectors.py", []),           # golden vectors, F=16
     ("model/gen_vectors_lasso.py", ["16"]),
     ("tools/make_rom.py", []),

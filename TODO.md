@@ -170,14 +170,31 @@ Target: FCCM 2027, ~mid-Jan 2027. Roughly 19 weeks from 3 Sept 2026.
       analysis script rerun from scratch in dependency order: 41 committed
       outputs (all results/*.json + golden vectors) reproduce EXACTLY. F* = 9
       re-derived. Printed-only numbers now stored in results/model_pass/.
-- [ ] **Synthesis-side check** — **T**, ~40 min unattended:
+- [x] **Synthesis-side check — DONE 2026-10-04.** Fresh run_ooc.tcl: all
+      seven builds reproduce EXACTLY (LUT, FF, DSP, WNS@20ns). With the two
+      identical full Fmax sweeps and the repeated SAIF run, every hardware
+      number in the paper stands as produced by the committed scripts. The
+      one-scripted-pass rule is met on both sides. NOTHING BLOCKS DRAFTING.
+      ~~**Synthesis-side check** — **T**, ~40 min unattended:
       `vivado -mode batch -source syn/run_ooc.tcl -nojournal -log results/syn/run_ooc_pass.log`
       then `python tools/syn_pass_check.py`. If all seven builds reproduce
       exactly (Vivado is already shown deterministic here: two full Fmax
       sweeps identical), the hardware numbers stand and no 8-hour re-sweep is
-      needed. Any drift -> full pass before drafting.
+      needed. Any drift -> full pass before drafting.~~
 
 ## P3 — writing
+
+- [x] **FCCM draft v1 — 2026-10-04.** `paper/fccm/admm_fccm.tex` (IEEEtran,
+      double-blind, 7 pp incl. refs). Error-model-first, Slice LUTs throughout.
+      Every number recomputed by `tools/check_fccm_numbers.py` (72 checks);
+      figures from `tools/figures.py`; independent review pass applied (see
+      THEOREM_LOCK "INDEPENDENT REVIEW"). New evidence produced for it:
+      design-point BER, L2 constant baseline, scripted range check.
+- [ ] **Before submission — T:** verify Hamadouche 2203.02204 Assumption 3
+      wording and Li et al. measured-hardware claim against the PDFs; clear
+      the 9 VERIFY flags in `paper/fccm/refs.bib`; anonymise the
+      `C:/College/Senorita/...` paths in results/syn/*.rpt and gl_*.log
+      before the artifact goes to reviewers; supervisor read-through.
 
 - [ ] Related-work section, written for the Sydney group (likely reviewers).
       Get RELATED_WORK.md §3 stated early and precisely. — **C**

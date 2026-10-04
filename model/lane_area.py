@@ -51,6 +51,12 @@ def run(metric):
               f"model {b*w+c:7.1f}  {100*(b*w+c)/a[t]-100:+6.1f}%")
     print(f"  b = {b:.2f} LUT/bit   c = {c:.1f} LUT   max fit residual "
           f"{np.abs(r).max():.1f} LUT")
+    if metric == "slice":
+        qa, qb, qc = np.polyfit(W, A, 2)          # exact on three points
+        w8 = CFG["main10_lane8"][0]
+        qp = qa * w8 * w8 + qb * w8 + qc
+        print(f"  quadratic (exact on 3 points): a = {qa:.3f}  -> predicts W=8 at {qp:.1f}, "
+              f"{100*qp/a['main10_lane8']-100:+.1f}% vs measured main10_lane8  (a < 0: concave, rejected)")
     for t in [h for h in HELD if h in a]:
         w, fm = CFG[t]
         p = b * w + c

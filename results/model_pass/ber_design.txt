@@ -1,0 +1,15 @@
+BER, Box-constrained ADMM detection, BPSK 32x8, 3000 trials x 8 bits per SNR
+
+ SNR      MMSE     float     Q2.16      Q2.9             Q2.9 95% CI   agree w/ float
+   0  4.06e-02  3.16e-02  3.16e-02  3.22e-02   [3.00e-02, 3.45e-02]   99.896%
+   2  2.00e-02  1.26e-02  1.26e-02  1.28e-02   [1.15e-02, 1.43e-02]   99.950%
+   4  8.42e-03  2.42e-03  2.42e-03  2.42e-03   [1.87e-03, 3.12e-03]   99.979%
+   6  4.17e-03  3.33e-04  3.33e-04  3.75e-04   [1.97e-04, 7.13e-04]   99.996%
+   8  1.37e-03  4.17e-05  4.17e-05  4.17e-05   [7.36e-06, 2.36e-04]   100.000%
+  10  1.12e-03  0.00e+00  0.00e+00  0.00e+00   [0.00e+00, 1.60e-04]   100.000%
+  12  7.08e-04  0.00e+00  0.00e+00  0.00e+00   [0.00e+00, 1.60e-04]   100.000%
+  14  9.58e-04  0.00e+00  0.00e+00  0.00e+00   [0.00e+00, 1.60e-04]   100.000%
+
+prediction: float BER inside Q2.9's 95% CI at every SNR -> HOLDS
+prediction: Q2.9 agrees with float on >= 99.9% of bits -> worst 99.896% -> FAILS
+saved -> results/ber_design.json

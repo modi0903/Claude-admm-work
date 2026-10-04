@@ -12,6 +12,7 @@ LINEAR LANE-AREA LAW -- does it survive the change of LUT metric?
   fit   main10_uniform  W=10  measured   159.0  model   153.4    -3.5%
   fit   main9_uniform   W= 9  measured   129.0  model   133.8    +3.7%
   b = 19.55 LUT/bit   c = -42.1 LUT   max fit residual 5.6 LUT
+  quadratic (exact on 3 points): a = -1.646  -> predicts W=8 at 95.7, -21.6% vs measured main10_lane8  (a < 0: concave, rejected)
   HELD  uniform10       W= 8 (F_MAIN=16)  measured   127.5  predicted   114.3   -10.4%
   HELD  main10_lane8    W= 8 (F_MAIN=10)  measured   122.0  predicted   114.3    -6.3%
 

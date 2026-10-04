@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date             : Fri Sep  4 22:50:03 2026
+| Date             : Sun Oct  4 07:39:24 2026
 | Host             : LAPTOP-4H08TOOS running 64-bit major release  (build 9200)
 | Command          : report_power -file C:/College/Senorita/admm_project/results/syn/main10_lane8_power_route.rpt
 | Design           : admm_top
